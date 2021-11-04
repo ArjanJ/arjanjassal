@@ -18,11 +18,10 @@ function getRandomColor() {
   return getRandomArrayIndex(COLORS);
 }
 
-
 export const Particles = memo(() => (
   <div css={particleContainerStyles}>
     {Array.from(Array(TOTAL_PARTICLES).keys()).map((particle) => (
-      <div css={particleStyles} key={particle} />
+      <div css={[particleBaseStyles, particleDynamicStyles]} key={particle} />
     ))}
   </div>
 ));
@@ -35,15 +34,22 @@ const particleContainerStyles = css`
   width: 100vw;
 `;
 
-const particleStyles = () => {
-  const height = getRandomInt(20, 35);
-  const width = getRandomInt(20, 35);
+const particleBaseStyles = css`
+  border-radius: 50%;
+  left: 0;
+  position: absolute;
+  top: 0;
+`;
 
-  const initX = getRandomInt(-5, 70);
-  const initY = getRandomInt(-5, 70);
+const particleDynamicStyles = () => {
+  const height = getRandomInt(200, 500);
+  const width = getRandomInt(400, 800);
 
-  const futureX = getRandomInt(-50, 100);
-  const futureY = getRandomInt(-50, 100);
+  const initX = getRandomInt(-25, 75);
+  const initY = getRandomInt(-25, 75);
+
+  const futureX = getRandomInt(-50, 150);
+  const futureY = getRandomInt(-50, 150);
 
   const duration = getRandomInt(10, 30);
 
@@ -51,15 +57,11 @@ const particleStyles = () => {
     animation: `${moveAnimation(futureX, futureY)} ${duration}s linear infinite
         alternate`,
     backgroundColor: getRandomColor(),
-    borderRadius: '50%',
-    height: `${height}vh`,
-    left: 0,
-    position: 'absolute',
-    top: 0,
+    height: `${height}px`,
     transform: `translate(${initX}vw, ${initY}vh)`,
-    width: `${width}vw`,
-    zIndex: -height,
-  })
+    width: `${width}px`,
+    zIndex: -width,
+  });
 };
 
 const moveAnimation = (x: number, y: number) => keyframes`
