@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from '@emotion/react';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
+import { useAnimate } from '../hooks/useAnimate';
 import { getRandomArrayIndex, getRandomInt } from '../utils';
 
 const COLORS = [
@@ -20,13 +21,37 @@ function getRandomColor() {
 
 export const Particles = memo(() => (
   <div css={particleContainerStyles}>
-    {Array.from(Array(TOTAL_PARTICLES).keys()).map((particle) => (
-      <div css={[particleBaseStyles, particleDynamicStyles]} key={particle} />
+    {Array.from(Array(TOTAL_PARTICLES).keys()).map(particle => (
+      <Particle key={particle} />
     ))}
   </div>
 ));
 
 Particles.displayName = 'Particles';
+
+const Particle = () => {
+  const translateX = getRandomInt(-25, 125);
+  const translateY = getRandomInt(-25, 125);
+  const duration = getRandomInt(10 * 1000, 30 * 1000);
+
+  const keyframes = [
+    {
+      transform: `translate(${translateX}vw, ${translateY}vh)`,
+    },
+  ];
+
+  const { ref } = useAnimate<HTMLDivElement>({
+    animationOptions: {
+      direction: 'alternate',
+      duration,
+      easing: 'linear',
+      iterations: 1,
+    },
+    keyframes,
+  });
+
+  return <div css={[particleBaseStyles, particleDynamicStyles]} ref={ref} />;
+};
 
 const particleContainerStyles = css`
   filter: blur(60px);
@@ -48,14 +73,7 @@ const particleDynamicStyles = () => {
   const initX = getRandomInt(-25, 125);
   const initY = getRandomInt(-25, 125);
 
-  const futureX = getRandomInt(-25, 125);
-  const futureY = getRandomInt(-25, 125);
-
-  const duration = getRandomInt(15, 30);
-
   return css({
-    animation: `${moveAnimation(futureX, futureY)} ${duration}s linear infinite
-        alternate`,
     backgroundColor: getRandomColor(),
     height: `${height}px`,
     transform: `translate(${initX}vw, ${initY}vh)`,
@@ -63,9 +81,3 @@ const particleDynamicStyles = () => {
     zIndex: -height,
   });
 };
-
-const moveAnimation = (x: number, y: number) => keyframes`
-  100% {
-    transform: translate(${x}vw, ${y}vh);
-  }
-`;
