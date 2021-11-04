@@ -9,10 +9,10 @@ const COLORS = [
   '#F29E4D', // ORANGE
   '#AD5ED2', // MAGENTA
   '#1553D7', // BLUE
-  '#38033A', // FUSCHIA
+  '#F53A9D', // PATRICK
 ] as const;
 
-const TOTAL_PARTICLES = 25;
+const TOTAL_PARTICLES = 50;
 
 function getRandomColor() {
   return getRandomArrayIndex(COLORS);
@@ -29,7 +29,7 @@ export const Particles = memo(() => (
 Particles.displayName = 'Particles';
 
 const particleContainerStyles = css`
-  filter: blur(100px);
+  filter: blur(60px);
   height: 100vh;
   width: 100vw;
 `;
@@ -42,16 +42,16 @@ const particleBaseStyles = css`
 `;
 
 const particleDynamicStyles = () => {
-  const height = getRandomInt(200, 500);
-  const width = getRandomInt(400, 800);
+  const height = getRandomInt(300, 600);
+  const width = getRandomInt(600, 1200);
 
-  const initX = getRandomInt(-25, 75);
-  const initY = getRandomInt(-25, 75);
+  const initX = getRandomInt(-25, 125);
+  const initY = getRandomInt(-25, 125);
 
-  const futureX = getRandomInt(-50, 150);
-  const futureY = getRandomInt(-50, 150);
+  const futureX = getRandomInt(-25, 125);
+  const futureY = getRandomInt(-25, 125);
 
-  const duration = getRandomInt(10, 30);
+  const duration = getRandomInt(15, 30);
 
   return css({
     animation: `${moveAnimation(futureX, futureY)} ${duration}s linear infinite
@@ -60,7 +60,7 @@ const particleDynamicStyles = () => {
     height: `${height}px`,
     transform: `translate(${initX}vw, ${initY}vh)`,
     width: `${width}px`,
-    zIndex: -width,
+    zIndex: -height,
   });
 };
 
