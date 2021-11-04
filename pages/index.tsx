@@ -2,6 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Box } from 'rebass';
 
+import { Particles } from '../components/Particles';
+
 const Home: NextPage = () => {
   return (
     <div>
@@ -12,7 +14,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Box>
-        <h1>Hello World</h1>
+        <Particles />
       </Box>
     </div>
   )
