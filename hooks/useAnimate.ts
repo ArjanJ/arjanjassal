@@ -4,6 +4,7 @@ type Keyframes = Keyframe[];
 
 interface Options {
   animationOptions: KeyframeAnimationOptions;
+  autoPlay?: boolean;
   keyframes: Keyframes;
   onCancel?: Callback;
   onFinish?: Callback;
@@ -20,6 +21,7 @@ interface Return<T> {
 
 export const useAnimate = <T extends HTMLElement>({
   animationOptions,
+  autoPlay,
   keyframes,
   onCancel,
   onFinish,
@@ -43,17 +45,31 @@ export const useAnimate = <T extends HTMLElement>({
     };
   }, []);
 
-  useEffect(() => {
-    if (ref.current && keyframesRef.current) {
-      animateRef.current = ref.current.animate(
-        keyframesRef.current,
-        animationOptionsRef.current,
-      );
+  const animate = useCallback(
+    ({ animationOptions, autoPlay, keyframes }) => {
+      if (!ref.current || !keyframes) return;
 
-      animateRef.current.oncancel = handleCallback(onCancel);
-      animateRef.current.onfinish = handleCallback(onFinish);
+      animateRef.current = ref.current.animate(keyframes, animationOptions);
+
+      const { current: animate } = animateRef;
+
+      if (autoPlay === false) animate.pause();
+
+      animate.oncancel = handleCallback(onCancel);
+      animate.onfinish = handleCallback(onFinish);
+    },
+    [handleCallback, onCancel, onFinish],
+  );
+
+  useEffect(() => {
+    if (keyframesRef.current) {
+      animate({
+        animationOptions: animationOptionsRef.current,
+        autoPlay,
+        keyframes: keyframesRef.current,
+      });
     }
-  }, [handleCallback, onCancel, onFinish, ref]);
+  }, [animate, autoPlay]);
 
   return {
     getAnimation,
