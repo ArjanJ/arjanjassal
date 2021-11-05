@@ -2,6 +2,10 @@ import { RefObject, useCallback, useEffect, useRef } from 'react';
 
 type Keyframes = Keyframe[];
 
+export interface Animate {
+  (options: Options): void;
+}
+
 interface Options {
   animationOptions: KeyframeAnimationOptions;
   autoPlay?: boolean;
@@ -15,6 +19,7 @@ interface Callback {
 }
 
 interface Return<T> {
+  animate: Animate;
   getAnimation(): Animation | undefined;
   ref: RefObject<T>;
 }
@@ -32,33 +37,39 @@ export const useAnimate = <T extends HTMLElement>({
 
   const ref = useRef<T>(null);
   const keyframesRef = useRef(keyframes);
+  const onFinishRef = useRef(onFinish);
+  const onCancelRef = useRef(onCancel);
 
   const getAnimation = useCallback(() => animateRef.current, []);
 
-  const handleCallback = useCallback((callback?: Callback) => {
-    return (event: Event) => {
+  const handleCallback = useCallback(
+    (callback?: Callback) => (event: Event) => {
       const animation = event.target as Animation;
 
       if (ref.current && callback) {
         callback({ animation });
       }
-    };
-  }, []);
+    },
+    [],
+  );
 
   const animate = useCallback(
-    ({ animationOptions, autoPlay, keyframes }) => {
-      if (!ref.current || !keyframes) return;
+    args => {
+      if (!ref.current || !keyframesRef.current) return;
 
-      animateRef.current = ref.current.animate(keyframes, animationOptions);
+      animateRef.current = ref.current.animate(
+        args.keyframes,
+        args.animationOptions,
+      );
 
-      const { current: animate } = animateRef;
+      const { current: animateRefCurr } = animateRef;
 
-      if (autoPlay === false) animate.pause();
+      if (args.autoPlay === false) animateRefCurr.pause();
 
-      animate.oncancel = handleCallback(onCancel);
-      animate.onfinish = handleCallback(onFinish);
+      animateRefCurr.oncancel = handleCallback(onCancelRef.current);
+      animateRefCurr.onfinish = handleCallback(onFinishRef.current);
     },
-    [handleCallback, onCancel, onFinish],
+    [handleCallback],
   );
 
   useEffect(() => {
@@ -72,6 +83,7 @@ export const useAnimate = <T extends HTMLElement>({
   }, [animate, autoPlay]);
 
   return {
+    animate,
     getAnimation,
     ref,
   };
