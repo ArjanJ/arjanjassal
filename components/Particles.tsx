@@ -13,8 +13,8 @@ const COLORS = [
   '#F0319D', // PATRICK
 ] as const;
 
-const DURATION_IN_S = 20;
-const TOTAL_PARTICLES = 30;
+const DURATION_IN_S = 15;
+const TOTAL_PARTICLES = 60;
 
 function getRandomColor() {
   return getRandomArrayIndex(COLORS);
@@ -55,7 +55,7 @@ const Particle = () => {
 };
 
 const particleContainerStyles = css`
-  filter: blur(70px);
+  filter: blur(75px);
   height: 100vh;
   width: 100vw;
 `;
@@ -68,18 +68,17 @@ const particleBaseStyles = css`
 `;
 
 const particleDynamicStyles = () => {
-  const height = getRandomInt(200, 500);
-  const width = getRandomInt(20, 65);
+  const height = getRandomInt(20, 40);
+  const width = getRandomInt(20, 55);
 
   const initX = getRandomInt(-20, 120);
   const initY = getRandomInt(-20, 120);
 
   return css({
     backgroundColor: getRandomColor(),
-    height: `${height}px`,
+    height: `${height}vh`,
     left: `${initX}vw`,
     top: `${initY}vh`,
     width: `${width}vw`,
-    zIndex: -height,
   });
 };
