@@ -1,11 +1,26 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
 import { useAnimate } from '../hooks/useAnimate';
+import { useParticleAnimations } from '../modules/Particles/ParticleAnimationsContext';
 import { getRandomArrayIndex, getRandomInt } from '../utils';
 
-const COLORS = [
+// export const COLORS = [
+//   '#3772ffff',
+//   '#f038ffff',
+//   '#ef709dff',
+//   '#e2ef70ff',
+//   '#70e4efff',
+// ] as const;
+// export const COLORS = [
+//   '#f72585', // MIDNIGHT
+//   '#7209b7', // ORANGE
+//   '#3a0ca3', // MAGENTA
+//   '#4361ee', // BLUE
+//   '#4cc9f0', // PATRICK
+// ] as const;
+export const COLORS = [
   '#03267C', // MIDNIGHT
   '#F29E4D', // ORANGE
   '#AD5ED2', // MAGENTA
@@ -13,8 +28,7 @@ const COLORS = [
   '#F0319D', // PATRICK
 ] as const;
 
-const DURATION_IN_SEC = 25;
-const TOTAL_PARTICLES = 60;
+const TOTAL_PARTICLES = 40;
 
 function getRandomColor() {
   return getRandomArrayIndex(COLORS);
@@ -31,32 +45,20 @@ export const Particles = memo(() => (
 Particles.displayName = 'Particles';
 
 const Particle = () => {
-  const translateX = getRandomInt(-100, 100);
-  const translateY = getRandomInt(-100, 100);
-  const duration = DURATION_IN_SEC * 1000;
+  const { addAnimation, moveAnimation } = useParticleAnimations();
+  const addParticleAnimationRef = useRef(addAnimation);
 
-  const keyframes = [
-    {
-      transform: `translate(${translateX}vw, ${translateY}vh)`,
-    },
-  ];
+  const { animate, ref } = useAnimate<HTMLDivElement>(moveAnimation());
 
-  const { ref } = useAnimate<HTMLDivElement>({
-    animationOptions: {
-      direction: 'alternate',
-      duration,
-      easing: 'linear',
-      fill: 'forwards',
-      iterations: Infinity,
-    },
-    keyframes,
-  });
+  useEffect(() => {
+    addParticleAnimationRef.current(animate);
+  }, [animate]);
 
   return <div css={[particleBaseStyles, particleDynamicStyles]} ref={ref} />;
 };
 
 const particleContainerStyles = css`
-  filter: blur(65px);
+  filter: blur(60px);
   height: 100vh;
   width: 100vw;
 `;
@@ -70,10 +72,10 @@ const particleBaseStyles = css`
 
 const particleDynamicStyles = () => {
   const height = getRandomInt(20, 40);
-  const width = getRandomInt(20, 55);
+  const width = getRandomInt(25, 60);
 
-  const initX = getRandomInt(-10, 100);
-  const initY = getRandomInt(-10, 100);
+  const initX = getRandomInt(-50, 90);
+  const initY = getRandomInt(-50, 90);
 
   return css({
     backgroundColor: getRandomColor(),
@@ -81,6 +83,6 @@ const particleDynamicStyles = () => {
     left: `${initX}vw`,
     top: `${initY}vh`,
     width: `${width}vw`,
-    zIndex: -height,
+    zIndex: Math.max(-height, -width),
   });
 };

@@ -3,10 +3,10 @@ import { RefObject, useCallback, useEffect, useRef } from 'react';
 type Keyframes = Keyframe[];
 
 export interface Animate {
-  (options: Options): void;
+  (options: AnimationOptions): void;
 }
 
-interface Options {
+export interface AnimationOptions {
   animationOptions: KeyframeAnimationOptions;
   autoPlay?: boolean;
   keyframes: Keyframes;
@@ -30,7 +30,7 @@ export const useAnimate = <T extends HTMLElement>({
   keyframes,
   onCancel,
   onFinish,
-}: Options): Return<T> => {
+}: AnimationOptions): Return<T> => {
   const animateRef = useRef<Animation>();
   const animationOptionsRef =
     useRef<KeyframeAnimationOptions>(animationOptions);
