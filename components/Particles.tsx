@@ -1,25 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { memo, useEffect, useRef } from 'react';
+import { memo } from 'react';
 
-import { useAnimate } from '../hooks/useAnimate';
-import { useParticleAnimations } from '../modules/Particles/ParticleAnimationsContext';
+import { AnimationOptions, useAnimate } from '../hooks/useAnimate';
 import { getRandomArrayIndex, getRandomInt } from '../utils';
 
-// export const COLORS = [
-//   '#3772ffff',
-//   '#f038ffff',
-//   '#ef709dff',
-//   '#e2ef70ff',
-//   '#70e4efff',
-// ] as const;
-// export const COLORS = [
-//   '#f72585', // MIDNIGHT
-//   '#7209b7', // ORANGE
-//   '#3a0ca3', // MAGENTA
-//   '#4361ee', // BLUE
-//   '#4cc9f0', // PATRICK
-// ] as const;
 export const COLORS = [
   '#03267C', // MIDNIGHT
   '#F29E4D', // ORANGE
@@ -27,6 +12,30 @@ export const COLORS = [
   '#1553D7', // BLUE
   '#F0319D', // PATRICK
 ] as const;
+
+function moveAnimation(): AnimationOptions {
+  const translateX = getRandomInt(-100, 100);
+  const translateY = getRandomInt(-100, 100);
+  const duration = 20 * 1000;
+
+  const keyframes = [
+    {
+      transform: `translate(${translateX}vw, ${translateY}vh)`,
+    },
+  ];
+
+  return {
+    animationOptions: {
+      composite: 'replace',
+      direction: 'alternate',
+      duration,
+      easing: 'linear',
+      fill: 'forwards',
+      iterations: Infinity,
+    },
+    keyframes,
+  };
+}
 
 const TOTAL_PARTICLES = 40;
 
@@ -45,20 +54,12 @@ export const Particles = memo(() => (
 Particles.displayName = 'Particles';
 
 const Particle = () => {
-  const { addAnimation, moveAnimation } = useParticleAnimations();
-  const addParticleAnimationRef = useRef(addAnimation);
-
-  const { animate, ref } = useAnimate<HTMLDivElement>(moveAnimation());
-
-  useEffect(() => {
-    addParticleAnimationRef.current(animate);
-  }, [animate]);
-
+  const { ref } = useAnimate<HTMLDivElement>(moveAnimation());
   return <div css={[particleBaseStyles, particleDynamicStyles]} ref={ref} />;
 };
 
 const particleContainerStyles = css`
-  filter: blur(60px);
+  filter: blur(65px);
   height: 100vh;
   width: 100vw;
 `;

@@ -1,49 +1,31 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Box } from 'rebass';
 
 import { COLORS, Particles } from '../components/Particles';
 import { useAnimate } from '../hooks/useAnimate';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-import { useParticleAnimations } from './Particles/ParticleAnimationsContext';
 
 export const Hero = () => {
-  const particleAnimations = useParticleAnimations();
-
-  // const { ref: headingRef } = useAnimate<HTMLHeadingElement>({
-  //   animationOptions: {
-  //     delay: 100,
-  //     duration: 1500,
-  //     easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-  //     fill: 'forwards',
-  //   },
-  //   keyframes: [
-  //     {
-  //       opacity: 1,
-  //       transform: 'none',
-  //     },
-  //   ],
-  //   onFinish: () => {
-  //     console.log('heading on finish');
-  //   },
-  // });
+  const { ref: headingRef } = useAnimate<HTMLHeadingElement>({
+    animationOptions: {
+      delay: 100,
+      duration: 1500,
+      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      fill: 'forwards',
+    },
+    keyframes: [
+      {
+        opacity: 1,
+        transform: 'none',
+      },
+    ],
+  });
 
   const summaryRef = useRef<HTMLParagraphElement>(null);
   const summaryEntry = useIntersectionObserver(summaryRef, { threshold: 0.33 });
   const isSummaryVisible = !!summaryEntry?.isIntersecting;
-
-  useEffect(() => {
-    if (isSummaryVisible) {
-      particleAnimations?.animations?.forEach(animateParticle => {
-        animateParticle(particleAnimations.hideAnimation());
-      });
-    } else {
-      particleAnimations?.animations?.forEach(animateParticle => {
-        animateParticle(particleAnimations.showAnimation());
-      });
-    }
-  }, [particleAnimations, isSummaryVisible]);
 
   return (
     <>
@@ -56,7 +38,7 @@ export const Hero = () => {
         sx={{ position: 'relative' }}
       >
         <div css={containerStyles}>
-          <h1 css={headingStyles}>
+          <h1 css={headingStyles} ref={headingRef}>
             Hello, my name&apos;s Arjan. I build and design things for the web.
           </h1>
         </div>
@@ -75,36 +57,28 @@ export const Hero = () => {
         }}
       >
         <div css={containerStyles}>
-          <p
-            css={[
-              textStyles,
-              `font-size: 3.5vmin; font-weight: 700; margin-bottom: 60px`,
-            ]}
-          >
-            As a problem solver, I strive to make a positive difference in
-            peoples lives through the software I design, build, and ship.
-          </p>
-          <p css={textStyles}>
-            I've worked at small to medium sized startups and agencies, on a
-            wide array of projects, including apps for some of Canada’s largest
-            financial institutions. As a problem solver, I strive to make a
-            positive difference in peoples lives through the software I design,
-            build, and ship.
-          </p>
+          <h2 css={subheadingStyles}>Experience</h2>
         </div>
       </Box>
 
       <div
         css={[
           fixedBackgroundStyles,
-          {
-            '&:before': {
-              opacity: isSummaryVisible ? 1 : 0,
-            },
-          },
+          css`
+            &::before {
+              opacity: ${isSummaryVisible ? 1 : 0};
+            }
+          `,
         ]}
       >
-        <Particles />
+        <div
+          css={css`
+            opacity: ${isSummaryVisible ? 0 : 1};
+            transition: opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+          `}
+        >
+          <Particles />
+        </div>
       </div>
     </>
   );
@@ -113,6 +87,7 @@ export const Hero = () => {
 const containerStyles = css`
   margin: 0 auto;
   max-width: 960px;
+  width: 100%;
 `;
 
 const headingStyles = css`
@@ -120,6 +95,7 @@ const headingStyles = css`
   font-size: 12vmin;
   font-weight: bold;
   mix-blend-mode: difference;
+  opacity: 0;
   position: relative;
   z-index: 1;
 `;
@@ -145,9 +121,7 @@ const fixedBackgroundStyles = css`
   }
 `;
 
-const textStyles = css`
+const subheadingStyles = css`
   color: white;
-  font-size: 4vmin;
-  line-height: 1.4;
-  margin: 0;
+  font-size: 12vmin;
 `;

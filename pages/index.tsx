@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import { Hero } from '../modules/Hero';
-import { ParticleAnimationsProvider } from '../modules/Particles/ParticleAnimationsContext';
 
 const Home: NextPage = () => {
   return (
@@ -16,9 +15,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ParticleAnimationsProvider>
-        <Hero />
-      </ParticleAnimationsProvider>
+      <Hero />
     </div>
   );
 };
