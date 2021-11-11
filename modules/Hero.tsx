@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { useRef } from 'react';
 import { Box } from 'rebass';
 
+import { Container } from '../components/Container';
 import { COLORS, Particles } from '../components/Particles';
 import { useAnimate } from '../hooks/useAnimate';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
@@ -23,57 +24,42 @@ export const Hero = () => {
     ],
   });
 
-  const summaryRef = useRef<HTMLParagraphElement>(null);
-  const summaryEntry = useIntersectionObserver(summaryRef, { threshold: 0.33 });
-  const isSummaryVisible = !!summaryEntry?.isIntersecting;
+  const heroRef = useRef<HTMLDivElement>(null);
+  const heroEntry = useIntersectionObserver(heroRef, { threshold: 0.66 });
+  // const isHeroHidden = !heroEntry?.isIntersecting;
+  const isHeroHidden = false;
 
   return (
     <>
-      <Box
-        as="section"
-        alignItems="center"
-        display="flex"
-        height="100vh"
-        p={4}
-        sx={{ position: 'relative' }}
+      <section
+        css={css`
+          align-items: center;
+          display: flex;
+          height: 100vh;
+          position: relative;
+        `}
+        ref={heroRef}
       >
-        <div css={containerStyles}>
+        <Container>
           <h1 css={headingStyles} ref={headingRef}>
             Hello, my name&apos;s Arjan. I build and design things for the web.
           </h1>
-        </div>
-      </Box>
-
-      <Box
-        as="section"
-        alignItems="center"
-        display="flex"
-        height="100vh"
-        p={4}
-        ref={summaryRef}
-        sx={{
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
-        <div css={containerStyles}>
-          <h2 css={subheadingStyles}>Experience</h2>
-        </div>
-      </Box>
+        </Container>
+      </section>
 
       <div
         css={[
           fixedBackgroundStyles,
           css`
             &::before {
-              opacity: ${isSummaryVisible ? 1 : 0};
+              opacity: ${isHeroHidden ? 1 : 0};
             }
           `,
         ]}
       >
         <div
           css={css`
-            opacity: ${isSummaryVisible ? 0 : 1};
+            opacity: ${isHeroHidden ? 0 : 1};
             transition: opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1);
           `}
         >
@@ -83,12 +69,6 @@ export const Hero = () => {
     </>
   );
 };
-
-const containerStyles = css`
-  margin: 0 auto;
-  max-width: 960px;
-  width: 100%;
-`;
 
 const headingStyles = css`
   color: white;
@@ -119,9 +99,4 @@ const fixedBackgroundStyles = css`
     transition: opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1);
     opacity: 0;
   }
-`;
-
-const subheadingStyles = css`
-  color: white;
-  font-size: 12vmin;
 `;
