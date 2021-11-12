@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { darken, lighten } from 'polished';
+import { darken } from 'polished';
 import { useEffect, useRef } from 'react';
 
 import { Container } from '../components/Container';
@@ -44,7 +44,7 @@ export const Work = () => {
 
   const workListRef = useRef<HTMLUListElement>(null);
   const workListEntry = useIntersectionObserver(workListRef, {
-    threshold: 0.6,
+    threshold: 0.66,
   });
   const isWorkListVisible = workListEntry?.isIntersecting;
 
@@ -52,7 +52,7 @@ export const Work = () => {
     const workList = workListRef.current;
 
     const onWheel = (event: WheelEvent) => {
-      event.preventDefault();
+      // event.preventDefault();
 
       if (workList) {
         workList.scrollLeft += event.deltaY;
@@ -67,7 +67,7 @@ export const Work = () => {
   }, [workListRef]);
 
   return (
-    <div
+    <section
       css={css`
         overflow: hidden;
       `}
@@ -124,11 +124,12 @@ export const Work = () => {
               <li
                 css={[
                   WorkListItemStyles,
-                  `background-color: ${entry.color};
-                    background: linear-gradient(180deg, ${
-                      entry.color
-                    }, ${darken(0.25, entry.color)});
-                    transition-delay: ${index * 0.1}s;`,
+                  `background: linear-gradient(180deg, ${entry.color}, ${darken(
+                    0.2,
+                    entry.color,
+                  )});
+                    transition-delay: ${index * 0.09}s;
+                    z-index: ${index}`,
                   isWorkListVisible ? 'opacity: 1; transform: none;' : '',
                 ]}
                 key={entry.company}
@@ -137,18 +138,18 @@ export const Work = () => {
           })}
         </ul>
       </div>
-    </div>
+    </section>
   );
 };
 
 const subheadingStyles = css`
   display: inline-block;
-  background: linear-gradient(#d92387, #04d9c4);
+  background: linear-gradient(#1553d7, #f0319d);
   color: white;
   font-size: 12vmin;
   margin-bottom: 120px;
   opacity: 0;
-  transform: translateY(-100%);
+  transform: translateY(-25vh);
   transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -172,8 +173,9 @@ const WorkListItemStyles = css`
   border-radius: 12px;
   height: 420px;
   min-width: 288px;
-  transition: transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
-  transform: scaleY(0);
-  transform-origin: center top;
+  transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+  transform: scaleY(0%);
+  transform-origin: center bottom;
   will-change: transform, opacity;
+  position: relative;
 `;

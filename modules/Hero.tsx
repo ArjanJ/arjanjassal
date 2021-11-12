@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useRef } from 'react';
-import { Box } from 'rebass';
+import { useEffect, useRef } from 'react';
 
 import { Container } from '../components/Container';
 import { COLORS, Particles } from '../components/Particles';
@@ -9,25 +8,45 @@ import { useAnimate } from '../hooks/useAnimate';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 export const Hero = () => {
-  const { ref: headingRef } = useAnimate<HTMLHeadingElement>({
-    animationOptions: {
-      delay: 100,
-      duration: 1500,
-      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      fill: 'forwards',
-    },
-    keyframes: [
-      {
-        opacity: 1,
-        transform: 'none',
-      },
-    ],
+  const { animate, ref: headingRef } = useAnimate<HTMLHeadingElement>({
+    autoPlay: false,
+    animationOptions: {},
+    keyframes: [],
   });
 
   const heroRef = useRef<HTMLDivElement>(null);
   const heroEntry = useIntersectionObserver(heroRef, { threshold: 0.66 });
   const isHeroHidden = !heroEntry?.isIntersecting;
-  // const isHeroHidden = false;
+
+  useEffect(() => {
+    if (isHeroHidden) {
+      animate({
+        animationOptions: {
+          duration: 1000,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          fill: 'forwards',
+        },
+        keyframes: [
+          {
+            opacity: 0,
+          },
+        ],
+      });
+    } else {
+      animate({
+        animationOptions: {
+          duration: 800,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          fill: 'forwards',
+        },
+        keyframes: [
+          {
+            opacity: 1,
+          },
+        ],
+      });
+    }
+  }, [animate, isHeroHidden]);
 
   return (
     <>
@@ -74,7 +93,7 @@ const headingStyles = css`
   color: white;
   font-size: 12vmin;
   font-weight: bold;
-  mix-blend-mode: overlay;
+  mix-blend-mode: difference;
   opacity: 0;
   position: relative;
   z-index: 1;
