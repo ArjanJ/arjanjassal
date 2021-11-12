@@ -26,8 +26,8 @@ export const Hero = () => {
 
   const heroRef = useRef<HTMLDivElement>(null);
   const heroEntry = useIntersectionObserver(heroRef, { threshold: 0.66 });
-  // const isHeroHidden = !heroEntry?.isIntersecting;
-  const isHeroHidden = false;
+  const isHeroHidden = !heroEntry?.isIntersecting;
+  // const isHeroHidden = false;
 
   return (
     <>
@@ -60,7 +60,7 @@ export const Hero = () => {
         <div
           css={css`
             opacity: ${isHeroHidden ? 0 : 1};
-            transition: opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+            transition: opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1);
           `}
         >
           <Particles />
@@ -74,7 +74,7 @@ const headingStyles = css`
   color: white;
   font-size: 12vmin;
   font-weight: bold;
-  mix-blend-mode: difference;
+  mix-blend-mode: overlay;
   opacity: 0;
   position: relative;
   z-index: 1;
@@ -96,7 +96,9 @@ const fixedBackgroundStyles = css`
     width: 100%;
     height: 100%;
     background: black;
-    transition: opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+    // background: linear-gradient(transparent -250%, black 50%);
+    transition: opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1);
     opacity: 0;
+    z-index: 1;
   }
 `;

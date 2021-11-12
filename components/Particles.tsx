@@ -6,12 +6,26 @@ import { AnimationOptions, useAnimate } from '../hooks/useAnimate';
 import { getRandomArrayIndex, getRandomInt } from '../utils';
 
 export const COLORS = [
-  '#03267C', // MIDNIGHT
-  '#F29E4D', // ORANGE
-  '#AD5ED2', // MAGENTA
-  '#1553D7', // BLUE
-  '#F0319D', // PATRICK
+  '#D92387',
+  '#6F04D9',
+  '#4A088C',
+  '#0460D9',
+  '#04D9C4',
 ] as const;
+// export const COLORS = [
+//   '#B052D9',
+//   '#7C05F2',
+//   '#6204BF',
+//   '#04B2D9',
+//   '#05DBF2,',
+// ] as const;
+// export const COLORS = [
+//   '#03267C', // MIDNIGHT
+//   '#F29E4D', // ORANGE
+//   '#AD5ED2', // MAGENTA
+//   '#1553D7', // BLUE
+//   '#F0319D', // PATRICK
+// ] as const;
 
 function moveAnimation(): AnimationOptions {
   const translateX = getRandomInt(-100, 100);
