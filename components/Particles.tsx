@@ -83,6 +83,7 @@ const particleBaseStyles = css`
   left: 0;
   position: absolute;
   top: 0;
+  mix-blend-mode: darken;
 `;
 
 const particleDynamicStyles = () => {

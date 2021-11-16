@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 
 import { Container } from '../components/Container';
 import { COLORS, Particles } from '../components/Particles';
+import { Waves } from '../components/Waves';
 import { useAnimate } from '../hooks/useAnimate';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
@@ -19,33 +20,18 @@ export const Hero = () => {
   const isHeroHidden = !heroEntry?.isIntersecting;
 
   useEffect(() => {
-    if (isHeroHidden) {
-      animate({
-        animationOptions: {
-          duration: 1000,
-          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-          fill: 'forwards',
+    animate({
+      animationOptions: {
+        duration: 800,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        fill: 'forwards',
+      },
+      keyframes: [
+        {
+          opacity: isHeroHidden ? 0 : 1,
         },
-        keyframes: [
-          {
-            opacity: 0,
-          },
-        ],
-      });
-    } else {
-      animate({
-        animationOptions: {
-          duration: 800,
-          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-          fill: 'forwards',
-        },
-        keyframes: [
-          {
-            opacity: 1,
-          },
-        ],
-      });
-    }
+      ],
+    });
   }, [animate, isHeroHidden]);
 
   return (
@@ -65,6 +51,8 @@ export const Hero = () => {
           </h1>
         </Container>
       </section>
+
+      <Waves />
 
       <div
         css={[
@@ -115,7 +103,6 @@ const fixedBackgroundStyles = css`
     width: 100%;
     height: 100%;
     background: black;
-    // background: linear-gradient(transparent -250%, black 50%);
     transition: opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1);
     opacity: 0;
     z-index: 1;

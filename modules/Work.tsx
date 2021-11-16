@@ -1,37 +1,54 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { darken } from 'polished';
+import { shade } from 'polished';
 import { useEffect, useRef } from 'react';
 
 import { Container } from '../components/Container';
+import { Farmdrop } from '../components/Logos/Farmdrop';
+import { GameOn } from '../components/Logos/GameOn';
+import { Taloflow } from '../components/Logos/Taloflow';
 import { WaveSvg } from '../components/WaveSvg';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 const WORK = [
   {
+    color: '#1C32E5',
+    company: 'GameOn',
+    logo: GameOn,
+    role: 'Lead Frontend Engineer',
+    when: '2021',
+  },
+  {
     color: '#088972',
     company: 'Farmdrop',
-    role: 'Senior Frontend Engineer',
+    logo: Farmdrop,
+    role: 'Sr. Frontend Engineer',
+    when: '2019-2021',
   },
   {
     color: '#2463F6',
     company: 'Taloflow',
-    role: 'Senior Frontend Engineer',
+    logo: Taloflow,
+    role: 'Sr. Frontend Engineer',
+    when: '2018-2019',
   },
   {
     color: '#1AA1D8',
     company: 'Grow',
-    role: 'Senior Frontend Engineer, Team Lead',
+    role: 'Sr. Frontend Engineer',
+    when: '2016-2018',
   },
   {
     color: '#F1F1F1',
     company: 'Ettrics',
     role: 'Frontend Developer',
+    when: '2015-2016',
   },
   {
     color: '#094BB0',
     company: 'PerfectMind',
     role: 'Web Designer',
+    when: '2014-2015',
   },
 ];
 
@@ -52,10 +69,21 @@ export const Work = () => {
     const workList = workListRef.current;
 
     const onWheel = (event: WheelEvent) => {
-      // event.preventDefault();
+      const { deltaY } = event;
 
       if (workList) {
-        workList.scrollLeft += event.deltaY;
+        const { scrollWidth, clientWidth, scrollLeft } = workList;
+        const atStart = scrollLeft === 0;
+        const atEnd = scrollWidth - clientWidth === scrollLeft;
+        const didScrollUp = Math.sign(deltaY) === -1;
+        const didScrollDown = Math.sign(deltaY) === 1;
+
+        if ((atStart && didScrollUp) || (atEnd && didScrollDown)) {
+          return;
+        } else {
+          event.preventDefault();
+          workList.scrollLeft += event.deltaY;
+        }
       }
     };
 
@@ -97,13 +125,17 @@ export const Work = () => {
                   `,
               ]}
             >
-              Experience
+              Work
             </h2>
           </Container>
         </div>
       </div>
 
-      <div css={{ position: 'relative' }}>
+      <div
+        css={css`
+          position: relative;
+        `}
+      >
         <WaveSvg
           css={css`
             bottom: 0;
@@ -124,8 +156,8 @@ export const Work = () => {
               <li
                 css={[
                   WorkListItemStyles,
-                  `background: linear-gradient(180deg, ${entry.color}, ${darken(
-                    0.2,
+                  `background: linear-gradient(180deg, ${entry.color}, ${shade(
+                    0.5,
                     entry.color,
                   )});
                     transition-delay: ${index * 0.09}s;
@@ -133,11 +165,52 @@ export const Work = () => {
                   isWorkListVisible ? 'opacity: 1; transform: none;' : '',
                 ]}
                 key={entry.company}
-              ></li>
+              >
+                <header
+                  css={css`
+                    display: flex;
+                    justify-content: space-between;
+                  `}
+                >
+                  <h3
+                    css={css`
+                      font-size: 18px;
+                      font-weight: normal;
+                    `}
+                  >
+                    {entry.company}
+                  </h3>
+                  <p>{entry.when}</p>
+                </header>
+                {entry.logo && (
+                  <entry.logo
+                    css={css`
+                      margin: auto;
+                      mix-blend-mode: soft-light;
+                    `}
+                  />
+                )}
+                <p
+                  css={css`
+                    color: #8d8d8d;
+                    // font-weight: bold;
+                    margin-bottom: 45px;
+                    text-align: center;
+                  `}
+                >
+                  {entry.role}
+                </p>
+              </li>
             );
           })}
         </ul>
       </div>
+
+      <div
+        css={css`
+          height: 100vh;
+        `}
+      ></div>
     </section>
   );
 };
@@ -163,19 +236,32 @@ const WorkListStyles = css`
   list-style-type: none;
   margin-bottom: 180px;
   overflow: auto;
-  padding: 0 24vw;
+  padding: 0 120px 0 24vw;
   position: relative;
   z-index: 1;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const WorkListItemStyles = css`
   background: white;
-  border-radius: 12px;
+  border-radius: 16px;
   height: 420px;
   min-width: 288px;
+  padding: 18px 16px;
   transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
-  transform: scaleY(0%);
+  transform: translateX(100%);
   transform-origin: center bottom;
+  opacity: 0;
   will-change: transform, opacity;
   position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 18px;
 `;
