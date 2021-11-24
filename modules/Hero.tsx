@@ -1,14 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { createContext, RefObject, useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 
-import { Container } from '../components/Container';
 import { COLORS, Particles } from '../components/Particles';
-import { ScrollContext } from '../components/ScrollContext';
 import { StickyView } from '../components/StickyView';
-import { Waves } from '../components/Waves';
 import { AnimationOptions, useAnimate } from '../hooks/useAnimate';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 export const Hero = () => {
   function pathAnimation(
@@ -74,160 +70,120 @@ export const Hero = () => {
     ],
   });
 
-  const [scrollingElement, setScrollingElement] =
-    useState<HTMLDivElement | null>(null);
-
-  function scrollingElRef(ref: HTMLDivElement) {
-    setScrollingElement(ref);
-  }
-
   return (
-    <ScrollContext.Provider value={{ scrollingElement }}>
-      <div
-        css={css`
-          height: 100vh;
-          overflow-y: auto;
-          overflow-x: hidden;
-          position: relative;
-        `}
-        ref={scrollingElRef}
-      >
-        <StickyView height={1400}>
-          {proportion => {
-            const op = proportion > 0.2 ? 0 : 1;
-            const tr = proportion > 0.2 ? 'scale(0.98)' : 'none';
+    <StickyView height={1400}>
+      {proportion => {
+        const op = proportion > 0.2 ? 0 : 1;
+        const tr = proportion > 0.2 ? 'scale(0.98)' : 'none';
 
-            const waveO = proportion > 0.2 ? 0 : 1;
-            const waveTr = proportion > 0.2 ? 'scaleX(2)' : 'none';
+        const waveO = proportion > 0.2 ? 0 : 1;
+        const waveTr = proportion > 0.2 ? 'scaleX(2)' : 'none';
 
-            return (
-              <>
-                <div
-                  css={css`
-                    align-items: center;
-                    display: flex;
-                    height: 100vh;
-                    margin: auto;
-                    max-width: 870px;
-                    position: relative;
-                    z-index: 2;
-                    will-change: transform;
-                    transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
-                    opacity: ${op};
-                    transform: ${tr};
-                  `}
-                >
-                  <h1 css={headingStyles} ref={headingRef}>
-                    Hello, my name&apos;s Arjan. I build and design things for
-                    the web.
-                  </h1>
-                </div>
-
-                <div
-                  css={css`
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 1;
-                    background: black;
-                  `}
-                />
-
-                <svg
-                  css={css`
-                    top: 49%;
-                    left: 0;
-                    opacity: ${waveO};
-                    transform: ${waveTr};
-                    // transform-origin: left center;
-                    pointer-events: none;
-                    position: absolute;
-                    transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
-                    width: 100%;
-                    will-change: transform;
-                    z-index: 1;
-                  `}
-                  viewBox="0 0 1441 178"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    css={css`
-                      stroke-dasharray: ${pathRef?.current?.getTotalLength()};
-                      stroke-dashoffset: ${pathRef?.current?.getTotalLength()};
-                    `}
-                    ref={pathRef}
-                    d="M0 1H48C96 1 192 1 288 30.9259C384 60.8519 480 120.704 576 150.63C672 180.556 768 180.556 864 143.148C960 105.741 1056 30.9259 1152 15.963C1248 1 1344 45.8889 1392 68.3333L1440 90.7778"
-                    stroke="url(#paint0_linear_0_1)"
-                  />
-                  <path
-                    css={css`
-                      stroke-dasharray: ${pathRef2?.current?.getTotalLength()};
-                      stroke-dashoffset: ${pathRef2?.current?.getTotalLength()};
-                    `}
-                    ref={pathRef2}
-                    d="M0 6H48C96 6 192 6 288 35.9259C384 65.8519 480 125.704 576 155.63C672 185.556 768 185.556 864 148.148C960 110.741 1056 35.9259 1152 20.963C1248 6 1344 50.8889 1392 73.3333L1440 95.7778"
-                    stroke="url(#paint1_linear_0_1)"
-                  />
-                  <defs>
-                    <linearGradient
-                      id="paint0_linear_0_1"
-                      x1="1437"
-                      y1="8"
-                      x2="-1.69795e-07"
-                      y2="1.00003"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop stopColor="white" stopOpacity="0" />
-                      <stop offset="0.489583" stopColor="white" />
-                      <stop offset="1" stopColor="white" />
-                    </linearGradient>
-                    <linearGradient
-                      id="paint1_linear_0_1"
-                      x1="1437"
-                      y1="13"
-                      x2="-1.69795e-07"
-                      y2="6.00003"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop stopColor="white" stopOpacity="0" />
-                      <stop offset="0.489583" stopColor="white" />
-                      <stop offset="1" stopColor="white" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div css={[backgroundStyles]} ref={particlesRef}>
-                  <Particles />
-                </div>
-              </>
-            );
-          }}
-        </StickyView>
-        <StickyView height={1400}>
-          {proportion => (
+        return (
+          <>
             <div
               css={css`
                 align-items: center;
                 display: flex;
                 height: 100vh;
                 margin: auto;
-                background: black;
+                max-width: 870px;
+                position: relative;
+                z-index: 2;
+                will-change: transform;
+                transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
+                opacity: ${op};
+                transform: ${tr};
               `}
             >
-              <h1
-                css={css`
-                  color: white;
-                `}
-              >
-                hello
+              <h1 css={headingStyles} ref={headingRef}>
+                Hello, my name&apos;s Arjan. I build and design things for the
+                web.
               </h1>
             </div>
-          )}
-        </StickyView>
-      </div>
-    </ScrollContext.Provider>
+
+            <div
+              css={css`
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                background: black;
+              `}
+            />
+
+            <svg
+              css={css`
+                top: 49%;
+                left: 0;
+                opacity: ${waveO};
+                transform: ${waveTr};
+                pointer-events: none;
+                position: absolute;
+                transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
+                width: 100%;
+                will-change: transform;
+                z-index: 1;
+              `}
+              viewBox="0 0 1441 178"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                css={css`
+                  stroke-dasharray: ${pathRef?.current?.getTotalLength()};
+                  stroke-dashoffset: ${pathRef?.current?.getTotalLength()};
+                `}
+                ref={pathRef}
+                d="M0 1H48C96 1 192 1 288 30.9259C384 60.8519 480 120.704 576 150.63C672 180.556 768 180.556 864 143.148C960 105.741 1056 30.9259 1152 15.963C1248 1 1344 45.8889 1392 68.3333L1440 90.7778"
+                stroke="url(#paint0_linear_0_1)"
+              />
+              <path
+                css={css`
+                  stroke-dasharray: ${pathRef2?.current?.getTotalLength()};
+                  stroke-dashoffset: ${pathRef2?.current?.getTotalLength()};
+                `}
+                ref={pathRef2}
+                d="M0 6H48C96 6 192 6 288 35.9259C384 65.8519 480 125.704 576 155.63C672 185.556 768 185.556 864 148.148C960 110.741 1056 35.9259 1152 20.963C1248 6 1344 50.8889 1392 73.3333L1440 95.7778"
+                stroke="url(#paint1_linear_0_1)"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_0_1"
+                  x1="1437"
+                  y1="8"
+                  x2="-1.69795e-07"
+                  y2="1.00003"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="white" stopOpacity="0" />
+                  <stop offset="0.489583" stopColor="white" />
+                  <stop offset="1" stopColor="white" />
+                </linearGradient>
+                <linearGradient
+                  id="paint1_linear_0_1"
+                  x1="1437"
+                  y1="13"
+                  x2="-1.69795e-07"
+                  y2="6.00003"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="white" stopOpacity="0" />
+                  <stop offset="0.489583" stopColor="white" />
+                  <stop offset="1" stopColor="white" />
+                </linearGradient>
+              </defs>
+            </svg>
+
+            <div css={backgroundStyles} ref={particlesRef}>
+              <Particles />
+            </div>
+          </>
+        );
+      }}
+    </StickyView>
   );
 };
 

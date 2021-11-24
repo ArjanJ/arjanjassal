@@ -1,8 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-import { Hero } from '../modules/Hero';
-import { Work } from '../modules/Work';
+import { Scroller } from '../modules/Scroller';
 
 const Home: NextPage = () => {
   return (
@@ -16,7 +15,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Hero />
+      <Scroller />
       {/* <Work /> */}
     </div>
   );
