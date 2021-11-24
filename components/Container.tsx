@@ -9,8 +9,8 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
     <div
       {...props}
       css={css`
-        margin: 0 24vw;
-        // max-width: 960px;
+        margin: 0 auto;
+        max-width: 1024px;
         width: 100%;
       `}
       ref={ref}

@@ -24,7 +24,7 @@ interface Return<T> {
   ref: RefObject<T>;
 }
 
-export const useAnimate = <T extends HTMLElement>({
+export const useAnimate = <T extends HTMLElement | SVGPathElement>({
   animationOptions,
   autoPlay,
   keyframes,

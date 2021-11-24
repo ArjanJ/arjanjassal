@@ -6,18 +6,25 @@ import { AnimationOptions, useAnimate } from '../hooks/useAnimate';
 import { getRandomArrayIndex, getRandomInt } from '../utils';
 
 // export const COLORS = [
-//   '#D92387',
-//   '#6F04D9',
-//   '#4A088C',
-//   '#0460D9',
-//   '#04D9C4',
+//   '#ff71ce',
+//   '#01cdfe',
+//   '#05ffa1',
+//   '#b967ff',
+//   '#fffb96',
+// ] as const;
+// export const COLORS = [
+//   '#f72585ff',
+//   '#7209b7ff',
+//   '#3a0ca3ff',
+//   '#4361eeff',
+//   '#4cc9f0ff',
 // ] as const;
 // export const COLORS = [
 //   '#B052D9',
 //   '#7C05F2',
 //   '#6204BF',
 //   '#04B2D9',
-//   '#05DBF2,',
+//   '#05DBF2',
 // ] as const;
 export const COLORS = [
   '#03267C', // MIDNIGHT
@@ -26,11 +33,12 @@ export const COLORS = [
   '#1553D7', // BLUE
   '#F0319D', // PATRICK
 ] as const;
+// export const COLORS = ['#362FBB', '#712275', '#F97698', '#FFB845'] as const;
 
 function moveAnimation(): AnimationOptions {
-  const translateX = getRandomInt(-100, 100);
-  const translateY = getRandomInt(-100, 100);
-  const duration = 20 * 1000;
+  const translateX = getRandomInt(-25, 75);
+  const translateY = getRandomInt(-25, 75);
+  const duration = 10 * 1000;
 
   const keyframes = [
     {
@@ -51,7 +59,7 @@ function moveAnimation(): AnimationOptions {
   };
 }
 
-const TOTAL_PARTICLES = 40;
+const TOTAL_PARTICLES = 50;
 
 function getRandomColor() {
   return getRandomArrayIndex(COLORS);
@@ -73,7 +81,7 @@ const Particle = () => {
 };
 
 const particleContainerStyles = css`
-  filter: blur(65px);
+  filter: blur(50px);
   height: 100vh;
   width: 100vw;
 `;
@@ -83,15 +91,15 @@ const particleBaseStyles = css`
   left: 0;
   position: absolute;
   top: 0;
-  mix-blend-mode: darken;
+  will-change: transform;
 `;
 
 const particleDynamicStyles = () => {
-  const height = getRandomInt(20, 40);
-  const width = getRandomInt(25, 60);
+  const height = getRandomInt(15, 40);
+  const width = getRandomInt(15, 50);
 
-  const initX = getRandomInt(-50, 90);
-  const initY = getRandomInt(-50, 90);
+  const initX = getRandomInt(-15, 75);
+  const initY = getRandomInt(-15, 75);
 
   return css({
     backgroundColor: getRandomColor(),

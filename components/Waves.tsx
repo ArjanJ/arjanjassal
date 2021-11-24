@@ -6,7 +6,7 @@ import { useAnimate } from '../hooks/useAnimate';
 export const Waves = () => {
   const waveAnimation = {
     animationOptions: {
-      duration: 20000,
+      duration: 45 * 1000,
       easing: 'cubic-bezier( 0.36, 0.45, 0.63, 0.53)',
       iterations: Infinity,
     },
@@ -19,7 +19,7 @@ export const Waves = () => {
 
   const waveAnimation2 = {
     animationOptions: {
-      duration: 25000,
+      duration: 60 * 1000,
       easing: 'cubic-bezier( 0.36, 0.45, 0.63, 0.53)',
       iterations: Infinity,
     },
@@ -85,7 +85,7 @@ const waveStyles = css`
   bottom: 0;
   height: 100%;
   mix-blend-mode: overlay;
-  opacity: 0.25;
+  opacity: 0.2;
   pointer-events: none;
   position: absolute;
   user-select: none;
