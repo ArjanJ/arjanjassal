@@ -1,83 +1,59 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useEffect } from 'react';
 
 import { COLORS, Particles } from '../components/Particles';
 import { StickyView } from '../components/StickyView';
 import { AnimationOptions, useAnimate } from '../hooks/useAnimate';
 
-export const Hero = () => {
-  function pathAnimation(
-    strokeDashoffset: number,
-    delay = 0,
-  ): AnimationOptions {
-    return {
-      animationOptions: {
-        delay,
-        duration: 1200,
-        easing: 'cubic-bezier(0.33, 1, 0.68, 1)',
-        fill: 'forwards',
-      },
-      keyframes: [
-        {
-          strokeDashoffset,
-        },
-      ],
-    };
-  }
-
-  const { animate: animatePath, ref: pathRef } = useAnimate<SVGPathElement>({
-    animationOptions: {},
-    keyframes: [],
-  });
-  const { animate: animatePath2, ref: pathRef2 } = useAnimate<SVGPathElement>({
-    animationOptions: {},
-    keyframes: [],
-  });
-
-  const { ref: headingRef } = useAnimate<HTMLHeadingElement>({
+function wavePathAnimation(delay = 0): AnimationOptions {
+  return {
     animationOptions: {
-      delay: 400,
+      delay,
       duration: 1200,
-      easing: 'cubic-bezier(0.5, 1, 0.89, 1)',
+      easing: 'cubic-bezier(0.33, 1, 0.68, 1)',
       fill: 'forwards',
     },
     keyframes: [
       {
-        opacity: 1,
-        transform: 'none',
+        strokeDashoffset: 0,
       },
     ],
-  });
+  };
+}
 
-  useEffect(() => {
-    if (pathRef.current && pathRef2.current) {
-      animatePath(pathAnimation(0, 900));
-      animatePath2(pathAnimation(0, 1000));
-    }
-  }, [animatePath, animatePath2, pathRef, pathRef2]);
-
-  const { ref: particlesRef } = useAnimate<HTMLDivElement>({
-    animationOptions: {
-      duration: 2000,
-      easing: 'cubic-bezier(0.5, 1, 0.89, 1)',
-      fill: 'forwards',
+const headingAnimation: AnimationOptions = {
+  animationOptions: {
+    delay: 400,
+    duration: 1200,
+    easing: 'cubic-bezier(0.5, 1, 0.89, 1)',
+    fill: 'forwards',
+  },
+  keyframes: [
+    {
+      opacity: 1,
+      transform: 'none',
     },
-    keyframes: [
-      {
-        opacity: 1,
-      },
-    ],
-  });
+  ],
+};
+
+export const Hero = () => {
+  const { ref: headingRef } = useAnimate<HTMLHeadingElement>(headingAnimation);
+  const { ref: pathRef } = useAnimate<SVGPathElement>(wavePathAnimation(900));
+  const { ref: pathRef2 } = useAnimate<SVGPathElement>(wavePathAnimation(1000));
 
   return (
-    <StickyView height={1400}>
+    <StickyView height={1600}>
       {proportion => {
-        const op = proportion > 0.2 ? 0 : 1;
-        const tr = proportion > 0.2 ? 'scale(0.98)' : 'none';
+        const op = proportion > 1.75 ? 0 : 1;
+        const tr = proportion > 0.65 ? 'scale(0.98)' : 'none';
 
-        const waveO = proportion > 0.2 ? 0 : 1;
-        const waveTr = proportion > 0.2 ? 'scaleX(2)' : 'none';
+        const waveO = proportion > 1 ? 0 : 1;
+        const waveTr = proportion > 1 ? 'scaleX(2)' : 'none';
+
+        // const bgO = proportion > 0.35 ? 0 : 1;
+        // const bgC = proportion > 0.35 ? '#9038ff' : '#000';
+        // const hTr = proportion < 0.5 ? `scale(${1 - proportion * 10})` : 'none';
+        // proportion < 0.5 ? `translateY(-${proportion * 100}%)` : 'none';
 
         return (
           <>
@@ -88,12 +64,12 @@ export const Hero = () => {
                 height: 100vh;
                 margin: auto;
                 max-width: 870px;
-                position: relative;
-                z-index: 2;
-                will-change: transform;
-                transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
                 opacity: ${op};
-                transform: ${tr};
+                position: relative;
+                // transform: ${tr};
+                transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
+                will-change: transform;
+                z-index: 2;
               `}
             >
               <h1 css={headingStyles} ref={headingRef}>
@@ -104,24 +80,26 @@ export const Hero = () => {
 
             <div
               css={css`
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 1;
                 background: black;
+                bottom: 0;
+                height: 100%;
+                left: 0;
+                pointer-events: none;
+                position: absolute;
+                width: 100%;
+                z-index: 1;
+                transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
               `}
             />
 
             <svg
               css={css`
-                top: 49%;
                 left: 0;
                 opacity: ${waveO};
-                transform: ${waveTr};
                 pointer-events: none;
                 position: absolute;
+                top: 49%;
+                transform: ${waveTr};
                 transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
                 width: 100%;
                 will-change: transform;
@@ -177,9 +155,9 @@ export const Hero = () => {
               </defs>
             </svg>
 
-            <div css={backgroundStyles} ref={particlesRef}>
+            {/* <div css={backgroundStyles}>
               <Particles />
-            </div>
+            </div> */}
           </>
         );
       }}
@@ -193,20 +171,4 @@ const headingStyles = css`
   font-weight: bold;
   opacity: 0;
   transform: translateY(3%);
-`;
-
-const backgroundStyles = css`
-  background: linear-gradient(${COLORS[0]}, ${COLORS[COLORS.length - 1]});
-  height: 100vh;
-  left: 0;
-  mix-blend-mode: multiply;
-  opacity: 0;
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  transition: all 1s cubic-bezier(0.36, 0.45, 0.63, 0.53);
-  user-select: none;
-  z-index: 2;
 `;

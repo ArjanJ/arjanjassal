@@ -36,8 +36,8 @@ export const COLORS = [
 // export const COLORS = ['#362FBB', '#712275', '#F97698', '#FFB845'] as const;
 
 function moveAnimation(): AnimationOptions {
-  const translateX = getRandomInt(-25, 75);
-  const translateY = getRandomInt(-25, 75);
+  const translateX = getRandomInt(-50, 125);
+  const translateY = getRandomInt(-50, 125);
   const duration = 10 * 1000;
 
   const keyframes = [
@@ -59,7 +59,7 @@ function moveAnimation(): AnimationOptions {
   };
 }
 
-const TOTAL_PARTICLES = 50;
+const TOTAL_PARTICLES = 60;
 
 function getRandomColor() {
   return getRandomArrayIndex(COLORS);
@@ -99,7 +99,7 @@ const particleDynamicStyles = () => {
   const width = getRandomInt(15, 50);
 
   const initX = getRandomInt(-15, 75);
-  const initY = getRandomInt(-15, 75);
+  const initY = getRandomInt(-15, 125);
 
   return css({
     backgroundColor: getRandomColor(),

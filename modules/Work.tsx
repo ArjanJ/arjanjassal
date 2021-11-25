@@ -1,267 +1,260 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { shade } from 'polished';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
-import { Container } from '../components/Container';
-import { Farmdrop } from '../components/Logos/Farmdrop';
-import { GameOn } from '../components/Logos/GameOn';
-import { Taloflow } from '../components/Logos/Taloflow';
-import { WaveSvg } from '../components/WaveSvg';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { StickyView } from '../components/StickyView';
 
-const WORK = [
+const data = [
   {
-    color: '#1C32E5',
-    company: 'GameOn',
-    logo: GameOn,
-    role: 'Lead Frontend Engineer',
-    when: '2021',
+    company: 'Onfleet',
+    role: 'Senior Frontend Engineer',
+    when: '2021-',
   },
   {
-    color: '#088972',
     company: 'Farmdrop',
-    logo: Farmdrop,
-    role: 'Sr. Frontend Engineer',
-    when: '2019-2021',
+    role: 'Senior Frontend Engineer',
+    when: '2019-21',
   },
   {
-    color: '#2463F6',
     company: 'Taloflow',
-    logo: Taloflow,
-    role: 'Sr. Frontend Engineer',
-    when: '2018-2019',
+    role: 'Senior Frontend Engineer',
+    when: '2018-19',
   },
   {
-    color: '#1AA1D8',
     company: 'Grow',
-    role: 'Sr. Frontend Engineer',
-    when: '2016-2018',
+    role: 'Frontend Engineer, Team Lead',
+    when: '2016-18',
   },
   {
-    color: '#F1F1F1',
     company: 'Ettrics',
     role: 'Frontend Developer',
-    when: '2015-2016',
+    when: '2015-16',
   },
   {
-    color: '#094BB0',
     company: 'PerfectMind',
     role: 'Web Designer',
-    when: '2014-2015',
+    when: '2014-15',
   },
 ];
 
+function workTitleTransitions(proportion: number) {
+  if (proportion > -0.8) {
+    return css`
+      opacity: 1;
+      transform: none;
+    `;
+  } else {
+    return css`
+      opacity: 0;
+      transform: translateY(10%);
+    `;
+  }
+}
+
+function careerListTransitions(proportion: number) {
+  if (proportion > -0.1) {
+    return css`
+      opacity: 1;
+      transform: none;
+    `;
+  } else {
+    return css`
+      opacity: 0;
+      transform: scale(0.98);
+    `;
+  }
+}
+
+function waveTransitions(proportion: number) {
+  if (proportion > -0.5) {
+    return css`
+      stroke-dashoffset: 0;
+    `;
+  }
+}
+
 export const Work = () => {
-  const workContainerRef = useRef<HTMLDivElement>(null);
-  const workContainerEntry = useIntersectionObserver(workContainerRef, {
-    threshold: 0.33,
-  });
-  const isWorkContainerVisible = workContainerEntry?.isIntersecting;
-
-  const workListRef = useRef<HTMLUListElement>(null);
-  const workListEntry = useIntersectionObserver(workListRef, {
-    threshold: 0.66,
-  });
-  const isWorkListVisible = workListEntry?.isIntersecting;
-
-  useEffect(() => {
-    const workList = workListRef.current;
-
-    const onWheel = (event: WheelEvent) => {
-      const { deltaY } = event;
-
-      if (workList) {
-        const { scrollWidth, clientWidth, scrollLeft } = workList;
-        const atStart = scrollLeft === 0;
-        const atEnd = scrollWidth - clientWidth === scrollLeft;
-        const didScrollUp = Math.sign(deltaY) === -1;
-        const didScrollDown = Math.sign(deltaY) === 1;
-
-        if ((atStart && didScrollUp) || (atEnd && didScrollDown)) {
-          return;
-        } else {
-          event.preventDefault();
-          workList.scrollLeft += event.deltaY;
-        }
-      }
-    };
-
-    workList?.addEventListener('wheel', onWheel);
-
-    return () => {
-      workList?.removeEventListener('wheel', onWheel);
-    };
-  }, [workListRef]);
+  const wavePathRef = useRef<SVGPathElement>(null);
+  const wavePathRef2 = useRef<SVGPathElement>(null);
 
   return (
-    <section
-      css={css`
-        overflow: hidden;
-      `}
-      ref={workContainerRef}
-    >
-      <div
-        css={css`
-          padding-top: 120px;
-          overflow: hidden;
-          position: relative;
-          z-index: 1;
-        `}
-      >
-        <div
-          css={css`
-            flex: 1;
-          `}
-        >
-          <Container>
-            <h2
-              css={[
-                subheadingStyles,
-                isWorkContainerVisible &&
-                  css`
-                    opacity: 1;
-                    transform: none;
-                  `,
-              ]}
+    <StickyView height={1400}>
+      {proportion => {
+        return (
+          <div
+            css={css`
+              align-items: center;
+              display: flex;
+              min-height: 100vh;
+              // padding-top: 180px;
+              // background: linear-gradient(black 50%, #f0319d);
+              // background: tomato;
+            `}
+          >
+            <div
+              css={css`
+                flex: 1;
+                max-width: 870px;
+                margin: 0 auto;
+              `}
             >
-              Work
-            </h2>
-          </Container>
-        </div>
-      </div>
-
-      <div
-        css={css`
-          position: relative;
-        `}
-      >
-        <WaveSvg
-          css={css`
-            bottom: 0;
-            left: 0;
-            mix-blend-mode: overlay;
-            position: absolute;
-            pointer-events: none;
-            transform: ${isWorkListVisible ? 'none' : 'scaleY(0)'};
-            transition: all 0.8s 0.4s cubic-bezier(0.33, 1, 0.68, 1);
-            transform-origin: center bottom;
-            z-index: 2;
-          `}
-        />
-
-        <ul css={WorkListStyles} ref={workListRef}>
-          {WORK.map((entry, index) => {
-            return (
-              <li
+              <div
                 css={[
-                  WorkListItemStyles,
-                  `background: linear-gradient(180deg, ${entry.color}, ${shade(
-                    0.5,
-                    entry.color,
-                  )});
-                    transition-delay: ${index * 0.09}s;
-                    z-index: ${index}`,
-                  isWorkListVisible ? 'opacity: 1; transform: none;' : '',
+                  css`
+                    transition: all 800ms cubic-bezier(0.5, 1, 0.89, 1);
+                  `,
+                  workTitleTransitions(proportion),
                 ]}
-                key={entry.company}
               >
-                <header
+                <h2
                   css={css`
-                    display: flex;
-                    justify-content: space-between;
+                    background: -webkit-linear-gradient(#1553d7, #f0319d);
+                    font-size: 12vmin;
+                    line-height: 1;
+                    margin-bottom: 80px;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
                   `}
                 >
-                  <h3
-                    css={css`
-                      font-size: 18px;
-                      font-weight: normal;
-                    `}
-                  >
-                    {entry.company}
-                  </h3>
-                  <p>{entry.when}</p>
-                </header>
-                {entry.logo && (
-                  <entry.logo
-                    css={css`
-                      margin: auto;
-                      mix-blend-mode: soft-light;
-                    `}
-                  />
-                )}
-                <p
-                  css={css`
-                    color: #8d8d8d;
-                    // font-weight: bold;
-                    margin-bottom: 45px;
-                    text-align: center;
-                  `}
-                >
-                  {entry.role}
-                </p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+                  Work
+                </h2>
+              </div>
+              <ul
+                css={[
+                  css`
+                    list-style-type: none;
+                    justify-self: flex-end;
+                    padding: 0;
+                    transition: all 800ms cubic-bezier(0.5, 1, 0.89, 1);
+                    width: 100%;
+                  `,
+                  careerListTransitions(proportion),
+                ]}
+              >
+                {data.map(work => {
+                  return (
+                    <li
+                      key={work.company}
+                      css={css`
+                        align-items: center;
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 40px;
 
-      <div
-        css={css`
-          height: 100vh;
-        `}
-      ></div>
-    </section>
+                        &:last-child {
+                          margin-bottom: 0;
+                        }
+                      `}
+                    >
+                      <h3
+                        css={css`
+                          font-size: 24px;
+                          font-weight: 400;
+                        `}
+                      >
+                        {work.company}
+                      </h3>
+
+                      <div
+                        css={css`
+                          display: flex;
+                        `}
+                      >
+                        <p
+                          css={css`
+                            font-size: 24px;
+                            margin-left: 20px;
+                            opacity: 0.7;
+                          `}
+                        >
+                          {work.role}
+                        </p>
+                        <p
+                          css={css`
+                            font-size: 24px;
+                            margin-left: 30px;
+                            min-width: 90px;
+                            opacity: 0.4;
+                            text-align: right;
+                          `}
+                        >
+                          {work.when}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <svg
+              css={css`
+                left: 0;
+                pointer-events: none;
+                position: absolute;
+                top: 40%;
+                transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
+                width: 100%;
+                will-change: transform;
+              `}
+              viewBox="0 0 1442 139"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                css={[
+                  css`
+                    stroke-dasharray: ${wavePathRef?.current?.getTotalLength()};
+                    stroke-dashoffset: ${wavePathRef?.current?.getTotalLength()};
+                    transition: all 1200ms cubic-bezier(0.33, 1, 0.68, 1);
+                  `,
+                  waveTransitions(proportion),
+                ]}
+                ref={wavePathRef}
+                d="M1 54.1111L61 72.1032C121 90.0952 241 126.079 361 132.077C481 138.074 601 114.085 721 84.0979C841 54.1111 961 18.127 1081 6.13227C1201 -5.86244 1321 6.13227 1381 12.1296L1441 18.127"
+                stroke="url(#paint0_linear_0_1A)"
+              />
+              <path
+                css={[
+                  css`
+                    stroke-dasharray: ${wavePathRef2?.current?.getTotalLength()};
+                    stroke-dashoffset: ${wavePathRef2?.current?.getTotalLength()};
+                    transition: all 1200ms 100ms cubic-bezier(0.33, 1, 0.68, 1);
+                  `,
+                  waveTransitions(proportion),
+                ]}
+                ref={wavePathRef2}
+                d="M1 59.1111L61 77.1032C121 95.0952 241 131.079 361 137.077C481 143.074 601 119.085 721 89.0979C841 59.1111 961 23.127 1081 11.1323C1201 -0.862443 1321 11.1323 1381 17.1296L1441 23.127"
+                stroke="url(#paint1_linear_0_1B)"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_0_1A"
+                  x1="0.999997"
+                  y1="66.9999"
+                  x2="1441"
+                  y2="66.9999"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="#246BF6" />
+                  <stop offset="1" stopColor="#246BF6" stopOpacity="0" />
+                </linearGradient>
+                <linearGradient
+                  id="paint1_linear_0_1B"
+                  x1="0.999997"
+                  y1="71.9999"
+                  x2="1441"
+                  y2="71.9999"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="#f0319d" />
+                  <stop offset="1" stopColor="#f0319d" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        );
+      }}
+    </StickyView>
   );
 };
-
-const subheadingStyles = css`
-  display: inline-block;
-  background: linear-gradient(#1553d7, #f0319d);
-  color: white;
-  font-size: 12vmin;
-  margin-bottom: 120px;
-  opacity: 0;
-  transform: translateY(-25vh);
-  transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-`;
-
-const WorkListStyles = css`
-  display: grid;
-  gap: 60px;
-  grid-auto-flow: column;
-  grid-column: center-start/-1;
-  list-style-type: none;
-  margin-bottom: 180px;
-  overflow: auto;
-  padding: 0 120px 0 24vw;
-  position: relative;
-  z-index: 1;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const WorkListItemStyles = css`
-  background: white;
-  border-radius: 16px;
-  height: 420px;
-  min-width: 288px;
-  padding: 18px 16px;
-  transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
-  transform: translateX(100%);
-  transform-origin: center bottom;
-  opacity: 0;
-  will-change: transform, opacity;
-  position: relative;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 18px;
-`;
