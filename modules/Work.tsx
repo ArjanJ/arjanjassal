@@ -38,7 +38,7 @@ const data = [
 ];
 
 function workTitleTransitions(proportion: number) {
-  if (proportion > -0.8) {
+  if (proportion > -0.2) {
     return css`
       opacity: 1;
       transform: none;
@@ -46,27 +46,13 @@ function workTitleTransitions(proportion: number) {
   } else {
     return css`
       opacity: 0;
-      transform: translateY(10%);
-    `;
-  }
-}
-
-function careerListTransitions(proportion: number) {
-  if (proportion > -0.1) {
-    return css`
-      opacity: 1;
-      transform: none;
-    `;
-  } else {
-    return css`
-      opacity: 0;
-      transform: scale(0.98);
+      transform: translateY(-30%);
     `;
   }
 }
 
 function waveTransitions(proportion: number) {
-  if (proportion > -0.5) {
+  if (proportion > -0.2) {
     return css`
       stroke-dashoffset: 0;
     `;
@@ -78,7 +64,7 @@ export const Work = () => {
   const wavePathRef2 = useRef<SVGPathElement>(null);
 
   return (
-    <StickyView height={1400}>
+    <StickyView height={2500}>
       {proportion => {
         return (
           <div
@@ -86,16 +72,14 @@ export const Work = () => {
               align-items: center;
               display: flex;
               min-height: 100vh;
-              // padding-top: 180px;
-              // background: linear-gradient(black 50%, #f0319d);
-              // background: tomato;
             `}
           >
             <div
               css={css`
                 flex: 1;
-                max-width: 870px;
+                max-width: 930px;
                 margin: 0 auto;
+                padding: 0 30px;
               `}
             >
               <div
@@ -108,10 +92,10 @@ export const Work = () => {
               >
                 <h2
                   css={css`
-                    background: -webkit-linear-gradient(#1553d7, #f0319d);
+                    background: -webkit-linear-gradient(#fffb96, #b967ff);
                     font-size: 12vmin;
                     line-height: 1;
-                    margin-bottom: 80px;
+                    margin-bottom: 100px;
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                   `}
@@ -120,35 +104,39 @@ export const Work = () => {
                 </h2>
               </div>
               <ul
-                css={[
-                  css`
-                    list-style-type: none;
-                    justify-self: flex-end;
-                    padding: 0;
-                    transition: all 800ms cubic-bezier(0.5, 1, 0.89, 1);
-                    width: 100%;
-                  `,
-                  careerListTransitions(proportion),
-                ]}
+                css={css`
+                  list-style-type: none;
+                  justify-self: flex-end;
+                  padding: 0;
+                  width: 100%;
+                `}
               >
-                {data.map(work => {
+                {data.map((work, i) => {
+                  const isActive =
+                    Math.round((proportion * 100) / 10) * 10 >= i * 10;
+
                   return (
                     <li
                       key={work.company}
-                      css={css`
-                        align-items: center;
-                        display: flex;
-                        justify-content: space-between;
-                        margin-bottom: 40px;
+                      css={[
+                        css`
+                          align-items: center;
+                          display: flex;
+                          justify-content: space-between;
+                          margin-bottom: 40px;
+                          transition: all 800ms cubic-bezier(0.33, 1, 0.68, 1);
+                          opacity: ${isActive ? 1 : 0};
+                          transform: ${isActive ? 'none' : 'scale(0.98)'};
 
-                        &:last-child {
-                          margin-bottom: 0;
-                        }
-                      `}
+                          &:last-child {
+                            margin-bottom: 0;
+                          }
+                        `,
+                      ]}
                     >
                       <h3
                         css={css`
-                          font-size: 24px;
+                          font-size: 3vmin;
                           font-weight: 400;
                         `}
                       >
@@ -162,20 +150,19 @@ export const Work = () => {
                       >
                         <p
                           css={css`
-                            font-size: 24px;
+                            font-size: 3vmin;
                             margin-left: 20px;
-                            opacity: 0.7;
+                            opacity: 0.65;
                           `}
                         >
                           {work.role}
                         </p>
                         <p
                           css={css`
-                            font-size: 24px;
+                            font-size: 3vmin;
                             margin-left: 30px;
                             min-width: 90px;
                             opacity: 0.4;
-                            text-align: right;
                           `}
                         >
                           {work.when}
@@ -190,6 +177,7 @@ export const Work = () => {
             <svg
               css={css`
                 left: 0;
+                opacity: 0.5;
                 pointer-events: none;
                 position: absolute;
                 top: 40%;

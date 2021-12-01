@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-import { COLORS, Particles } from '../components/Particles';
 import { StickyView } from '../components/StickyView';
 import { AnimationOptions, useAnimate } from '../hooks/useAnimate';
 
@@ -36,6 +35,33 @@ const headingAnimation: AnimationOptions = {
   ],
 };
 
+function headingTransitions(proportion: number) {
+  if (proportion > 0.8) {
+    return css`
+      opacity: 0;
+      transform: scale(1.02);
+    `;
+  } else {
+    return css`
+      opacity: 1;
+    `;
+  }
+}
+
+function waveTransitions(proportion: number) {
+  if (proportion > 0.8) {
+    return css`
+      opacity: 0;
+      transform: scaleX(2);
+    `;
+  } else {
+    return css`
+      opacity: 1;
+      transform: none;
+    `;
+  }
+}
+
 export const Hero = () => {
   const { ref: headingRef } = useAnimate<HTMLHeadingElement>(headingAnimation);
   const { ref: pathRef } = useAnimate<SVGPathElement>(wavePathAnimation(900));
@@ -44,17 +70,6 @@ export const Hero = () => {
   return (
     <StickyView height={1600}>
       {proportion => {
-        const op = proportion > 1.75 ? 0 : 1;
-        const tr = proportion > 0.65 ? 'scale(0.98)' : 'none';
-
-        const waveO = proportion > 1 ? 0 : 1;
-        const waveTr = proportion > 1 ? 'scaleX(2)' : 'none';
-
-        // const bgO = proportion > 0.35 ? 0 : 1;
-        // const bgC = proportion > 0.35 ? '#9038ff' : '#000';
-        // const hTr = proportion < 0.5 ? `scale(${1 - proportion * 10})` : 'none';
-        // proportion < 0.5 ? `translateY(-${proportion * 100}%)` : 'none';
-
         return (
           <>
             <div
@@ -63,19 +78,26 @@ export const Hero = () => {
                 display: flex;
                 height: 100vh;
                 margin: auto;
-                max-width: 870px;
-                opacity: ${op};
+                max-width: 930px;
+                padding: 0 30px;
                 position: relative;
-                // transform: ${tr};
-                transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
-                will-change: transform;
                 z-index: 2;
               `}
             >
-              <h1 css={headingStyles} ref={headingRef}>
-                Hello, my name&apos;s Arjan. I build and design things for the
-                web.
-              </h1>
+              <div
+                css={[
+                  css`
+                    transition: all 800ms cubic-bezier(0.33, 1, 0.68, 1);
+                    will-change: transform;
+                  `,
+                  headingTransitions(proportion),
+                ]}
+              >
+                <h1 css={headingStyles} ref={headingRef}>
+                  Hello, my name&apos;s Arjan. I build and design things for the
+                  web.
+                </h1>
+              </div>
             </div>
 
             <div
@@ -93,18 +115,19 @@ export const Hero = () => {
             />
 
             <svg
-              css={css`
-                left: 0;
-                opacity: ${waveO};
-                pointer-events: none;
-                position: absolute;
-                top: 49%;
-                transform: ${waveTr};
-                transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
-                width: 100%;
-                will-change: transform;
-                z-index: 1;
-              `}
+              css={[
+                css`
+                  left: 0;
+                  pointer-events: none;
+                  position: absolute;
+                  top: 49%;
+                  transition: all 800ms cubic-bezier(0.32, 0, 0.67, 0);
+                  width: 100%;
+                  will-change: transform;
+                  z-index: 1;
+                `,
+                waveTransitions(proportion),
+              ]}
               viewBox="0 0 1441 178"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -154,10 +177,6 @@ export const Hero = () => {
                 </linearGradient>
               </defs>
             </svg>
-
-            {/* <div css={backgroundStyles}>
-              <Particles />
-            </div> */}
           </>
         );
       }}
