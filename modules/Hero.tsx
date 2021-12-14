@@ -36,7 +36,7 @@ const headingAnimation: AnimationOptions = {
 };
 
 function headingTransitions(proportion: number) {
-  if (proportion > 0.8) {
+  if (proportion > 1.4) {
     return css`
       opacity: 0;
       transform: scale(1.02);
@@ -93,7 +93,16 @@ export const Hero = () => {
                   headingTransitions(proportion),
                 ]}
               >
-                <h1 css={headingStyles} ref={headingRef}>
+                <h1
+                  css={css`
+                    color: white;
+                    font-size: 12vmin;
+                    font-weight: bold;
+                    opacity: 0;
+                    transform: translateY(3%);
+                  `}
+                  ref={headingRef}
+                >
                   Hello, my name&apos;s Arjan. I build and design things for the
                   web.
                 </h1>
@@ -183,11 +192,3 @@ export const Hero = () => {
     </StickyView>
   );
 };
-
-const headingStyles = css`
-  color: white;
-  font-size: 12vmin;
-  font-weight: bold;
-  opacity: 0;
-  transform: translateY(3%);
-`;

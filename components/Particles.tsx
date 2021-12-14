@@ -12,28 +12,6 @@ export const COLORS = [
   '#b967ff',
   '#fffb96',
 ] as const;
-// export const COLORS = [
-//   '#f72585ff',
-//   '#7209b7ff',
-//   '#3a0ca3ff',
-//   '#4361eeff',
-//   '#4cc9f0ff',
-// ] as const;
-// export const COLORS = [
-//   '#B052D9',
-//   '#7C05F2',
-//   '#6204BF',
-//   '#04B2D9',
-//   '#05DBF2',
-// ] as const;
-// export const COLORS = [
-//   '#03267C', // MIDNIGHT
-//   '#F29E4D', // ORANGE
-//   '#AD5ED2', // MAGENTA
-//   '#1553D7', // BLUE
-//   '#F0319D', // PATRICK
-// ] as const;
-// export const COLORS = ['#362FBB', '#712275', '#F97698', '#FFB845'] as const;
 
 function moveAnimation(): AnimationOptions {
   const translateX = getRandomInt(-50, 90);

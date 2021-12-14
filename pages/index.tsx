@@ -16,7 +16,6 @@ const Home: NextPage = () => {
       </Head>
 
       <Scroller />
-      {/* <Work /> */}
     </div>
   );
 };
