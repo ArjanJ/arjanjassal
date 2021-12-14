@@ -55,7 +55,7 @@ const data = [
 ];
 
 function workTitleTransitions(proportion: number) {
-  if (proportion > -0.2) {
+  if (proportion > -6) {
     return css`
       opacity: 1;
       transform: none;
@@ -69,7 +69,7 @@ function workTitleTransitions(proportion: number) {
 }
 
 function workPlacesTransitions(proportion: number) {
-  if (proportion > -0.1) {
+  if (proportion > -4.4) {
     return css`
       opacity: 1;
       transform: none;
@@ -86,6 +86,7 @@ export const Work = () => {
   return (
     <StickyView height={1000}>
       {proportion => {
+        console.log(proportion);
         return (
           <div
             css={css`
