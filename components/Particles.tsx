@@ -5,13 +5,27 @@ import { memo } from 'react';
 import { AnimationOptions, useAnimate } from '../hooks/useAnimate';
 import { getRandomArrayIndex, getRandomInt } from '../utils';
 
+// export const COLORS = [
+//   '#264653ff',
+//   '#2a9d8fff',
+//   '#e9c46aff',
+//   '#f4a261ff',
+//   '#e76f51ff',
+// ] as const;
 export const COLORS = [
-  '#ff71ce',
-  '#01cdfe',
-  '#05ffa1',
-  '#b967ff',
-  '#fffb96',
+  '#ffbe0bff',
+  '#fb5607ff',
+  '#ff006eff',
+  '#8338ecff',
+  '#3a86ffff',
 ] as const;
+// export const COLORS = [
+//   '#ff71ce',
+//   '#01cdfe',
+//   '#05ffa1',
+//   '#b967ff',
+//   '#fffb96',
+// ] as const;
 
 function moveAnimation(): AnimationOptions {
   const translateX = getRandomInt(-50, 90);
@@ -37,7 +51,7 @@ function moveAnimation(): AnimationOptions {
   };
 }
 
-const TOTAL_PARTICLES = 60;
+const TOTAL_PARTICLES = 100;
 
 function getRandomColor() {
   return getRandomArrayIndex(COLORS);
@@ -73,11 +87,11 @@ const particleBaseStyles = css`
 `;
 
 const particleDynamicStyles = () => {
-  const height = getRandomInt(15, 40);
-  const width = getRandomInt(15, 50);
+  const height = getRandomInt(10, 40);
+  const width = getRandomInt(10, 50);
 
   const initX = getRandomInt(-15, 75);
-  const initY = getRandomInt(-15, 160);
+  const initY = getRandomInt(-15, 175);
 
   return css({
     backgroundColor: getRandomColor(),

@@ -55,7 +55,7 @@ const data = [
 ];
 
 function workTitleTransitions(proportion: number) {
-  if (proportion > -6) {
+  if (proportion > -0.4) {
     return css`
       opacity: 1;
       transform: none;
@@ -63,13 +63,13 @@ function workTitleTransitions(proportion: number) {
   } else {
     return css`
       opacity: 0;
-      transform: translateY(-25%);
+      transform: translateY(20%);
     `;
   }
 }
 
 function workPlacesTransitions(proportion: number) {
-  if (proportion > -4.4) {
+  if (proportion > -0.33) {
     return css`
       opacity: 1;
       transform: none;
@@ -77,7 +77,23 @@ function workPlacesTransitions(proportion: number) {
   } else {
     return css`
       opacity: 0;
-      transform: translateY(10%);
+      transform: translateY(20%);
+    `;
+  }
+}
+
+function waveTransitions(proportion: number) {
+  if (proportion > -0.5) {
+    return css`
+      &::before {
+        transform: scaleX(0);
+      }
+    `;
+  } else {
+    return css`
+      &::before {
+        transform: none;
+      }
     `;
   }
 }
@@ -86,19 +102,17 @@ export const Work = () => {
   return (
     <StickyView height={1000}>
       {proportion => {
-        console.log(proportion);
         return (
           <div
             css={css`
-              align-items: center;
-              display: flex;
               min-height: 100vh;
+              padding: 160px 0 100px;
             `}
           >
             <div
               css={css`
                 flex: 1;
-                max-width: 930px;
+                max-width: 1000px;
                 margin: 0 auto;
                 padding: 0 30px;
               `}
@@ -106,19 +120,15 @@ export const Work = () => {
               <div
                 css={[
                   css`
-                    transition: all 600ms cubic-bezier(0.5, 1, 0.89, 1);
+                    transition: all 800ms cubic-bezier(0.33, 1, 0.68, 1);
                   `,
                   workTitleTransitions(proportion),
                 ]}
               >
                 <h2
                   css={css`
-                    background: -webkit-linear-gradient(#01cdfe, #05ffa1);
-                    font-size: 8vmin;
-                    line-height: 1;
+                    font-size: 72px;
                     margin-bottom: 100px;
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
                   `}
                 >
                   Places I&apos;ve worked
@@ -127,8 +137,7 @@ export const Work = () => {
               <ul
                 css={css`
                   display: grid;
-                  grid-template-columns: 1fr 1fr;
-                  grid-gap: 60px;
+                  grid-gap: 45px;
                   list-style-type: none;
                   padding: 0;
                   width: 100%;
@@ -142,8 +151,9 @@ export const Work = () => {
                         css`
                           align-items: center;
                           display: flex;
-                          transition: all 600ms ${i * 80}ms
-                            cubic-bezier(0.5, 1, 0.89, 1);
+                          transition: all 800ms ${i * 100}ms
+                            cubic-bezier(0.33, 1, 0.68, 1);
+                          will-change: transform;
                         `,
                         workPlacesTransitions(proportion),
                       ]}
@@ -154,13 +164,13 @@ export const Work = () => {
                           display: flex;
                           align-items: center;
                           justify-content: center;
-                          height: 90px;
-                          width: 90px;
-                          border-radius: 15px;
+                          height: 80px;
+                          width: 80px;
+                          border-radius: 14px;
 
                           svg {
-                            max-width: 67px;
-                            max-height: 53px;
+                            max-width: 64px;
+                            max-height: 50px;
                           }
                         `}
                       >
@@ -168,30 +178,95 @@ export const Work = () => {
                       </div>
                       <div
                         css={css`
+                          display: flex;
+                          justify-content: space-between;
                           flex: 1;
-                          margin-left: 20px;
+                          margin-left: 30px;
                         `}
                       >
                         <h3
                           css={css`
-                            font-size: 20px;
+                            font-size: 24px;
                           `}
                         >
                           {work.company}
                         </h3>
                         <p
                           css={css`
-                            font-size: 18px;
+                            font-weight: 800;
+                            font-size: 24px;
+                            min-width: 99px;
                             opacity: 0.8;
                           `}
                         >
-                          {work.role}
+                          {work.when}
                         </p>
                       </div>
                     </li>
                   );
                 })}
               </ul>
+            </div>
+
+            <div
+              css={[
+                css`
+                  left: 0;
+                  position: absolute;
+                  top: 0;
+                  transform: translateY(-50%);
+                  width: 100%;
+                  z-index: 1;
+
+                  &::before {
+                    background: black;
+                    content: '';
+                    height: 100%;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                    transform-origin: left center;
+                    transition: all 800ms cubic-bezier(0.33, 1, 0.68, 1);
+                    width: 100%;
+                    z-index: 1;
+                  }
+                `,
+                waveTransitions(proportion),
+              ]}
+            >
+              <svg
+                css={css`
+                  width: 100%;
+                `}
+                viewBox="0 0 1442 299"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 44.25L40.6 58.6667C81.4 73.0833 160.6 101.917 241 94.7083C321.4 87.5 400.6 44.25 481 58.6667C561.4 73.0833 640.6 145.167 721 195.625C801.4 246.083 880.6 274.917 961 246.083C1041.4 217.25 1120.6 130.75 1201 80.2917C1281.4 29.8333 1360.6 15.4167 1401.4 8.20833L1441 1"
+                  stroke="#3A86FF"
+                />
+                <path
+                  d="M1 54.25L40.6 68.6667C81.4 83.0833 160.6 111.917 241 104.708C321.4 97.5 400.6 54.25 481 68.6667C561.4 83.0833 640.6 155.167 721 205.625C801.4 256.083 880.6 284.917 961 256.083C1041.4 227.25 1120.6 140.75 1201 90.2917C1281.4 39.8333 1360.6 25.4167 1401.4 18.2083L1441 11"
+                  stroke="#8338EC"
+                  strokeOpacity="0.9"
+                />
+                <path
+                  d="M1 64.25L40.6 78.6667C81.4 93.0833 160.6 121.917 241 114.708C321.4 107.5 400.6 64.25 481 78.6667C561.4 93.0833 640.6 165.167 721 215.625C801.4 266.083 880.6 294.917 961 266.083C1041.4 237.25 1120.6 150.75 1201 100.292C1281.4 49.8333 1360.6 35.4167 1401.4 28.2083L1441 21"
+                  stroke="#FF006E"
+                  strokeOpacity="0.8"
+                />
+                <path
+                  d="M1 74.25L40.6 88.6667C81.4 103.083 160.6 131.917 241 124.708C321.4 117.5 400.6 74.25 481 88.6667C561.4 103.083 640.6 175.167 721 225.625C801.4 276.083 880.6 304.917 961 276.083C1041.4 247.25 1120.6 160.75 1201 110.292C1281.4 59.8333 1360.6 45.4167 1401.4 38.2083L1441 31"
+                  stroke="#FB5607"
+                  strokeOpacity="0.7"
+                />
+                <path
+                  d="M1 84.25L40.6 98.6667C81.4 113.083 160.6 141.917 241 134.708C321.4 127.5 400.6 84.25 481 98.6667C561.4 113.083 640.6 185.167 721 235.625C801.4 286.083 880.6 314.917 961 286.083C1041.4 257.25 1120.6 170.75 1201 120.292C1281.4 69.8333 1360.6 55.4167 1401.4 48.2083L1441 41"
+                  stroke="#FFBE0B"
+                  strokeOpacity="0.6"
+                />
+              </svg>
             </div>
           </div>
         );
