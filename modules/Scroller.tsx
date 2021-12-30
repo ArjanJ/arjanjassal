@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { COLORS, Particles } from '../components/Particles';
 import { ScrollContext } from '../components/ScrollContext';
 import { About } from './About';
+import { Footer } from './Footer';
 import { Hero } from './Hero';
 import { Work } from './Work';
 
@@ -30,6 +31,7 @@ export const Scroller = () => {
         <Hero />
         <About />
         <Work />
+        <Footer />
 
         <div
           css={css`
@@ -37,7 +39,7 @@ export const Scroller = () => {
               ${COLORS[0]},
               ${COLORS[COLORS.length - 1]}
             );
-            height: 2000px;
+            height: 1800px;
             left: 0;
             mix-blend-mode: multiply;
             overflow: hidden;

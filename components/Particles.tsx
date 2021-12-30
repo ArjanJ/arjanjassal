@@ -5,13 +5,6 @@ import { memo } from 'react';
 import { AnimationOptions, useAnimate } from '../hooks/useAnimate';
 import { getRandomArrayIndex, getRandomInt } from '../utils';
 
-// export const COLORS = [
-//   '#264653ff',
-//   '#2a9d8fff',
-//   '#e9c46aff',
-//   '#f4a261ff',
-//   '#e76f51ff',
-// ] as const;
 export const COLORS = [
   '#ffbe0bff',
   '#fb5607ff',
@@ -19,18 +12,11 @@ export const COLORS = [
   '#8338ecff',
   '#3a86ffff',
 ] as const;
-// export const COLORS = [
-//   '#ff71ce',
-//   '#01cdfe',
-//   '#05ffa1',
-//   '#b967ff',
-//   '#fffb96',
-// ] as const;
 
 function moveAnimation(): AnimationOptions {
   const translateX = getRandomInt(-50, 90);
   const translateY = getRandomInt(-50, 160);
-  const duration = 10 * 1000;
+  const duration = 7 * 1000;
 
   const keyframes = [
     {

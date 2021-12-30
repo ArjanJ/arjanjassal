@@ -6,7 +6,7 @@ import { StickyView } from '../components/StickyView';
 import selfPic from '../public/arjan-jassal.webp';
 
 function picTransitions(proportion: number) {
-  if (proportion > 0) {
+  if (proportion > -0.2) {
     return css`
       opacity: 1;
       transform: none;
@@ -20,7 +20,7 @@ function picTransitions(proportion: number) {
 }
 
 function textTransitions(proportion: number) {
-  if (proportion > 0) {
+  if (proportion > -0.2) {
     return css`
       opacity: 1;
       transform: none;
@@ -34,7 +34,7 @@ function textTransitions(proportion: number) {
 }
 
 function containerTransitions(proportion: number) {
-  if (proportion > 1) {
+  if (proportion > 1.25) {
     return css`
       opacity: 0;
     `;
@@ -132,9 +132,8 @@ export const About = () => {
                 ]}
               >
                 <span css={[text, activeText]}>
-                  I&apos;m currently working on powering last mile deliveries at{' '}
-                  <a href="#">Onfleet.</a>
-                  &nbsp;
+                  I&apos;m currently powering last mile deliveries at{' '}
+                  <a href="#">Onfleet</a>. &nbsp;
                 </span>
                 <span css={[text, proportion > 0.33 && activeText]}>
                   You can see some of my side projects on <a href="#">GitHub</a>
@@ -150,6 +149,7 @@ export const About = () => {
               css={[
                 css`
                   left: 0;
+                  pointer-events: none;
                   position: absolute;
                   top: 0;
                   transform: translateY(-50%);
