@@ -21,7 +21,7 @@ const Home: NextPage = () => {
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=optional"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=optional"
           rel="stylesheet"
         ></link>
       </Head>

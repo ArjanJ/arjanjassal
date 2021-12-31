@@ -67,13 +67,11 @@ export const Work = () => {
       : false;
   }
 
-  console.log(isInView(0.25));
-
   return (
     <div
       css={css`
         min-height: 100vh;
-        padding: 160px 0 0;
+        padding: 300px 0 200px;
         position: relative;
       `}
     >
@@ -89,9 +87,16 @@ export const Work = () => {
         <h2
           css={css`
             font-size: 72px;
-            margin-bottom: 100px;
-            opacity: ${isInView(0.5) ? 1 : 0};
-            transition: all 800ms cubic-bezier(0.33, 1, 0.68, 1);
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(20%);
+            transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
+
+            ${isInView(0.5) &&
+            `
+              opacity: 1;
+              transform: none;
+            `}
           `}
         >
           Career log
@@ -100,7 +105,7 @@ export const Work = () => {
         <ul
           css={css`
             display: grid;
-            grid-gap: 45px;
+            grid-gap: 60px;
             list-style-type: none;
             padding: 0;
             width: 100%;
@@ -115,7 +120,7 @@ export const Work = () => {
                     align-items: center;
                     display: flex;
                     opacity: 0;
-                    transform: translateY(20%);
+                    transform: scale(0.98) translateY(15%);
                     transition: all 800ms ${i * 100}ms
                       cubic-bezier(0.33, 1, 0.68, 1);
                     will-change: transform;
@@ -201,7 +206,7 @@ export const Work = () => {
             pointer-events: none;
             position: absolute;
             top: 0;
-            transform: translateY(-50%);
+            // transform: translateY(-50%);
             width: 100%;
             z-index: 1;
 
@@ -214,7 +219,7 @@ export const Work = () => {
               top: 0;
               transform: ${isInView(0.25) ? 'scaleX(0)' : 'none'};
               transform-origin: left center;
-              transition: all 800ms cubic-bezier(0.33, 1, 0.68, 1);
+              transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
               width: 100%;
               z-index: 1;
             }
@@ -236,22 +241,22 @@ export const Work = () => {
           <path
             d="M1 54.25L40.6 68.6667C81.4 83.0833 160.6 111.917 241 104.708C321.4 97.5 400.6 54.25 481 68.6667C561.4 83.0833 640.6 155.167 721 205.625C801.4 256.083 880.6 284.917 961 256.083C1041.4 227.25 1120.6 140.75 1201 90.2917C1281.4 39.8333 1360.6 25.4167 1401.4 18.2083L1441 11"
             stroke="#8338EC"
-            strokeOpacity="0.9"
+            strokeOpacity="0.85"
           />
           <path
             d="M1 64.25L40.6 78.6667C81.4 93.0833 160.6 121.917 241 114.708C321.4 107.5 400.6 64.25 481 78.6667C561.4 93.0833 640.6 165.167 721 215.625C801.4 266.083 880.6 294.917 961 266.083C1041.4 237.25 1120.6 150.75 1201 100.292C1281.4 49.8333 1360.6 35.4167 1401.4 28.2083L1441 21"
             stroke="#FF006E"
-            strokeOpacity="0.8"
+            strokeOpacity="0.7"
           />
           <path
             d="M1 74.25L40.6 88.6667C81.4 103.083 160.6 131.917 241 124.708C321.4 117.5 400.6 74.25 481 88.6667C561.4 103.083 640.6 175.167 721 225.625C801.4 276.083 880.6 304.917 961 276.083C1041.4 247.25 1120.6 160.75 1201 110.292C1281.4 59.8333 1360.6 45.4167 1401.4 38.2083L1441 31"
             stroke="#FB5607"
-            strokeOpacity="0.7"
+            strokeOpacity="0.55"
           />
           <path
             d="M1 84.25L40.6 98.6667C81.4 113.083 160.6 141.917 241 134.708C321.4 127.5 400.6 84.25 481 98.6667C561.4 113.083 640.6 185.167 721 235.625C801.4 286.083 880.6 314.917 961 286.083C1041.4 257.25 1120.6 170.75 1201 120.292C1281.4 69.8333 1360.6 55.4167 1401.4 48.2083L1441 41"
             stroke="#FFBE0B"
-            strokeOpacity="0.6"
+            strokeOpacity="0.4"
           />
         </svg>
       </div>

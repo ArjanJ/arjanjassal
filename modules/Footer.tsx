@@ -158,7 +158,7 @@ const linkStyles = css`
   margin-left: 20px;
   text-decoration: none;
 
-  &:first-child {
+  &:first-of-type {
     margin-left: 0;
   }
 `;
