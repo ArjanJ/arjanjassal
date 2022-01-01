@@ -166,8 +166,13 @@ export const About = () => {
                   pointer-events: none;
                   position: absolute;
                   top: 40px;
+                  transform: scale(2);
                   width: 100%;
                   z-index: 1;
+
+                  ${mq[0]} {
+                    transform: none;
+                  }
 
                   &::before {
                     background: black;
@@ -186,13 +191,6 @@ export const About = () => {
               ]}
             >
               <svg
-                css={css`
-                  transform: scale(2);
-
-                  ${mq[0]} {
-                    transform: none;
-                  }
-                `}
                 viewBox="0 0 1442 210"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -255,7 +253,7 @@ const activeTextStyles = css`
 `;
 
 const wavePathStyles = css`
-  stroke-width: 3px;
+  stroke-width: 2px;
 
   ${mq[0]} {
     stroke-width: 1px;

@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { COLORS, Particles } from '../components/Particles';
 import { ScrollContext } from '../components/ScrollContext';
+import { mq } from '../utils';
 import { About } from './About';
 import { Footer } from './Footer';
 import { Hero } from './Hero';
@@ -39,7 +40,7 @@ export const Scroller = () => {
               ${COLORS[0]},
               ${COLORS[COLORS.length - 1]}
             );
-            height: 2000px;
+            height: calc(2000px - 90px);
             left: 0;
             mix-blend-mode: multiply;
             overflow: hidden;
@@ -49,6 +50,10 @@ export const Scroller = () => {
             user-select: none;
             width: 100%;
             z-index: 1;
+
+            ${mq[0]} {
+              height: 2000px;
+            }
           `}
         >
           <Particles />
