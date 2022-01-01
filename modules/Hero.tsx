@@ -3,6 +3,7 @@ import { css, keyframes } from '@emotion/react';
 
 import { StickyView } from '../components/StickyView';
 import { AnimationOptions, useAnimate } from '../hooks/useAnimate';
+import { mq } from '../utils';
 
 const fadeInAnimation: AnimationOptions = {
   animationOptions: {
@@ -78,24 +79,30 @@ export const Hero = () => {
                 <h1
                   css={css`
                     color: white;
-                    font-size: 111px;
+                    font-size: 46px;
                     opacity: 0;
                     transform: translateY(3%);
+
+                    ${mq[0]} {
+                      font-size: 111px;
+                    }
                   `}
                   ref={headingRef}
                 >
                   Hello, my name&apos;s Arjan. I build and design things for the
                   web.
                 </h1>
+
                 <div
                   css={css`
                     align-items: center;
                     bottom: 0;
                     display: flex;
                     flex-direction: column;
-                    left: 50%;
+                    left: 0;
                     opacity: 0;
                     position: absolute;
+                    width: 100%;
                   `}
                   ref={scrollIndicatorRef}
                 >

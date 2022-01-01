@@ -1,14 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
+import { mq } from '../utils';
+
 export const Footer = () => {
   return (
     <footer
       css={css`
         align-items: center;
         display: flex;
-        padding: 160px 0 100px;
+        padding: 120px 30px 50px;
         position: relative;
+
+        ${mq[0]} {
+          padding: 160px 30px 100px;
+        }
       `}
     >
       <div
@@ -24,7 +30,11 @@ export const Footer = () => {
       >
         <svg
           css={css`
-            width: 100%;
+            transform: scale(2);
+
+            ${mq[0]} {
+              transform: none;
+            }
           `}
           viewBox="0 0 1441 322"
           fill="none"
@@ -66,8 +76,12 @@ export const Footer = () => {
       >
         <p
           css={css`
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 30px;
+
+            ${mq[0]} {
+              font-size: 18px;
+            }
           `}
         >
           All rights reserved © Arjan Jassal {new Date().getFullYear()}
