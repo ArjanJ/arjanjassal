@@ -72,17 +72,13 @@ export const Hero = () => {
                 height: calc(var(--vh, 1vh) * 100);
                 position: relative;
                 width: 100%;
-
-                ${mq[0]} {
-                  height: 100vh;
-                }
               `}
             >
               <div
                 css={[
                   css`
                     margin: 0 auto;
-                    max-width: 1000px;
+                    max-width: 1076px;
                     padding: 0 30px;
                     transition: all 800ms cubic-bezier(0.33, 1, 0.68, 1);
                   `,
@@ -97,7 +93,7 @@ export const Hero = () => {
                     transform: translateY(3%);
 
                     ${mq[0]} {
-                      font-size: 111px;
+                      font-size: 121px;
                     }
                   `}
                   ref={headingRef}
@@ -105,55 +101,53 @@ export const Hero = () => {
                   Hello, my name&apos;s Arjan. I build and design things for the
                   web.
                 </h1>
-
-                <div
-                  css={css`
-                    align-items: center;
-                    bottom: 0;
-                    display: flex;
-                    flex-direction: column;
-                    left: 0;
-                    opacity: 0;
-                    position: absolute;
-                    width: 100%;
-                  `}
-                  ref={scrollIndicatorRef}
-                >
-                  <span
-                    css={css`
-                      font-size: 18px;
-                      font-weight: 800;
-                      margin-bottom: 10px;
-                      text-transform: uppercase;
-                    `}
-                  >
-                    Scroll
-                  </span>
-                  <span
-                    css={css`
-                      background: rgba(255, 255, 255, 0.5);
-                      height: 70px;
-                      overflow: hidden;
-                      position: relative;
-                      transform-origin: center bottom;
-                      transition: all 0.6s cubic-bezier(0.33, 1, 0.68, 1);
-                      width: 1px;
-
-                      &::before {
-                        animation: ${scrollIndicatorKeyframes} 1.2s linear
-                          infinite;
-                        background: white;
-                        content: '';
-                        height: 100%;
-                        left: 0;
-                        position: absolute;
-                        top: 0;
-                        width: 1px;
-                      }
-                    `}
-                  />
-                </div>
               </div>
+            </div>
+            <div
+              css={css`
+                align-items: center;
+                bottom: 0;
+                display: flex;
+                flex-direction: column;
+                left: 0;
+                opacity: 0;
+                position: absolute;
+                width: 100%;
+              `}
+              ref={scrollIndicatorRef}
+            >
+              <span
+                css={css`
+                  font-size: 18px;
+                  font-weight: 800;
+                  margin-bottom: 10px;
+                  text-transform: uppercase;
+                `}
+              >
+                Scroll
+              </span>
+              <span
+                css={css`
+                  background: rgba(255, 255, 255, 0.5);
+                  height: 80px;
+                  overflow: hidden;
+                  position: relative;
+                  transform-origin: center bottom;
+                  transition: all 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+                  width: 1px;
+
+                  &::before {
+                    animation: ${scrollIndicatorKeyframes} 3s linear infinite;
+                    background: white;
+                    content: '';
+                    height: 100%;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                    width: 1px;
+                  }
+                `}
+              />
             </div>
           </>
         );

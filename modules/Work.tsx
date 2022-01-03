@@ -8,6 +8,7 @@ import { Grow } from '../components/Logos/Grow';
 import { Onfleet } from '../components/Logos/Onfleet';
 import { PerfectMind } from '../components/Logos/PerfectMind';
 import { Taloflow } from '../components/Logos/Taloflow';
+import { StickyView } from '../components/StickyView';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { mq } from '../utils';
 

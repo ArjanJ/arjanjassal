@@ -8,7 +8,8 @@ import { mq } from '../utils';
 import { About } from './About';
 import { Footer } from './Footer';
 import { Hero } from './Hero';
-import { Work } from './Work';
+// import { Work } from './Work';
+import { Work } from './Work2';
 
 export const Scroller = () => {
   const [scrollingElement, setScrollingElement] =
