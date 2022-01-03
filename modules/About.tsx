@@ -20,6 +20,7 @@ export const About = () => {
               max-width: 1076px;
               min-height: 100vh;
               padding: 0 30px;
+              background: black;
             `}
           >
             <div
@@ -158,7 +159,7 @@ export const About = () => {
 };
 
 const textStyles = css`
-  filter: blur(9px);
+  filter: blur(8px);
   opacity: 0.6;
   transition: all 400ms ease-in-out;
 
@@ -172,7 +173,7 @@ const activeTextStyles = css`
   opacity: 1;
 
   a {
-    color: #3a86ffff;
+    // color: #3a86ffff;
     text-decoration: none;
   }
 

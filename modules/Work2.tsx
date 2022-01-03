@@ -76,20 +76,25 @@ export const Work = () => {
             <h2
               css={[
                 css`
-                  font-size: 60px;
-                  margin-bottom: 80px;
+                  font-size: 40px;
+                  margin-bottom: 30px;
                   transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
+
+                  ${mq[0]} {
+                    font-size: 60px;
+                    margin-bottom: 60px;
+                  }
                 `,
                 titleTransitions(proportion),
               ]}
             >
-              Career log
+              Work
             </h2>
             <div
               css={css`
                 display: grid;
                 font-weight: 800;
-                grid-auto-rows: 120px;
+                grid-auto-rows: 100px;
                 grid-gap: 15px;
                 grid-template-columns: 1fr;
                 width: 100%;
@@ -100,9 +105,13 @@ export const Work = () => {
                 }
 
                 > * {
-                  border-radius: 27px;
+                  border-radius: 17px;
                   transition: transform 100ms linear;
                   will-change: transform;
+
+                  ${mq[1]} {
+                    border-radius: 27px;
+                  }
                 }
               `}
             >

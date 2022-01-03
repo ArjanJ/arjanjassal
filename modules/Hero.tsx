@@ -21,7 +21,7 @@ const fadeInAnimation: AnimationOptions = {
   ],
 };
 
-function headingTransitions(proportion: number) {
+function fadeTransition(proportion: number) {
   if (proportion > 1.1) {
     return css`
       opacity: 0;
@@ -82,13 +82,13 @@ export const Hero = () => {
                     padding: 0 30px;
                     transition: all 800ms cubic-bezier(0.33, 1, 0.68, 1);
                   `,
-                  headingTransitions(proportion),
+                  fadeTransition(proportion),
                 ]}
               >
                 <h1
                   css={css`
                     color: white;
-                    font-size: 46px;
+                    font-size: 48px;
                     opacity: 0;
                     transform: translateY(3%);
 
@@ -102,52 +102,54 @@ export const Hero = () => {
                   web.
                 </h1>
               </div>
-            </div>
-            <div
-              css={css`
-                align-items: center;
-                bottom: 0;
-                display: flex;
-                flex-direction: column;
-                left: 0;
-                opacity: 0;
-                position: absolute;
-                width: 100%;
-              `}
-              ref={scrollIndicatorRef}
-            >
-              <span
-                css={css`
-                  font-size: 18px;
-                  font-weight: 800;
-                  margin-bottom: 10px;
-                  text-transform: uppercase;
-                `}
-              >
-                Scroll
-              </span>
-              <span
-                css={css`
-                  background: rgba(255, 255, 255, 0.5);
-                  height: 80px;
-                  overflow: hidden;
-                  position: relative;
-                  transform-origin: center bottom;
-                  transition: all 0.6s cubic-bezier(0.33, 1, 0.68, 1);
-                  width: 1px;
 
-                  &::before {
-                    animation: ${scrollIndicatorKeyframes} 3s linear infinite;
-                    background: white;
-                    content: '';
-                    height: 100%;
-                    left: 0;
-                    position: absolute;
-                    top: 0;
-                    width: 1px;
-                  }
+              <div
+                css={css`
+                  align-items: center;
+                  bottom: 0;
+                  display: flex;
+                  flex-direction: column;
+                  left: 0;
+                  opacity: 0;
+                  position: absolute;
+                  width: 100%;
                 `}
-              />
+                ref={scrollIndicatorRef}
+              >
+                <span
+                  css={css`
+                    font-size: 18px;
+                    font-weight: 800;
+                    margin-bottom: 10px;
+                    text-transform: uppercase;
+                  `}
+                >
+                  Scroll
+                </span>
+
+                <span
+                  css={css`
+                    background: rgba(255, 255, 255, 0.5);
+                    height: 80px;
+                    overflow: hidden;
+                    position: relative;
+                    transform-origin: center bottom;
+                    transition: all 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+                    width: 1px;
+
+                    &::before {
+                      animation: ${scrollIndicatorKeyframes} 3s linear infinite;
+                      background: white;
+                      content: '';
+                      height: 100%;
+                      left: 0;
+                      position: absolute;
+                      top: 0;
+                      width: 1px;
+                    }
+                  `}
+                />
+              </div>
             </div>
           </>
         );
