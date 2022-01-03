@@ -19,53 +19,6 @@ export const Footer = () => {
     >
       <div
         css={css`
-          left: 0;
-          pointer-events: none;
-          position: absolute;
-          top: 0;
-          transform: scale(2) translateY(-50%);
-          width: 100%;
-          z-index: 1;
-
-          ${mq[0]} {
-            transform: translateY(-50%);
-          }
-        `}
-      >
-        <svg
-          viewBox="0 0 1441 322"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1 1L49 44.2C97 87.4 193 173.8 289 173.8C385 173.8 481 87.4 577 101.8C673 116.2 769 231.4 865 267.4C961 303.4 1057 260.2 1153 238.6C1249 217 1345 217 1393 217H1441"
-            stroke="#FFF"
-          />
-          <path
-            d="M1 11L49 54.2C97 97.4 193 183.8 289 183.8C385 183.8 481 97.4 577 111.8C673 126.2 769 241.4 865 277.4C961 313.4 1057 270.2 1153 248.6C1249 227 1345 227 1393 227H1441"
-            stroke="#FFF"
-            strokeOpacity="0.8"
-          />
-          <path
-            d="M1 21L49 64.2C97 107.4 193 193.8 289 193.8C385 193.8 481 107.4 577 121.8C673 136.2 769 251.4 865 287.4C961 323.4 1057 280.2 1153 258.6C1249 237 1345 237 1393 237H1441"
-            stroke="#FFF"
-            strokeOpacity="0.6"
-          />
-          <path
-            d="M1 31L49 74.2C97 117.4 193 203.8 289 203.8C385 203.8 481 117.4 577 131.8C673 146.2 769 261.4 865 297.4C961 333.4 1057 290.2 1153 268.6C1249 247 1345 247 1393 247H1441"
-            stroke="#FFF"
-            strokeOpacity="0.4"
-          />
-          <path
-            d="M1 41L49 84.2C97 127.4 193 213.8 289 213.8C385 213.8 481 127.4 577 141.8C673 156.2 769 271.4 865 307.4C961 343.4 1057 300.2 1153 278.6C1249 257 1345 257 1393 257H1441"
-            stroke="#FFF"
-            strokeOpacity="0.2"
-          />
-        </svg>
-      </div>
-
-      <div
-        css={css`
           flex: 1;
           max-width: 1000px;
           margin: 0 auto;
@@ -73,12 +26,9 @@ export const Footer = () => {
       >
         <p
           css={css`
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 800px;
             margin-bottom: 30px;
-
-            ${mq[0]} {
-              font-size: 18px;
-            }
           `}
         >
           All rights reserved © Arjan Jassal {new Date().getFullYear()}

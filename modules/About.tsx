@@ -66,14 +66,14 @@ export const About = () => {
                       z-index: 1;
 
                       ${mq[0]} {
-                        width: 66%;
+                        width: 70%;
                       }
                     }
 
                     &::after {
                       background: black;
                       left: 0;
-                      transition: all 800ms cubic-bezier(0.33, 1, 0.68, 1);
+                      transition: all 600ms cubic-bezier(0.33, 1, 0.68, 1);
                       transform-origin: center left;
                       width: 100%;
                     }
@@ -172,7 +172,7 @@ const activeTextStyles = css`
   opacity: 1;
 
   a {
-    color: #fb5607ff;
+    color: #3a86ffff;
     text-decoration: none;
   }
 
@@ -182,7 +182,7 @@ const activeTextStyles = css`
 `;
 
 function picTransitions(proportion: number) {
-  if (proportion > -0.2) {
+  if (proportion > -0.15) {
     return css`
       &::after {
         transform: scaleX(0);
@@ -198,7 +198,7 @@ function picTransitions(proportion: number) {
 }
 
 function textTransitions(proportion: number) {
-  if (proportion > -0.2) {
+  if (proportion > -0.15) {
     return css`
       opacity: 1;
       transform: none;
