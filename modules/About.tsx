@@ -63,7 +63,6 @@ export const About = () => {
 
                     &::before {
                       background: linear-gradient(0deg, black, transparent);
-                      content: '';
                       height: 100%;
                       position: absolute;
                       right: 0;
@@ -78,11 +77,16 @@ export const About = () => {
                     }
 
                     &::after {
-                      background: black;
-                      left: 0;
-                      transition: all 600ms cubic-bezier(0.33, 1, 0.68, 1);
-                      transform-origin: center left;
-                      width: 100%;
+                      display: none;
+
+                      ${mq[0]} {
+                        background: black;
+                        display: block;
+                        left: 0;
+                        transition: all 600ms cubic-bezier(0.33, 1, 0.68, 1);
+                        transform-origin: center left;
+                        width: 100%;
+                      }
                     }
                   `,
                   picTransitions(proportion),
@@ -98,11 +102,12 @@ export const About = () => {
                     font-weight: 800;
                     grid-column: 2 / -1;
                     grid-row: 1;
-                    opacity: 0;
+
                     transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
 
                     ${mq[0]} {
                       font-size: 40px;
+                      opacity: 0;
                       grid-column: 4 / -1;
                     }
 
@@ -158,16 +163,8 @@ const activeTextStyles = css`
 
 function picTransitions(proportion: number) {
   return css`
-    ${proportion > -7
-      ? `&::after {
-    transform: scaleX(0);
-  }`
-      : `&::after {
-    transform: none;
-  }`}
-
     ${mq[1]} {
-      ${proportion > 0
+      ${proportion > -0.25
         ? `&::after {
         transform: scaleX(0);
       }`
@@ -180,14 +177,8 @@ function picTransitions(proportion: number) {
 
 function textTransitions(proportion: number) {
   return css`
-    ${proportion > -7
-      ? `opacity: 1;
-  transform: none;`
-      : `opacity: 0;
-  transform: translateX(-3%);`}
-
     ${mq[1]} {
-      ${proportion > 0
+      ${proportion > -0.25
         ? `opacity: 1;
       transform: none;`
         : `opacity: 0;

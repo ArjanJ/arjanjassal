@@ -27,10 +27,6 @@ const TILE_12 = [getRandomInt(-350, -200), getRandomInt(-200, -300)];
 function tileTransitions(proportion: number) {
   return function (x: number, y: number) {
     return css`
-      ${proportion > -8
-        ? `opacity: 1; transform: none;`
-        : `opacity: 0; transform: translateY(20%);`}
-
       ${mq[1]} {
         ${proportion < -2 &&
         `opacity: 0;
@@ -47,12 +43,6 @@ function tileTransitions(proportion: number) {
 
 function titleTransitions(proportion: number) {
   return css`
-    ${proportion > -8
-      ? `opacity: 1;
-  transform: none;`
-      : `opacity: 0;
-  transform: translateY(20%)`}
-
     ${mq[1]} {
       ${proportion > 0
         ? `opacity: 1;
@@ -109,7 +99,7 @@ export const Work = () => {
                 display: grid;
                 font-weight: 800;
                 grid-auto-rows: 90px;
-                grid-gap: 15px 0;
+                grid-gap: 0;
                 grid-template-columns: 90px 1fr;
                 width: 100%;
 

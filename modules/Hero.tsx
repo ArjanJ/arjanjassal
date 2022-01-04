@@ -24,7 +24,9 @@ const fadeInAnimation: AnimationOptions = {
 function fadeTransition(proportion: number) {
   if (proportion > 1.1) {
     return css`
-      opacity: 0;
+      ${mq[1]} {
+        opacity: 0;
+      }
     `;
   } else {
     return css`
