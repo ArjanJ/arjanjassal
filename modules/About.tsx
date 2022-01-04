@@ -19,7 +19,11 @@ export const About = () => {
               margin: 0 auto;
               max-width: 1076px;
               min-height: calc(var(--vh, 1vh) * 100);
-              padding: 0 30px;
+              padding: 100px 15px;
+
+              ${mq[1]} {
+                padding: 0 15px;
+              }
             `}
           >
             <div
@@ -58,7 +62,7 @@ export const About = () => {
                     }
 
                     &::before {
-                      background: linear-gradient(270deg, black, transparent);
+                      background: linear-gradient(0deg, black, transparent);
                       content: '';
                       height: 100%;
                       position: absolute;
@@ -68,6 +72,7 @@ export const About = () => {
                       z-index: 1;
 
                       ${mq[0]} {
+                        background: linear-gradient(270deg, black, transparent);
                         width: 70%;
                       }
                     }
@@ -121,38 +126,6 @@ export const About = () => {
                 </span>
               </p>
             </div>
-
-            <div
-              css={[
-                css`
-                  left: 0;
-                  pointer-events: none;
-                  position: absolute;
-                  top: 40px;
-                  transform: scale(2.5);
-                  width: 100%;
-                  z-index: 1;
-
-                  ${mq[0]} {
-                    transform: none;
-                  }
-
-                  &::before {
-                    background: black;
-                    content: '';
-                    height: 100%;
-                    left: 0;
-                    position: absolute;
-                    top: 0;
-                    transform-origin: right center;
-                    transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
-                    width: 100%;
-                    z-index: 1;
-                  }
-                `,
-                waveTransitions(proportion),
-              ]}
-            ></div>
           </div>
         );
       }}
@@ -185,7 +158,7 @@ const activeTextStyles = css`
 `;
 
 function picTransitions(proportion: number) {
-  if (proportion > -0.15) {
+  if (proportion > 0) {
     return css`
       &::after {
         transform: scaleX(0);
@@ -201,7 +174,7 @@ function picTransitions(proportion: number) {
 }
 
 function textTransitions(proportion: number) {
-  if (proportion > -0.15) {
+  if (proportion > 0) {
     return css`
       opacity: 1;
       transform: none;
@@ -224,22 +197,6 @@ function containerTransitions(proportion: number) {
   } else {
     return css`
       opacity: 1;
-    `;
-  }
-}
-
-function waveTransitions(proportion: number) {
-  if (proportion > -0.5) {
-    return css`
-      &::before {
-        transform: scaleX(0);
-      }
-    `;
-  } else {
-    return css`
-      &::before {
-        transform: none;
-      }
     `;
   }
 }

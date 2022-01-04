@@ -43,24 +43,22 @@ function tileTransitions(proportion: number) {
 }
 
 function titleTransitions(proportion: number) {
-  if (proportion > 0) {
-    return css`
-      opacity: 1;
-      transform: none;
-    `;
-  } else {
-    return css`
-      opacity: 0;
-      transform: translateY(20%);
-    `;
-  }
-}
+  return css`
+    ${proportion > -0.5
+      ? `opacity: 1;
+  transform: none;`
+      : `opacity: 0;
+  transform: translateY(20%)`}
 
-const flexCenter = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+    ${mq[1]} {
+      ${proportion > 0
+        ? `opacity: 1;
+      transform: none;`
+        : `opacity: 0;
+      transform: translateY(20%)`}
+    }
+  `;
+}
 
 export const Work = () => {
   return (
@@ -78,7 +76,11 @@ export const Work = () => {
               margin: 0 auto;
               max-width: 1076px;
               min-height: calc(var(--vh, 1vh) * 100);
-              padding: 15px;
+              padding: 100px 15px;
+
+              ${mq[1]} {
+                padding: 15px;
+              }
             `}
           >
             <h2
@@ -491,4 +493,10 @@ const tilePadding = css`
   ${mq[1]} {
     padding: 0 30px;
   }
+`;
+
+const flexCenter = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
