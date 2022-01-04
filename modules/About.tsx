@@ -18,7 +18,7 @@ export const About = () => {
               justify-content: center;
               margin: 0 auto;
               max-width: 1076px;
-              min-height: 100vh;
+              min-height: calc(var(--vh, 1vh) * 100);
               padding: 0 30px;
               background: black;
             `}
@@ -39,12 +39,14 @@ export const About = () => {
                 css={[
                   css`
                     filter: grayscale(1);
-                    grid-column: 1 / span 8;
+                    grid-column: 1 / span 10;
                     grid-row: 1;
+                    opacity: 0.6;
                     position: relative;
 
                     ${mq[0]} {
                       grid-column: 1 / span 4;
+                      opacity: 1;
                     }
 
                     &::before,
@@ -88,7 +90,7 @@ export const About = () => {
               <p
                 css={[
                   css`
-                    font-size: 24px;
+                    font-size: 25px;
                     font-weight: 800;
                     grid-column: 2 / -1;
                     grid-row: 1;
@@ -111,7 +113,7 @@ export const About = () => {
                   <a href="#">Onfleet</a>. &nbsp;
                 </span>
                 <span css={[textStyles, proportion > 0.33 && activeTextStyles]}>
-                  You can see some of my side projects on <a href="#">GitHub</a>
+                  You can see some of my code on <a href="#">GitHub</a>
                   ,&nbsp;
                 </span>
                 <span css={[textStyles, proportion > 0.66 && activeTextStyles]}>

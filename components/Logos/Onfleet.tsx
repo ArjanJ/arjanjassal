@@ -1,7 +1,7 @@
 export const Onfleet = (props: Record<string, unknown>) => (
   <svg
-    width="60"
-    height="28"
+    width="120"
+    height="56"
     viewBox="0 0 60 28"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

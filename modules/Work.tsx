@@ -72,7 +72,7 @@ export const Work = () => {
   return (
     <div
       css={css`
-        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
         padding: 150px 0 100px;
         position: relative;
 

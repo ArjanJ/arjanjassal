@@ -27,8 +27,8 @@ export const Footer = () => {
       >
         <p
           css={css`
-            font-size: 18px;
-            font-weight: 800px;
+            font-size: 24px;
+            font-weight: 800;
             margin-bottom: 30px;
           `}
         >

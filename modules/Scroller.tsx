@@ -41,7 +41,7 @@ export const Scroller = () => {
               ${COLORS[0]},
               ${COLORS[COLORS.length - 1]}
             );
-            height: 2000px;
+            height: 1919px;
             left: 0;
             mix-blend-mode: multiply;
             overflow: hidden;

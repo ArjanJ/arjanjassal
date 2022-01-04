@@ -88,7 +88,7 @@ export const Hero = () => {
                 <h1
                   css={css`
                     color: white;
-                    font-size: 48px;
+                    font-size: 46px;
                     opacity: 0;
                     transform: translateY(3%);
 

@@ -56,7 +56,7 @@ const flexCenter = css`
 
 export const Work = () => {
   return (
-    <StickyView height={2000}>
+    <StickyView height={1800}>
       {proportion => {
         const transition = tileTransitions(proportion);
 
@@ -69,14 +69,14 @@ export const Work = () => {
               justify-content: center;
               margin: 0 auto;
               max-width: 1076px;
-              min-height: 100vh;
-              padding: 30px;
+              min-height: calc(var(--vh, 1vh) * 100);
+              padding: 15px;
             `}
           >
             <h2
               css={[
                 css`
-                  font-size: 40px;
+                  font-size: 30px;
                   margin-bottom: 30px;
                   transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
 
@@ -90,27 +90,39 @@ export const Work = () => {
             >
               Places I&apos;ve worked
             </h2>
+
             <div
               css={css`
                 display: grid;
                 font-weight: 800;
-                grid-auto-rows: 100px;
-                grid-gap: 15px;
-                grid-template-columns: 1fr;
+                grid-auto-rows: 90px;
+                grid-gap: 15px 0;
+                grid-template-columns: 90px 1fr;
                 width: 100%;
 
                 ${mq[1]} {
                   grid-auto-rows: 156px;
+                  grid-gap: 15px;
                   grid-template-columns: repeat(12, 1fr);
                 }
 
                 > * {
-                  border-radius: 17px;
+                  // border-radius: 17px;
                   transition: transform 100ms linear;
                   will-change: transform;
 
                   ${mq[1]} {
                     border-radius: 27px;
+                  }
+
+                  svg {
+                    max-width: 48px;
+                    max-height: 48px;
+
+                    ${mq[1]} {
+                      max-height: 70px;
+                      max-width: 90px;
+                    }
                   }
                 }
               `}
@@ -124,11 +136,6 @@ export const Work = () => {
                     ${mq[1]} {
                       grid-column: 1 / span 2;
                     }
-
-                    svg {
-                      height: auto;
-                      width: 100px;
-                    }
                   `,
                   transition(TILE_1[0], TILE_1[1]),
                 ]}
@@ -139,13 +146,12 @@ export const Work = () => {
                 css={[
                   css`
                     background-color: #8d4af4;
-                    padding: 0 30px;
 
                     ${mq[1]} {
                       grid-column: 3 / span 6;
                     }
                   `,
-                  hideOnMobileStyles,
+                  tilePadding,
                   transition(TILE_2[0], TILE_2[1]),
                 ]}
               >
@@ -154,35 +160,23 @@ export const Work = () => {
                     align-items: center;
                     display: flex;
                     font-size: 24px;
-
                     height: 100%;
                     justify-content: space-between;
                   `}
                 >
                   <div>
-                    <h3
-                      css={css`
-                        font-size: 24px;
-                        margin-bottom: 2px;
-                      `}
-                    >
-                      Onfleet
-                    </h3>
+                    <h3 css={[largeTextStyles, headingStyles]}>Onfleet</h3>
                     <p
-                      css={css`
-                        opacity: 0.75;
-                      `}
+                      css={[
+                        largeTextStyles,
+                        secondaryTextStyles,
+                        hideOnMobileStyles,
+                      ]}
                     >
                       Sr. Frontend Engineer
                     </p>
                   </div>
-                  <p
-                    css={css`
-                      opacity: 0.75;
-                    `}
-                  >
-                    2021-
-                  </p>
+                  <p css={[largeTextStyles, secondaryTextStyles]}>2021-</p>
                 </div>
               </div>
               <div
@@ -193,11 +187,6 @@ export const Work = () => {
 
                     ${mq[1]} {
                       grid-column: 9 / span 2;
-                    }
-
-                    svg {
-                      height: 77px;
-                      width: auto;
                     }
                   `,
                   transition(TILE_3[0], TILE_3[1]),
@@ -210,46 +199,34 @@ export const Work = () => {
                   css`
                     background-color: #0bb99a;
                     font-size: 18px;
-                    padding: 20px;
+                    padding: 0 15px;
 
                     ${mq[1]} {
                       grid-column: 11 / span 2;
+                      padding: 20px;
                     }
                   `,
-                  hideOnMobileStyles,
                   transition(TILE_4[0], TILE_4[1]),
                 ]}
               >
                 <div
                   css={css`
+                    align-items: center;
                     display: flex;
                     height: 100%;
-                    flex-direction: column;
                     justify-content: space-between;
+
+                    ${mq[1]} {
+                      align-items: initial;
+                      flex-direction: column;
+                    }
                   `}
                 >
-                  <h3
-                    css={css`
-                      font-size: 18px;
-                    `}
-                  >
-                    Farmdrop
-                  </h3>
-                  <p
-                    css={css`
-                      line-height: 1.25;
-                      opacity: 0.75;
-                    `}
-                  >
+                  <h3 css={mediumTextStyles}>Farmdrop</h3>
+                  <p css={[secondaryTextStyles, hideOnMobileStyles]}>
                     Sr. Frontend Engineer
                   </p>
-                  <p
-                    css={css`
-                      opacity: 0.75;
-                    `}
-                  >
-                    2019-21
-                  </p>
+                  <p css={[mediumTextStyles, secondaryTextStyles]}>2019-21</p>
                 </div>
               </div>
               <div
@@ -273,11 +250,6 @@ export const Work = () => {
                     ${mq[1]} {
                       grid-column: 4 / span 2;
                     }
-
-                    svg {
-                      height: auto;
-                      width: 100px;
-                    }
                   `,
                   transition(TILE_6[0], TILE_6[1]),
                 ]}
@@ -293,44 +265,36 @@ export const Work = () => {
                       grid-column: 6 / span 5;
                     }
                   `,
-                  hideOnMobileStyles,
                   transition(TILE_7[0], TILE_7[1]),
                 ]}
               >
                 <div
-                  css={css`
-                    align-items: center;
-                    display: flex;
-                    font-size: 24px;
-                    height: 100%;
-                    justify-content: space-between;
-                    padding: 0 30px;
-                  `}
+                  css={[
+                    css`
+                      align-items: center;
+                      display: flex;
+                      font-size: 24px;
+                      height: 100%;
+                      justify-content: space-between;
+                    `,
+                    tilePadding,
+                  ]}
                 >
                   <div>
-                    <h3
-                      css={css`
-                        font-size: 24px;
-                        margin-bottom: 2px;
-                      `}
-                    >
-                      Onfleet
-                    </h3>
-                    <p
-                      css={css`
-                        line-height: 1.25;
-                        opacity: 0.75;
-                      `}
-                    >
+                    <h3 css={[largeTextStyles, headingStyles]}>Taloflow</h3>
+                    <p css={[secondaryTextStyles, hideOnMobileStyles]}>
                       Sr. Frontend Engineer
                     </p>
                   </div>
                   <p
-                    css={css`
-                      margin-left: 30px;
-                      opacity: 0.75;
-                      white-space: nowrap;
-                    `}
+                    css={[
+                      css`
+                        margin-left: 30px;
+                        white-space: nowrap;
+                      `,
+                      secondaryTextStyles,
+                      largeTextStyles,
+                    ]}
                   >
                     2018-19
                   </p>
@@ -357,11 +321,6 @@ export const Work = () => {
                     ${mq[1]} {
                       grid-column: 1 / span 2;
                     }
-
-                    svg {
-                      height: auto;
-                      width: 77px;
-                    }
                   `,
                   transition(TILE_9[0], TILE_9[1]),
                 ]}
@@ -371,50 +330,42 @@ export const Work = () => {
               <div
                 css={[
                   css`
-                    background-color: #1ad8b0;
+                    background-color: #3db6e8;
 
                     ${mq[1]} {
                       grid-column: 3 / span 4;
                     }
                   `,
-                  hideOnMobileStyles,
                   transition(TILE_10[0], TILE_10[1]),
                 ]}
               >
                 <div
-                  css={css`
-                    align-items: center;
-                    display: flex;
-                    font-size: 24px;
-                    height: 100%;
-                    justify-content: space-between;
-                    padding: 0 30px;
-                  `}
+                  css={[
+                    css`
+                      align-items: center;
+                      display: flex;
+                      font-size: 24px;
+                      height: 100%;
+                      justify-content: space-between;
+                    `,
+                    tilePadding,
+                  ]}
                 >
                   <div>
-                    <h3
-                      css={css`
-                        font-size: 24px;
-                        margin-bottom: 2px;
-                      `}
-                    >
-                      Grow
-                    </h3>
-                    <p
-                      css={css`
-                        line-height: 1.25;
-                        opacity: 0.75;
-                      `}
-                    >
+                    <h3 css={[largeTextStyles, headingStyles]}>Grow</h3>
+                    <p css={[secondaryTextStyles, hideOnMobileStyles]}>
                       Frontend Engineer
                     </p>
                   </div>
                   <p
-                    css={css`
-                      margin-left: 30px;
-                      opacity: 0.75;
-                      white-space: nowrap;
-                    `}
+                    css={[
+                      css`
+                        margin-left: 30px;
+                        white-space: nowrap;
+                      `,
+                      secondaryTextStyles,
+                      largeTextStyles,
+                    ]}
                   >
                     2016-18
                   </p>
@@ -428,11 +379,6 @@ export const Work = () => {
 
                     ${mq[1]} {
                       grid-column: 7 / span 2;
-                    }
-
-                    svg {
-                      height: auto;
-                      width: 77px;
                     }
                   `,
                   transition(TILE_12[0], TILE_11[1]),
@@ -449,44 +395,41 @@ export const Work = () => {
                       grid-column: 9 / span 4;
                     }
                   `,
-                  hideOnMobileStyles,
                   transition(TILE_12[0], TILE_12[1]),
                 ]}
               >
                 <div
-                  css={css`
-                    align-items: center;
-                    display: flex;
-                    font-size: 24px;
-                    height: 100%;
-                    justify-content: space-between;
-                    padding: 0 30px;
-                  `}
+                  css={[
+                    css`
+                      align-items: center;
+                      display: flex;
+                      height: 100%;
+                      justify-content: space-between;
+                    `,
+                    tilePadding,
+                  ]}
                 >
                   <div>
-                    <h3
-                      css={css`
-                        font-size: 24px;
-                        margin-bottom: 2px;
-                      `}
-                    >
-                      Ettrics
-                    </h3>
+                    <h3 css={[largeTextStyles, headingStyles]}>Ettrics</h3>
                     <p
-                      css={css`
-                        line-height: 1.25;
-                        opacity: 0.75;
-                      `}
+                      css={[
+                        secondaryTextStyles,
+                        largeTextStyles,
+                        hideOnMobileStyles,
+                      ]}
                     >
                       Frontend Developer
                     </p>
                   </div>
                   <p
-                    css={css`
-                      margin-left: 30px;
-                      opacity: 0.75;
-                      white-space: nowrap;
-                    `}
+                    css={[
+                      css`
+                        margin-left: 30px;
+                        white-space: nowrap;
+                      `,
+                      secondaryTextStyles,
+                      largeTextStyles,
+                    ]}
                   >
                     2015-16
                   </p>
@@ -505,5 +448,40 @@ const hideOnMobileStyles = css`
 
   ${mq[1]} {
     display: block;
+  }
+`;
+
+const headingStyles = css`
+  ${mq[1]} {
+    margin-bottom: 3px;
+  }
+`;
+
+const secondaryTextStyles = css`
+  line-height: 1.25;
+  opacity: 0.75;
+`;
+
+const largeTextStyles = css`
+  font-size: 20px;
+
+  ${mq[1]} {
+    font-size: 24px;
+  }
+`;
+
+const mediumTextStyles = css`
+  font-size: 20px;
+
+  ${mq[1]} {
+    font-size: 18px;
+  }
+`;
+
+const tilePadding = css`
+  padding: 0 15px;
+
+  ${mq[1]} {
+    padding: 0 30px;
   }
 `;
