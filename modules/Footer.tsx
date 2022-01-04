@@ -33,7 +33,7 @@ export const Footer = () => {
             margin-bottom: 30px;
           `}
         >
-          All rights reserved © Arjan Jassal {new Date().getFullYear()}
+          Arjan Jassal {new Date().getFullYear()}
         </p>
 
         <div css={linkContainerStyles}>

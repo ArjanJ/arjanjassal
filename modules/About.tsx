@@ -10,7 +10,6 @@ export const About = () => {
   return (
     <StickyView height={3200}>
       {proportion => {
-        console.log(proportion);
         return (
           <div
             css={css`
@@ -94,6 +93,7 @@ export const About = () => {
                     font-weight: 800;
                     grid-column: 2 / -1;
                     grid-row: 1;
+                    opacity: 0;
                     transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
 
                     ${mq[0]} {
@@ -217,7 +217,9 @@ function textTransitions(proportion: number) {
 function containerTransitions(proportion: number) {
   if (proportion > 1.25) {
     return css`
-      opacity: 0;
+      ${mq[1]} {
+        opacity: 0;
+      }
     `;
   } else {
     return css`

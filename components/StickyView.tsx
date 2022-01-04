@@ -51,6 +51,42 @@ export const StickyView = ({ bottom, children, height }: StickyViewProps) => {
 
     if (scrollingElement) {
       scrollingElement.addEventListener('scroll', onScroll, false);
+
+      // Only needed the "target" prop, but TS wanted the rest :(
+      onScroll({
+        target: scrollingElement,
+        bubbles: false,
+        cancelBubble: false,
+        cancelable: false,
+        composed: false,
+        currentTarget: null,
+        defaultPrevented: false,
+        eventPhase: 0,
+        isTrusted: false,
+        returnValue: false,
+        srcElement: null,
+        timeStamp: 0,
+        type: '',
+        composedPath: function (): EventTarget[] {
+          throw new Error('Function not implemented.');
+        },
+        initEvent: function (): void {
+          throw new Error('Function not implemented.');
+        },
+        preventDefault: function (): void {
+          throw new Error('Function not implemented.');
+        },
+        stopImmediatePropagation: function (): void {
+          throw new Error('Function not implemented.');
+        },
+        stopPropagation: function (): void {
+          throw new Error('Function not implemented.');
+        },
+        AT_TARGET: 0,
+        BUBBLING_PHASE: 0,
+        CAPTURING_PHASE: 0,
+        NONE: 0,
+      });
     }
 
     return () => {
