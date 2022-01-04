@@ -10,7 +10,7 @@ export const Footer = () => {
         align-items: center;
         display: flex;
         min-height: 30vh;
-        padding: 30px 30px 30px;
+        padding: 30px;
         position: relative;
         text-align: center;
 

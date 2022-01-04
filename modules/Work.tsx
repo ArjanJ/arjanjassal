@@ -26,25 +26,28 @@ const TILE_12 = [getRandomInt(-350, -200), getRandomInt(-200, -300)];
 
 function tileTransitions(proportion: number) {
   return function (x: number, y: number) {
-    if (proportion < -2) {
-      return css`
-        opacity: 0;
-        transform: translate(${proportion * x}px, ${proportion * y}px);
-      `;
-    }
+    return css`
+      ${proportion > -8
+        ? `opacity: 1; transform: none;`
+        : `opacity: 0; transform: translateY(20%);`}
 
-    if (proportion < 0 && proportion > -2) {
-      return css`
-        opacity: 1;
-        transform: translate(${proportion * x}px, ${proportion * y}px);
-      `;
-    }
+      ${mq[1]} {
+        ${proportion < -2 &&
+        `opacity: 0;
+        transform: translate(${proportion * x}px, ${proportion * y}px);`}
+
+        ${proportion < 0 &&
+        proportion > -2 &&
+        `opacity: 1;
+        transform: translate(${proportion * x}px, ${proportion * y}px);`}
+      }
+    `;
   };
 }
 
 function titleTransitions(proportion: number) {
   return css`
-    ${proportion > -0.5
+    ${proportion > -8
       ? `opacity: 1;
   transform: none;`
       : `opacity: 0;
@@ -117,11 +120,12 @@ export const Work = () => {
                 }
 
                 > * {
-                  transition: all 100ms linear;
+                  transition: all 600ms cubic-bezier(0.33, 1, 0.68, 1);
                   will-change: transform, opacity;
 
                   ${mq[1]} {
                     border-radius: 27px;
+                    transition: all 100ms linear;
                   }
 
                   svg {
