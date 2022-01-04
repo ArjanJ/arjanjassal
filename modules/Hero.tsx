@@ -130,12 +130,16 @@ export const Hero = () => {
                 <span
                   css={css`
                     background: rgba(255, 255, 255, 0.5);
-                    height: 80px;
+                    height: 55px;
                     overflow: hidden;
                     position: relative;
                     transform-origin: center bottom;
                     transition: all 0.6s cubic-bezier(0.33, 1, 0.68, 1);
                     width: 1px;
+
+                    ${mq[1]} {
+                      height: 80px;
+                    }
 
                     &::before {
                       animation: ${scrollIndicatorKeyframes} 3s linear infinite;

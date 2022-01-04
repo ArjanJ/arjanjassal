@@ -88,7 +88,7 @@ export const Work = () => {
                 titleTransitions(proportion),
               ]}
             >
-              Work
+              Places I&apos;ve worked
             </h2>
             <div
               css={css`

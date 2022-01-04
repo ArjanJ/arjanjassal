@@ -11,6 +11,7 @@ export const Footer = () => {
         display: flex;
         padding: 120px 30px 50px;
         position: relative;
+        text-align: center;
 
         ${mq[0]} {
           padding: 160px 30px 100px;
@@ -126,6 +127,7 @@ const linkStyles = css`
 
 const linkContainerStyles = css`
   display: flex;
+  justify-content: center;
   margin-bottom: 30px;
 
   &:last-child {
