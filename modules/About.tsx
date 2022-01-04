@@ -148,7 +148,6 @@ const activeTextStyles = css`
   opacity: 1;
 
   a {
-    // color: #3a86ffff;
     text-decoration: none;
   }
 
@@ -158,33 +157,43 @@ const activeTextStyles = css`
 `;
 
 function picTransitions(proportion: number) {
-  if (proportion > 0) {
-    return css`
-      &::after {
+  return css`
+    ${proportion > -7
+      ? `&::after {
+    transform: scaleX(0);
+  }`
+      : `&::after {
+    transform: none;
+  }`}
+
+    ${mq[1]} {
+      ${proportion > 0
+        ? `&::after {
         transform: scaleX(0);
-      }
-    `;
-  } else {
-    return css`
-      &::after {
+      }`
+        : `&::after {
         transform: none;
-      }
-    `;
-  }
+      }`}
+    }
+  `;
 }
 
 function textTransitions(proportion: number) {
-  if (proportion > 0) {
-    return css`
-      opacity: 1;
-      transform: none;
-    `;
-  } else {
-    return css`
-      opacity: 0;
-      transform: translateX(-3%);
-    `;
-  }
+  return css`
+    ${proportion > -7
+      ? `opacity: 1;
+  transform: none;`
+      : `opacity: 0;
+  transform: translateX(-3%);`}
+
+    ${mq[1]} {
+      ${proportion > 0
+        ? `opacity: 1;
+      transform: none;`
+        : `opacity: 0;
+      transform: translateX(-3%);`}
+    }
+  `;
 }
 
 function containerTransitions(proportion: number) {
