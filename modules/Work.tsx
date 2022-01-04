@@ -1,323 +1,494 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useRef } from 'react';
 
 import { Ettrics } from '../components/Logos/Ettrics';
 import { Farmdrop } from '../components/Logos/Farmdrop';
 import { Grow } from '../components/Logos/Grow';
 import { Onfleet } from '../components/Logos/Onfleet';
-import { PerfectMind } from '../components/Logos/PerfectMind';
 import { Taloflow } from '../components/Logos/Taloflow';
 import { StickyView } from '../components/StickyView';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-import { mq } from '../utils';
+import { getRandomInt, mq } from '../utils';
 
-const data = [
-  {
-    color: '#AB7AF7',
-    company: 'Onfleet',
-    logo: Onfleet,
-    role: 'Sr. Frontend Engineer',
-    when: '2021-',
-  },
-  {
-    color: '#088972',
-    company: 'Farmdrop',
-    logo: Farmdrop,
-    role: 'Sr. Frontend Engineer',
-    when: '2019-21',
-  },
-  {
-    color: '#246BF6',
-    company: 'Taloflow',
-    logo: Taloflow,
-    role: 'Sr. Frontend Engineer',
-    when: '2018-19',
-  },
-  {
-    color: '#1AA1D8',
-    company: 'Grow',
-    logo: Grow,
-    role: 'Frontend Engineer',
-    when: '2016-18',
-  },
-  {
-    color: '#F1F1F1',
-    company: 'Ettrics',
-    logo: Ettrics,
-    role: 'Frontend Developer',
-    when: '2015-16',
-  },
-  {
-    color: '#1D4287',
-    company: 'PerfectMind',
-    logo: PerfectMind,
-    role: 'Web Designer',
-    when: '2014-15',
-  },
-];
+const TILE_1 = [getRandomInt(150, 300), getRandomInt(100, 250)];
+const TILE_2 = [getRandomInt(-100, 200), getRandomInt(150, 250)];
+const TILE_3 = [getRandomInt(-250, -100), getRandomInt(100, 250)];
+const TILE_4 = [getRandomInt(-400, -200), getRandomInt(200, 250)];
+
+const TILE_5 = [getRandomInt(50, 350), getRandomInt(-50, 100)];
+const TILE_6 = [getRandomInt(-200, 200), getRandomInt(-200, 200)];
+const TILE_7 = [getRandomInt(-300, -100), getRandomInt(-300, 250)];
+const TILE_8 = [getRandomInt(-100, -350), getRandomInt(100, 250)];
+
+const TILE_9 = [getRandomInt(200, 350), getRandomInt(-200, -300)];
+const TILE_10 = [getRandomInt(200, 350), getRandomInt(-200, -300)];
+const TILE_11 = [getRandomInt(-300, -100), getRandomInt(-200, -300)];
+const TILE_12 = [getRandomInt(-350, -200), getRandomInt(-200, -300)];
+
+function tileTransitions(proportion: number) {
+  return function (x: number, y: number) {
+    if (proportion < -2) {
+      return css`
+        opacity: 0;
+        transform: translate(${proportion * x}px, ${proportion * y}px);
+      `;
+    }
+
+    if (proportion < 0 && proportion > -2) {
+      return css`
+        opacity: 1;
+        transform: translate(${proportion * x}px, ${proportion * y}px);
+      `;
+    }
+  };
+}
+
+function titleTransitions(proportion: number) {
+  if (proportion > 0) {
+    return css`
+      opacity: 1;
+      transform: none;
+    `;
+  } else {
+    return css`
+      opacity: 0;
+      transform: translateY(20%);
+    `;
+  }
+}
+
+const flexCenter = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Work = () => {
-  const containerRef = useRef<HTMLHeadingElement>(null);
-  const containerRefEntry = useIntersectionObserver(containerRef, {
-    threshold: [0.25, 0.5, 0.75],
-  });
-
-  function isInView(ratio: number) {
-    return !!containerRefEntry?.intersectionRatio
-      ? containerRefEntry.intersectionRatio > ratio
-      : false;
-  }
-
   return (
-    <div
-      css={css`
-        min-height: calc(var(--vh, 1vh) * 100);
-        padding: 150px 0 100px;
-        position: relative;
+    <StickyView height={1800}>
+      {proportion => {
+        const transition = tileTransitions(proportion);
 
-        ${mq[0]} {
-          padding: 300px 0 200px;
-        }
-      `}
-    >
-      <div
-        css={css`
-          flex: 1;
-          max-width: 1000px;
-          margin: 0 auto;
-          padding: 0 30px;
-        `}
-        ref={containerRef}
-      >
-        <h2
-          css={css`
-            font-size: 36px;
-            margin-bottom: 50px;
-            opacity: 0;
-            transform: translateY(20%);
-            transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
-
-            ${mq[0]} {
-              font-size: 72px;
-              margin-bottom: 80px;
-            }
-
-            ${isInView(0.5) &&
-            `
-              opacity: 1;
-              transform: none;
+        return (
+          <div
+            css={css`
+              align-items: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              margin: 0 auto;
+              max-width: 1076px;
+              min-height: calc(var(--vh, 1vh) * 100);
+              padding: 15px;
             `}
-          `}
-        >
-          Career log
-        </h2>
+          >
+            <h2
+              css={[
+                css`
+                  font-size: 30px;
+                  margin-bottom: 30px;
+                  transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
 
-        <ul
-          css={css`
-            display: grid;
-            grid-gap: 40px;
-            list-style-type: none;
-            padding: 0;
-            width: 100%;
+                  ${mq[0]} {
+                    font-size: 60px;
+                    margin-bottom: 60px;
+                  }
+                `,
+                titleTransitions(proportion),
+              ]}
+            >
+              Places I&apos;ve worked
+            </h2>
 
-            ${mq[0]} {
-              grid-gap: 60px;
-            }
-          `}
-        >
-          {data.map((work, i) => {
-            return (
-              <li
-                key={work.company}
+            <div
+              css={css`
+                display: grid;
+                font-weight: 800;
+                grid-auto-rows: 90px;
+                grid-gap: 15px 0;
+                grid-template-columns: 90px 1fr;
+                width: 100%;
+
+                ${mq[1]} {
+                  grid-auto-rows: 156px;
+                  grid-gap: 15px;
+                  grid-template-columns: repeat(12, 1fr);
+                }
+
+                > * {
+                  transition: all 100ms linear;
+                  will-change: transform, opacity;
+
+                  ${mq[1]} {
+                    border-radius: 27px;
+                  }
+
+                  svg {
+                    max-width: 48px;
+                    max-height: 48px;
+
+                    ${mq[1]} {
+                      max-height: 70px;
+                      max-width: 90px;
+                    }
+                  }
+                }
+              `}
+            >
+              <div
                 css={[
                   css`
-                    align-items: center;
-                    display: flex;
-                    opacity: 0;
-                    transform: scale(0.98) translateY(15%);
-                    transition: all 800ms ${i * 100}ms
-                      cubic-bezier(0.33, 1, 0.68, 1);
-                    will-change: transform;
+                    background-color: #ab7af7;
+                    ${flexCenter}
 
-                    ${isInView(0.75) &&
-                    `
-                      opacity: 1;
-                      transform: none;
-                    `}
+                    ${mq[1]} {
+                      grid-column: 1 / span 2;
+                    }
                   `,
+                  transition(TILE_1[0], TILE_1[1]),
+                ]}
+              >
+                <Onfleet />
+              </div>
+              <div
+                css={[
+                  css`
+                    background-color: #8d4af4;
+
+                    ${mq[1]} {
+                      grid-column: 3 / span 6;
+                    }
+                  `,
+                  tilePadding,
+                  transition(TILE_2[0], TILE_2[1]),
                 ]}
               >
                 <div
                   css={css`
                     align-items: center;
-                    background-color: ${work.color};
-                    border-radius: 10px;
                     display: flex;
-                    height: 60px;
-                    justify-content: center;
-                    width: 60px;
-
-                    ${mq[0]} {
-                      border-radius: 14px;
-                      height: 80px;
-                      width: 80px;
-                    }
-
-                    svg {
-                      max-height: 36px;
-                      max-width: 42px;
-
-                      ${mq[0]} {
-                        max-height: 50px;
-                        max-width: 64px;
-                      }
-                    }
-                  `}
-                >
-                  <work.logo />
-                </div>
-                <div
-                  css={css`
-                    display: flex;
+                    font-size: 24px;
+                    height: 100%;
                     justify-content: space-between;
-                    flex: 1;
-                    margin-left: 20px;
-
-                    ${mq[0]} {
-                      margin-left: 30px;
-                    }
                   `}
                 >
-                  <h3
-                    css={css`
-                      font-size: 18px;
-
-                      ${mq[0]} {
-                        font-size: 24px;
-                      }
-                    `}
-                  >
-                    {work.company}
-                  </h3>
-                  <div
-                    css={css`
-                      display: flex;
-                    `}
-                  >
+                  <div>
+                    <h3 css={[largeTextStyles, headingStyles]}>Onfleet</h3>
                     <p
-                      css={css`
-                        display: none;
-
-                        ${mq[0]} {
-                          display: block;
-                          font-weight: 800;
-                          font-size: 24px;
-                          opacity: 0.8;
-                        }
-                      `}
+                      css={[
+                        largeTextStyles,
+                        secondaryTextStyles,
+                        hideOnMobileStyles,
+                      ]}
                     >
-                      {work.role}
-                    </p>
-                    <p
-                      css={css`
-                        font-size: 18px;
-                        font-weight: 800;
-                        margin-left: 30px;
-                        min-width: 74px;
-                        opacity: 0.6;
-
-                        ${mq[0]} {
-                          font-size: 24px;
-                          min-width: 99px;
-                        }
-                      `}
-                    >
-                      {work.when}
+                      Sr. Frontend Engineer
                     </p>
                   </div>
+                  <p css={[largeTextStyles, secondaryTextStyles]}>2021-</p>
                 </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+              </div>
+              <div
+                css={[
+                  css`
+                    background-color: #088972;
+                    ${flexCenter}
 
-      <div
-        css={[
-          css`
-            left: 0;
-            pointer-events: none;
-            position: absolute;
-            top: 0;
-            transform: scale(2.5);
-            width: 100%;
-            z-index: 1;
+                    ${mq[1]} {
+                      grid-column: 9 / span 2;
+                    }
+                  `,
+                  transition(TILE_3[0], TILE_3[1]),
+                ]}
+              >
+                <Farmdrop />
+              </div>
+              <div
+                css={[
+                  css`
+                    background-color: #0bb99a;
+                    font-size: 18px;
+                    padding: 0 15px;
 
-            ${mq[0]} {
-              transform: none;
-            }
+                    ${mq[1]} {
+                      grid-column: 11 / span 2;
+                      padding: 20px;
+                    }
+                  `,
+                  transition(TILE_4[0], TILE_4[1]),
+                ]}
+              >
+                <div
+                  css={css`
+                    align-items: center;
+                    display: flex;
+                    height: 100%;
+                    justify-content: space-between;
 
-            &::before {
-              background: black;
-              content: '';
-              height: 100%;
-              left: 0;
-              position: absolute;
-              top: 0;
-              transform: ${isInView(0.25) ? 'scaleX(0)' : 'none'};
-              transform-origin: left center;
-              transition: all 1000ms cubic-bezier(0.33, 1, 0.68, 1);
-              width: 100%;
-              z-index: 1;
-            }
-          `,
-        ]}
-      >
-        <svg
-          viewBox="0 0 1442 299"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            css={wavePathStyles}
-            d="M1 44.25L40.6 58.6667C81.4 73.0833 160.6 101.917 241 94.7083C321.4 87.5 400.6 44.25 481 58.6667C561.4 73.0833 640.6 145.167 721 195.625C801.4 246.083 880.6 274.917 961 246.083C1041.4 217.25 1120.6 130.75 1201 80.2917C1281.4 29.8333 1360.6 15.4167 1401.4 8.20833L1441 1"
-            stroke="#FFF"
-          />
-          <path
-            css={wavePathStyles}
-            d="M1 54.25L40.6 68.6667C81.4 83.0833 160.6 111.917 241 104.708C321.4 97.5 400.6 54.25 481 68.6667C561.4 83.0833 640.6 155.167 721 205.625C801.4 256.083 880.6 284.917 961 256.083C1041.4 227.25 1120.6 140.75 1201 90.2917C1281.4 39.8333 1360.6 25.4167 1401.4 18.2083L1441 11"
-            stroke="#FFF"
-            strokeOpacity="0.85"
-          />
-          <path
-            css={wavePathStyles}
-            d="M1 64.25L40.6 78.6667C81.4 93.0833 160.6 121.917 241 114.708C321.4 107.5 400.6 64.25 481 78.6667C561.4 93.0833 640.6 165.167 721 215.625C801.4 266.083 880.6 294.917 961 266.083C1041.4 237.25 1120.6 150.75 1201 100.292C1281.4 49.8333 1360.6 35.4167 1401.4 28.2083L1441 21"
-            stroke="#FFF"
-            strokeOpacity="0.7"
-          />
-          <path
-            css={wavePathStyles}
-            d="M1 74.25L40.6 88.6667C81.4 103.083 160.6 131.917 241 124.708C321.4 117.5 400.6 74.25 481 88.6667C561.4 103.083 640.6 175.167 721 225.625C801.4 276.083 880.6 304.917 961 276.083C1041.4 247.25 1120.6 160.75 1201 110.292C1281.4 59.8333 1360.6 45.4167 1401.4 38.2083L1441 31"
-            stroke="#FFF"
-            strokeOpacity="0.55"
-          />
-          <path
-            css={wavePathStyles}
-            d="M1 84.25L40.6 98.6667C81.4 113.083 160.6 141.917 241 134.708C321.4 127.5 400.6 84.25 481 98.6667C561.4 113.083 640.6 185.167 721 235.625C801.4 286.083 880.6 314.917 961 286.083C1041.4 257.25 1120.6 170.75 1201 120.292C1281.4 69.8333 1360.6 55.4167 1401.4 48.2083L1441 41"
-            stroke="#FFF"
-            strokeOpacity="0.4"
-          />
-        </svg>
-      </div>
-    </div>
+                    ${mq[1]} {
+                      align-items: initial;
+                      flex-direction: column;
+                    }
+                  `}
+                >
+                  <h3 css={mediumTextStyles}>Farmdrop</h3>
+                  <p css={[secondaryTextStyles, hideOnMobileStyles]}>
+                    Sr. Frontend Engineer
+                  </p>
+                  <p css={[mediumTextStyles, secondaryTextStyles]}>2019-21</p>
+                </div>
+              </div>
+              <div
+                css={[
+                  css`
+                    ${mq[1]} {
+                      background-color: #24d4f6;
+                      grid-column: 1 / span 3;
+                    }
+                  `,
+                  hideOnMobileStyles,
+                  transition(TILE_5[0], TILE_5[1]),
+                ]}
+              ></div>
+              <div
+                css={[
+                  css`
+                    background-color: #246bf6;
+                    ${flexCenter}
+
+                    ${mq[1]} {
+                      grid-column: 4 / span 2;
+                    }
+                  `,
+                  transition(TILE_6[0], TILE_6[1]),
+                ]}
+              >
+                <Taloflow />
+              </div>
+              <div
+                css={[
+                  css`
+                    background-color: #4624f6;
+
+                    ${mq[1]} {
+                      grid-column: 6 / span 5;
+                    }
+                  `,
+                  transition(TILE_7[0], TILE_7[1]),
+                ]}
+              >
+                <div
+                  css={[
+                    css`
+                      align-items: center;
+                      display: flex;
+                      font-size: 24px;
+                      height: 100%;
+                      justify-content: space-between;
+                    `,
+                    tilePadding,
+                  ]}
+                >
+                  <div>
+                    <h3 css={[largeTextStyles, headingStyles]}>Taloflow</h3>
+                    <p css={[secondaryTextStyles, hideOnMobileStyles]}>
+                      Sr. Frontend Engineer
+                    </p>
+                  </div>
+                  <p
+                    css={[
+                      css`
+                        margin-left: 30px;
+                        white-space: nowrap;
+                      `,
+                      secondaryTextStyles,
+                      largeTextStyles,
+                    ]}
+                  >
+                    2018-19
+                  </p>
+                </div>
+              </div>
+              <div
+                css={[
+                  css`
+                    ${mq[1]} {
+                      background-color: #f6af24;
+                      grid-column: 11 / span 2;
+                    }
+                  `,
+                  hideOnMobileStyles,
+                  transition(TILE_8[0], TILE_8[1]),
+                ]}
+              ></div>
+              <div
+                css={[
+                  css`
+                    background-color: #1aa1d8;
+                    ${flexCenter}
+
+                    ${mq[1]} {
+                      grid-column: 1 / span 2;
+                    }
+                  `,
+                  transition(TILE_9[0], TILE_9[1]),
+                ]}
+              >
+                <Grow />
+              </div>
+              <div
+                css={[
+                  css`
+                    background-color: #3db6e8;
+
+                    ${mq[1]} {
+                      grid-column: 3 / span 4;
+                    }
+                  `,
+                  transition(TILE_10[0], TILE_10[1]),
+                ]}
+              >
+                <div
+                  css={[
+                    css`
+                      align-items: center;
+                      display: flex;
+                      font-size: 24px;
+                      height: 100%;
+                      justify-content: space-between;
+                    `,
+                    tilePadding,
+                  ]}
+                >
+                  <div>
+                    <h3 css={[largeTextStyles, headingStyles]}>Grow</h3>
+                    <p css={[secondaryTextStyles, hideOnMobileStyles]}>
+                      Frontend Engineer
+                    </p>
+                  </div>
+                  <p
+                    css={[
+                      css`
+                        margin-left: 30px;
+                        white-space: nowrap;
+                      `,
+                      secondaryTextStyles,
+                      largeTextStyles,
+                    ]}
+                  >
+                    2016-18
+                  </p>
+                </div>
+              </div>
+              <div
+                css={[
+                  css`
+                    background-color: #f1f1f1;
+                    ${flexCenter}
+
+                    ${mq[1]} {
+                      grid-column: 7 / span 2;
+                    }
+                  `,
+                  transition(TILE_12[0], TILE_11[1]),
+                ]}
+              >
+                <Ettrics />
+              </div>
+              <div
+                css={[
+                  css`
+                    background-color: #bcbcbc;
+
+                    ${mq[1]} {
+                      grid-column: 9 / span 4;
+                    }
+                  `,
+                  transition(TILE_12[0], TILE_12[1]),
+                ]}
+              >
+                <div
+                  css={[
+                    css`
+                      align-items: center;
+                      display: flex;
+                      height: 100%;
+                      justify-content: space-between;
+                    `,
+                    tilePadding,
+                  ]}
+                >
+                  <div>
+                    <h3 css={[largeTextStyles, headingStyles]}>Ettrics</h3>
+                    <p
+                      css={[
+                        secondaryTextStyles,
+                        largeTextStyles,
+                        hideOnMobileStyles,
+                      ]}
+                    >
+                      Frontend Developer
+                    </p>
+                  </div>
+                  <p
+                    css={[
+                      css`
+                        margin-left: 30px;
+                        white-space: nowrap;
+                      `,
+                      secondaryTextStyles,
+                      largeTextStyles,
+                    ]}
+                  >
+                    2015-16
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }}
+    </StickyView>
   );
 };
 
-const wavePathStyles = css`
-  stroke-width: 3px;
+const hideOnMobileStyles = css`
+  display: none;
 
-  ${mq[0]} {
-    stroke-width: 1px;
+  ${mq[1]} {
+    display: block;
+  }
+`;
+
+const headingStyles = css`
+  ${mq[1]} {
+    margin-bottom: 3px;
+  }
+`;
+
+const secondaryTextStyles = css`
+  line-height: 1.25;
+  opacity: 0.75;
+`;
+
+const largeTextStyles = css`
+  font-size: 20px;
+
+  ${mq[1]} {
+    font-size: 24px;
+  }
+`;
+
+const mediumTextStyles = css`
+  font-size: 20px;
+
+  ${mq[1]} {
+    font-size: 18px;
+  }
+`;
+
+const tilePadding = css`
+  padding: 0 15px;
+
+  ${mq[1]} {
+    padding: 0 30px;
   }
 `;

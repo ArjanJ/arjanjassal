@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 import { ReactNode, useContext, useEffect, useRef, useState } from 'react';
 
+import { mq } from '../utils';
 import { ScrollContext } from './ScrollContext';
 
 interface StickyViewProps {
@@ -62,18 +63,22 @@ export const StickyView = ({ bottom, children, height }: StickyViewProps) => {
   return (
     <section
       css={css`
-        height: ${height}px;
-        margin-bottom: ${bottom || 0}px;
-        position: relative;
+        ${mq[1]} {
+          height: ${height}px;
+          margin-bottom: ${bottom || 0}px;
+          position: relative;
+        }
       `}
       ref={stickyViewRef}
     >
       <div
         css={css`
-          height: 100vh;
-          position: sticky;
-          top: 0;
-          width: 100%;
+          ${mq[1]} {
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            width: 100%;
+          }
         `}
       >
         {children(proportion)}

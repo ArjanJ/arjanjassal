@@ -9,12 +9,13 @@ export const Footer = () => {
       css={css`
         align-items: center;
         display: flex;
-        padding: 120px 30px 50px;
+        min-height: 30vh;
+        padding: 30px 30px 30px;
         position: relative;
         text-align: center;
 
         ${mq[0]} {
-          padding: 160px 30px 100px;
+          padding: 60px 30px 60px;
         }
       `}
     >

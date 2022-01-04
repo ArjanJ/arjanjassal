@@ -10,6 +10,7 @@ export const About = () => {
   return (
     <StickyView height={3200}>
       {proportion => {
+        console.log(proportion);
         return (
           <div
             css={css`
@@ -20,7 +21,6 @@ export const About = () => {
               max-width: 1076px;
               min-height: calc(var(--vh, 1vh) * 100);
               padding: 0 30px;
-              background: black;
             `}
           >
             <div

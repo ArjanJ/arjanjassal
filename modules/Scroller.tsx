@@ -8,8 +8,7 @@ import { mq } from '../utils';
 import { About } from './About';
 import { Footer } from './Footer';
 import { Hero } from './Hero';
-// import { Work } from './Work';
-import { Work } from './Work2';
+import { Work } from './Work';
 
 export const Scroller = () => {
   const [scrollingElement, setScrollingElement] =
@@ -23,6 +22,7 @@ export const Scroller = () => {
     <ScrollContext.Provider value={{ scrollingElement }}>
       <div
         css={css`
+          background: black;
           height: 100vh;
           overflow-y: auto;
           overflow-x: hidden;
@@ -41,7 +41,7 @@ export const Scroller = () => {
               ${COLORS[0]},
               ${COLORS[COLORS.length - 1]}
             );
-            height: 1919px;
+            height: 100vh;
             left: 0;
             mix-blend-mode: multiply;
             overflow: hidden;
