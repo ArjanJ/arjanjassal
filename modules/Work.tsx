@@ -5,6 +5,7 @@ import { Ettrics } from '../components/Logos/Ettrics';
 import { Farmdrop } from '../components/Logos/Farmdrop';
 import { Grow } from '../components/Logos/Grow';
 import { Onfleet } from '../components/Logos/Onfleet';
+import { PerfectMind } from '../components/Logos/PerfectMind';
 import { Taloflow } from '../components/Logos/Taloflow';
 import { StickyView } from '../components/StickyView';
 import { getRandomInt, mq } from '../utils';
@@ -257,7 +258,7 @@ export const Work = () => {
                   transition(TILE_6[0], TILE_6[1]),
                 ]}
               >
-                <Taloflow />
+                <PerfectMind />
               </div>
               <div
                 css={[
