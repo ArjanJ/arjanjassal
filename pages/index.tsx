@@ -2,13 +2,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-import { Scroller } from '../modules/Scroller';
+import { Intro } from '../modules/Intro';
 
 const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Arjan</title>
+        <title>Arjan Jassal - Frontend Engineer</title>
         <meta
           name="description"
           content="Arjan Jassal is a frontend engineer."
@@ -21,12 +21,12 @@ const Home: NextPage = () => {
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=optional"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap"
           rel="stylesheet"
         ></link>
       </Head>
 
-      <Scroller />
+      <Intro />
     </div>
   );
 };
