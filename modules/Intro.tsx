@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 import { Particles2 } from '../components/Particles2';
 
@@ -8,14 +8,14 @@ export const Intro = () => {
   const [opacity, setOpacity] = useState(100);
   const [s, setS] = useState<number>(1);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     function handleScroll() {
       const { scrollY } = window;
       const opacityVal = Number((1 - scrollY / 600).toFixed(2));
 
       setS(1 - scrollY * 1);
 
-      if (opacityVal >= 0) {
+      if (opacity > 0) {
         setOpacity(opacityVal);
       }
     }
@@ -26,8 +26,6 @@ export const Intro = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  console.log(s, (1 - s) / 100);
 
   return (
     <>
@@ -70,6 +68,7 @@ export const Intro = () => {
               font-weight: 800;
               mix-blend-mode: exclusion;
               opacity: ${opacity};
+              will-change: opacity;
 
               a {
                 position: relative;
@@ -144,22 +143,28 @@ export const Intro = () => {
 
         <div
           css={css`
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 25%;
+            bottom: 32%;
             height: 100vw;
             width: 100vw;
             background: black;
             border-radius: 50%;
             margin: auto;
             // opacity: 0.5;
-            // border: 1px solid white;
-            filter: blur(200px);
-            transform: scale(${(1 - s) / 100});
-            // transition: transform 100ms linear;
+            filter: blur(50px);
+            transform: scale(${(1 - s) / 200});
+            transition: transform 50ms linear;
             z-index: -2;
+            will-change: transform;
+
+            ${(1 - s) / 200 > 1.5 &&
+            `
+              transform: scale(3);
+              filter: none;
+            `}
           `}
         />
       </section>
