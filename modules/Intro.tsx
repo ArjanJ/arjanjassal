@@ -13,7 +13,7 @@ export const Intro = () => {
       const { scrollY } = window;
       const opacityVal = Number((1 - scrollY / 600).toFixed(2));
 
-      setS(1 - scrollY * 1);
+      setS(1 - scrollY * -1);
 
       if (opacity > 0) {
         setOpacity(opacityVal);
@@ -38,7 +38,6 @@ export const Intro = () => {
           min-height: 100vh;
           position: relative;
           z-index: 1;
-          // filter: brightness(${opacity}) hue-rotate(${s}deg);
         `}
       >
         <div
@@ -129,44 +128,29 @@ export const Intro = () => {
 
         <div
           css={css`
-            height: 100%;
-            left: 0;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: -1;
-          `}
-        >
-          <Particles2 />
-        </div>
-
-        <div
-          css={css`
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 32%;
-            height: 100vw;
-            width: 100vw;
+            height: 47vh;
+            width: 47vh;
             background: black;
             border-radius: 50%;
             margin: auto;
-            // opacity: 0.5;
-            filter: blur(50px);
-            transform: scale(${(1 - s) / 200});
-            transition: transform 50ms linear;
+            transition: transform 100ms linear;
             z-index: -2;
             will-change: transform;
+            overflow: hidden;
 
-            ${(1 - s) / 200 > 1.5 &&
+            ${s > 100 &&
             `
-              transform: scale(3);
-              filter: none;
-            `}
+            transform: scale(${s / 100});
           `}
-        />
+          `}
+        >
+          <Particles2 />
+        </div>
       </section>
 
       <section

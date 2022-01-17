@@ -17,7 +17,7 @@ import { getRandomArrayIndex, getRandomInt } from '../utils';
 // ] as const;
 export const COLORS = ['#FFFF00', '#000639', '#C40068', '#D5002C'] as const;
 
-const duration = 200 * 1000;
+const duration = 10 * 1000;
 
 function moveAnimation(i: number): AnimationOptions {
   const translateX = getRandomInt(-25, 125);
@@ -28,7 +28,7 @@ function moveAnimation(i: number): AnimationOptions {
 
   const keyframes = [
     {
-      transform: `translate3d(0, -1000px, -2000px)`,
+      transform: `translate3d(0, 0, -2000px)`,
       opacity: 0,
     },
   ];
@@ -61,7 +61,7 @@ export const Particles2 = () => {
           display: flex;
           height: 100%;
           justify-content: center;
-          perspective: 1000px;
+          perspective: 200px;
           width: 100%;
         `}
       >
@@ -106,11 +106,8 @@ const particleDynamicStyles = () => {
   return css({
     // backgroundColor: getRandomColor(),
     height: `${size}px`,
-    // left: `${initX}%`,
-    // top: `${initY}%`,
     width: `${size}px`,
     opacity,
-    // zIndex: Math.max(-height, -width),
     transform: `translate3d(${initX}px, ${initY}px, ${initZ}px)`,
   });
 };
