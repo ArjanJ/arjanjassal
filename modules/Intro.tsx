@@ -134,8 +134,8 @@ export const Intro = () => {
             left: 0;
             right: 0;
             bottom: 31%;
-            height: 610px;
-            width: 610px;
+            height: 600px;
+            width: 600px;
             background: black;
             border-radius: 50%;
             margin: auto;
