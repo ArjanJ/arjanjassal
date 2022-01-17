@@ -61,7 +61,7 @@ export const Particles2 = () => {
           display: flex;
           height: 100%;
           justify-content: center;
-          perspective: 200px;
+          perspective: 250px;
           width: 100%;
         `}
       >
@@ -95,7 +95,7 @@ const particleBaseStyles = css`
 `;
 
 const particleDynamicStyles = () => {
-  const size = getRandomInt(1, 3);
+  const size = getRandomInt(1, 4);
 
   const initX = getRandomInt(-1000, 1000);
   const initY = getRandomInt(-1000, 1000);

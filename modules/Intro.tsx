@@ -111,9 +111,9 @@ export const Intro = () => {
 
         <div
           css={css`
-            background: url('/synthwave-blur.jpeg') center/cover no-repeat;
+            background: url('/synthwave-blur.jpeg') center/cover no-repeat fixed;
             bottom: 0;
-            filter: blur(15px) contrast(1.9);
+            filter: blur(14px) contrast(1.9);
             height: 100%;
             left: 0;
             margin: auto;
@@ -132,9 +132,9 @@ export const Intro = () => {
             top: 0;
             left: 0;
             right: 0;
-            bottom: 32%;
-            height: 47vh;
-            width: 47vh;
+            bottom: 31%;
+            height: 610px;
+            width: 610px;
             background: black;
             border-radius: 50%;
             margin: auto;
@@ -142,6 +142,7 @@ export const Intro = () => {
             z-index: -2;
             will-change: transform;
             overflow: hidden;
+            filter: drop-shadow(6px 41px 80px black);
 
             ${s > 100 &&
             `
