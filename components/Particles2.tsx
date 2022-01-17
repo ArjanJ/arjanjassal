@@ -82,17 +82,17 @@ Particle.displayName = 'Particle';
 const particleBaseStyles = css`
   background: white;
   border-radius: 50%;
-  will-change: transform;
-  position: absolute;
-  top: 0;
-  left: 0;
   bottom: 0;
-  right: 0;
+  left: 0;
   margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  will-change: transform;
 `;
 
 const particleDynamicStyles = () => {
-  const size = getRandomInt(1, 4);
+  const size = getRandomInt(1, 3);
 
   const initX = getRandomInt(-1000, 1000);
   const initY = getRandomInt(-1000, 1000);

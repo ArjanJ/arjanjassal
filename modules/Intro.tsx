@@ -6,14 +6,16 @@ import { Particles2 } from '../components/Particles2';
 
 export const Intro = () => {
   const [opacity, setOpacity] = useState(1);
-  const [s, setS] = useState<number>(1);
+  const [scrolled, setScrolled] = useState<number>(1);
 
   useLayoutEffect(() => {
     function handleScroll() {
-      const { scrollY } = window;
+      const { innerHeight, scrollY } = window;
       const opacityVal = Number((1 - scrollY / 600).toFixed(2));
 
-      setS(1 - scrollY * -1);
+      if (innerHeight > scrollY) {
+        setScrolled(1 - scrollY * -1);
+      }
 
       if (opacityVal > -0.1) {
         setOpacity(opacityVal);
@@ -27,15 +29,14 @@ export const Intro = () => {
     };
   }, []);
 
+  console.log(scrolled);
+
   return (
     <>
       <section
         css={css`
-          align-items: center;
           background: black;
-          display: flex;
-          justify-content: center;
-          min-height: 100vh;
+          min-height: 150vh;
           position: relative;
           z-index: 1;
         `}
@@ -43,13 +44,22 @@ export const Intro = () => {
         <div
           css={css`
             display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            height: 100vh;
             margin: 0 auto;
-            min-height: 100vh;
-            max-width: 1200px;
-            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
           `}
         >
-          <header css={css``}>
+          <header
+            css={css`
+              margin: 0 auto;
+              max-width: 1200px;
+              padding: 0 30px;
+              width: 100%;
+            `}
+          >
             <h1
               css={css`
                 display: inline-block;
@@ -65,11 +75,17 @@ export const Intro = () => {
             css={css`
               font-size: 37px;
               font-weight: 800;
+              margin: auto;
+              max-width: 1200px;
               mix-blend-mode: exclusion;
               opacity: ${opacity};
               text-align: center;
               transform: scale(${opacity});
               will-change: opacity;
+              padding: 0 30px;
+
+              grid-row: 2;
+              grid-column: 1;
 
               a {
                 position: relative;
@@ -109,6 +125,35 @@ export const Intro = () => {
             <a href="">GitHub</a>, designs on <a href="">Dribbble</a>, or link
             me on <a href="">LinkedIn</a>.
           </p>
+
+          <div
+            css={css`
+              background: black;
+              border-radius: 50%;
+              filter: drop-shadow(6px 41px 80px black);
+              height: 600px;
+              left: 0;
+              margin: 0 auto;
+              overflow: hidden;
+              position: relative;
+              right: 0;
+              bottom: 200px;
+              transition: transform 100ms linear;
+              width: 600px;
+              will-change: transform;
+              z-index: -2;
+
+              grid-row: 2;
+              grid-column: 1;
+
+              ${scrolled > 100 &&
+              `
+              transform: scale(${scrolled / 100});
+            `}
+            `}
+          >
+            <Particles2 />
+          </div>
         </div>
 
         <div
@@ -120,48 +165,25 @@ export const Intro = () => {
             left: 0;
             margin: auto;
             overflow: hidden;
-            position: fixed;
+            position: absolute;
             right: 0;
             top: 0;
             width: 100%;
             z-index: -3;
           `}
         />
-
-        <div
-          css={css`
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 31%;
-            height: 600px;
-            width: 600px;
-            background: black;
-            border-radius: 50%;
-            margin: auto;
-            transition: transform 100ms linear;
-            z-index: -2;
-            will-change: transform;
-            overflow: hidden;
-            filter: drop-shadow(6px 41px 80px black);
-
-            ${s > 100 &&
-            `
-            transform: scale(${s / 100});
-          `}
-          `}
-        >
-          <Particles2 />
-        </div>
       </section>
 
       <section
         css={css`
           height: 100vh;
           background: black;
+          position: relative;
+          z-index: 1;
         `}
-      ></section>
+      >
+        <h1>Sup</h1>
+      </section>
     </>
   );
 };
