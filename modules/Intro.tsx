@@ -67,6 +67,7 @@ export const Intro = () => {
               font-weight: 800;
               mix-blend-mode: exclusion;
               opacity: ${opacity};
+              text-align: center;
               transform: scale(${opacity});
               will-change: opacity;
 

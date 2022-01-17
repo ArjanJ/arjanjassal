@@ -17,15 +17,9 @@ import { getRandomArrayIndex, getRandomInt } from '../utils';
 // ] as const;
 export const COLORS = ['#FFFF00', '#000639', '#C40068', '#D5002C'] as const;
 
-const duration = 10 * 1000;
+const duration = 6 * 1000;
 
 function moveAnimation(i: number): AnimationOptions {
-  const translateX = getRandomInt(-25, 125);
-  const translateY = getRandomInt(-25, 125);
-  const hue = getRandomInt(0, 360);
-  const scale = getRandomInt(50, 500) / 100;
-  const z = getRandomInt(-1000, 1000);
-
   const keyframes = [
     {
       transform: `translate3d(0, 0, -2000px)`,
@@ -54,13 +48,16 @@ function getRandomColor() {
 
 export const Particles2 = () => {
   return (
-    <div css={particleContainerStyles}>
+    <div
+      css={css`
+        height: 100%;
+        width: 100%;
+        transform-style: preserve-3d;
+      `}
+    >
       <div
         css={css`
-          align-items: center;
-          display: flex;
           height: 100%;
-          justify-content: center;
           perspective: 250px;
           width: 100%;
         `}
@@ -82,16 +79,16 @@ const Particle = memo(({ i }: { i: number }) => {
 
 Particle.displayName = 'Particle';
 
-const particleContainerStyles = css`
-  height: 100%;
-  width: 100%;
-  transform-style: preserve-3d;
-`;
-
 const particleBaseStyles = css`
   background: white;
   border-radius: 50%;
   will-change: transform;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 `;
 
 const particleDynamicStyles = () => {
