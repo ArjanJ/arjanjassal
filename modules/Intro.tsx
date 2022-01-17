@@ -5,7 +5,7 @@ import { useLayoutEffect, useState } from 'react';
 import { Particles2 } from '../components/Particles2';
 
 export const Intro = () => {
-  const [opacity, setOpacity] = useState(100);
+  const [opacity, setOpacity] = useState(1);
   const [s, setS] = useState<number>(1);
 
   useLayoutEffect(() => {
@@ -15,7 +15,7 @@ export const Intro = () => {
 
       setS(1 - scrollY * -1);
 
-      if (opacity > 0) {
+      if (opacityVal > -0.1) {
         setOpacity(opacityVal);
       }
     }
@@ -67,6 +67,7 @@ export const Intro = () => {
               font-weight: 800;
               mix-blend-mode: exclusion;
               opacity: ${opacity};
+              transform: scale(${opacity});
               will-change: opacity;
 
               a {
