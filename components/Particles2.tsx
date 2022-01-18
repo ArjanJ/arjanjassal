@@ -17,7 +17,7 @@ import { getRandomArrayIndex, getRandomInt } from '../utils';
 // ] as const;
 export const COLORS = ['#FFFF00', '#000639', '#C40068', '#D5002C'] as const;
 
-const duration = 6 * 1000;
+const duration = 4 * 1000;
 
 function moveAnimation(i: number): AnimationOptions {
   const keyframes = [
@@ -92,13 +92,13 @@ const particleBaseStyles = css`
 `;
 
 const particleDynamicStyles = () => {
-  const size = getRandomInt(1, 3);
+  const size = getRandomInt(1, 4);
 
-  const initX = getRandomInt(-1000, 1000);
-  const initY = getRandomInt(-1000, 1000);
+  const initX = getRandomInt(-750, 750);
+  const initY = getRandomInt(-750, 750);
   const initZ = getRandomInt(-1000, 1000);
 
-  const opacity = getRandomInt(75, 100) / 100;
+  const opacity = getRandomInt(80, 100) / 100;
 
   return css({
     // backgroundColor: getRandomColor(),

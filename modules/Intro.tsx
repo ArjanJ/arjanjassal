@@ -3,18 +3,24 @@ import { css } from '@emotion/react';
 import { useLayoutEffect, useState } from 'react';
 
 import { Particles2 } from '../components/Particles2';
+import { mq } from '../utils';
 
 export const Intro = () => {
+  const [mounted, setMounted] = useState(false);
   const [opacity, setOpacity] = useState(1);
   const [scrolled, setScrolled] = useState<number>(1);
 
   useLayoutEffect(() => {
+    setMounted(true);
+
     function handleScroll() {
       const { innerHeight, scrollY } = window;
       const opacityVal = Number((1 - scrollY / 600).toFixed(2));
 
-      if (innerHeight > scrollY) {
+      if (innerHeight >= scrollY) {
         setScrolled(1 - scrollY * -1);
+      } else {
+        setScrolled(innerHeight);
       }
 
       if (opacityVal > -0.1) {
@@ -71,15 +77,21 @@ export const Intro = () => {
 
           <p
             css={css`
-              font-size: 37px;
+              font-size: 29px;
               font-weight: 800;
               grid-column: 1;
               grid-row: 2;
               margin: auto;
               max-width: 1200px;
               padding: 0 30px;
-              text-align: center;
+
+              transition: transform 100ms linear;
               will-change: opacity, transform;
+
+              ${mq[0]} {
+                font-size: 37px;
+                text-align: center;
+              }
 
               ${scrolled > 100 &&
               `
@@ -110,9 +122,10 @@ export const Intro = () => {
                   border-radius: 50%;
                   bottom: 0;
                   content: '';
-                  filter: blur(16px) contrast(3);
+                  filter: blur(18px) contrast(3);
                   height: 100%;
                   left: 0;
+                  opacity: 0.75;
                   position: absolute;
                   transform-origin: center center;
                   transform: scaleY(0.5);
@@ -124,7 +137,8 @@ export const Intro = () => {
 
                 &:hover {
                   &::before {
-                    filter: blur(20px) contrast(3) hue-rotate(25deg);
+                    filter: blur(22px) contrast(3) hue-rotate(25deg);
+                    opacity: 1;
                     transform: scale(1.05);
                   }
                 }
@@ -135,14 +149,14 @@ export const Intro = () => {
             <a href="">Onfleet</a>, helping power last mile deliveries. Feel
             free to checkout my personal code on&nbsp;
             <a href="">GitHub</a>, designs on <a href="">Dribbble</a>, or link
-            me on <a href="">LinkedIn</a>.
+            me on <a href="">LinkedIn.</a>
           </p>
 
           <div
             css={css`
               background: black;
               border-radius: 50%;
-              bottom: 215px;
+              bottom: 140px;
               filter: drop-shadow(6px 41px 80px black);
               grid-column: 1;
               grid-row: 2;
@@ -159,11 +173,17 @@ export const Intro = () => {
 
               ${scrolled > 100 &&
               `
-              transform: scale(${scrolled / 100});
-            `}
+                transform: scale(${scrolled / 100});
+              `}
+
+              ${mq[0]} {
+                bottom: 215px;
+                height: 45vh;
+                width: 45vh;
+              }
             `}
           >
-            <Particles2 />
+            {mounted && scrolled < window.innerHeight && <Particles2 />}
           </div>
         </div>
 
@@ -171,7 +191,7 @@ export const Intro = () => {
           css={css`
             background: url('/synthwave-blur.jpeg') center/cover no-repeat fixed;
             bottom: 0;
-            filter: blur(14px) contrast(1.9);
+            filter: blur(14px) contrast(2);
             height: 100%;
             left: 0;
             margin: auto;
@@ -189,6 +209,7 @@ export const Intro = () => {
         css={css`
           height: 100vh;
           background: black;
+          box-shadow: 0 -20px 0 black; // Hide blur from image above.
           position: relative;
           z-index: 1;
         `}
