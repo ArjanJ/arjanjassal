@@ -40,7 +40,7 @@ function moveAnimation(i: number): AnimationOptions {
   };
 }
 
-const TOTAL_PARTICLES = 200;
+const TOTAL_PARTICLES = 150;
 
 function getRandomColor() {
   return getRandomArrayIndex(COLORS);
@@ -92,7 +92,7 @@ const particleBaseStyles = css`
 `;
 
 const particleDynamicStyles = () => {
-  const size = getRandomInt(1, 4);
+  const size = getRandomInt(2, 4);
 
   const initX = getRandomInt(-750, 750);
   const initY = getRandomInt(-750, 750);

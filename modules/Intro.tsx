@@ -183,7 +183,9 @@ export const Intro = () => {
               }
             `}
           >
-            {mounted && scrolled < window.innerHeight && <Particles2 />}
+            {mounted &&
+              scrolled < window.innerHeight &&
+              window.innerWidth > 768 && <Particles2 />}
           </div>
         </div>
 
