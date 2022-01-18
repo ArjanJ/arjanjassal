@@ -177,7 +177,7 @@ export const Intro = () => {
             me on <a href="">LinkedIn.</a>
           </p> */}
 
-          <div
+          {/* <div
             css={css`
               // display: none;
               background: black;
@@ -206,8 +206,8 @@ export const Intro = () => {
             `}
             ref={blackholeRef}
           >
-            {/* {mounted && <Particles2 />} */}
-          </div>
+            {mounted && <Particles2 />}
+          </div> */}
         </div>
 
         <div
@@ -219,7 +219,7 @@ export const Intro = () => {
             background-repeat: no-repeat;
             bottom: 0;
             filter: blur(14px) contrast(1.25);
-            height: 100%;
+            height: 100vh;
             left: 0;
             overflow: hidden;
             position: absolute;
