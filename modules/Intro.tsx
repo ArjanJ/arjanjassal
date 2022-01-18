@@ -15,27 +15,35 @@ export const Intro = () => {
   useLayoutEffect(() => {
     setMounted(true);
 
+    let timeout: number;
+
     function handleScroll() {
-      const { innerHeight, scrollY } = window;
-      const opacity = (1 - scrollY / 600).toFixed(2);
-      const scrolled = 1 - scrollY * -1;
-
-      // Blackhole
-      if (blackholeRef.current) {
-        if (innerHeight >= scrollY && scrolled >= 100) {
-          blackholeRef.current.style.transform =
-            'scale(' + scrolled / 100 + ')';
-        } else {
-          blackholeRef.current.style.transform = `scale${innerHeight / 100}`;
-        }
+      if (timeout) {
+        window.cancelAnimationFrame(timeout);
       }
 
-      // Text
-      if (textRef.current) {
-        if (Number(opacity) > -0.01) {
-          textRef.current.style.opacity = opacity;
+      timeout = requestAnimationFrame(() => {
+        const { innerHeight, scrollY } = window;
+        const opacity = (1 - scrollY / 600).toFixed(2);
+        const scrolled = 1 - scrollY * -1;
+
+        // Blackhole
+        if (blackholeRef.current) {
+          if (innerHeight >= scrollY) {
+            blackholeRef.current.style.transform =
+              'scale(' + scrolled / 100 + ')';
+          } else {
+            blackholeRef.current.style.transform = `scale${innerHeight / 100}`;
+          }
         }
-      }
+
+        // Text
+        if (textRef.current) {
+          if (Number(opacity) > -0.01) {
+            textRef.current.style.opacity = opacity;
+          }
+        }
+      });
     }
 
     window.addEventListener('scroll', handleScroll);
@@ -183,15 +191,15 @@ export const Intro = () => {
             `}
             ref={blackholeRef}
           >
-            {mounted && <Particles2 />}
+            {/* {mounted && <Particles2 />} */}
           </div>
         </div>
 
         <div
           css={css`
-            background: url('/synthwave-blur.jpeg') center/cover no-repeat fixed;
+            background: url('/synthwave-blur.jpeg');
             bottom: 0;
-            filter: blur(14px) contrast(2);
+            // filter: blur(14px) contrast(2);
             height: 100%;
             left: 0;
             margin: auto;
@@ -201,6 +209,11 @@ export const Intro = () => {
             top: 0;
             width: 100%;
             z-index: -3;
+
+            ${mq[0]} {
+              background: url('/synthwave-blur.jpeg') center/cover no-repeat
+                fixed;
+            }
           `}
         />
       </section>
