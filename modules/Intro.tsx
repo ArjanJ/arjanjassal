@@ -33,29 +33,19 @@ export const Intro = () => {
         console.log(scrollY, scrollY / 100);
         // Blackhole
         if (blackholeRef.current) {
-          if (newscroll >= 1 && scrollY <= innerHeight / 2) {
+          if (newscroll >= 1 && scrollY <= innerHeight / 2.5) {
             blackholeRef.current.style.transform = 'scale(' + newscroll + ')';
           } else if (newscroll === 0) {
             blackholeRef.current.style.transform = 'scale(' + 1 + ')';
           }
-          // if (scrolled < 10) {
-          //   blackholeRef.current.style.transform = 'scale(1)';
-          // } else if (innerHeight >= scrollY && scrolled >= 100) {
-          //   blackholeRef.current.style.transform =
-          //     'scale(' + scrolled / 100 + ')';
-          // } else {
-          //   blackholeRef.current.style.transform =
-          //     'scale(' + innerHeight / 100 + ')';
-          // }
-          blackholeRef.current.style.transform = 'scale(' + +')';
         }
 
         // Text
-        // if (textRef.current) {
-        //   if (Number(opacity) > -0.01) {
-        //     textRef.current.style.opacity = opacity;
-        //   }
-        // }
+        if (textRef.current) {
+          if (Number(opacity) > -0.01) {
+            // textRef.current.style.opacity = opacity;
+          }
+        }
       });
     }
 
@@ -71,7 +61,7 @@ export const Intro = () => {
       <section
         css={css`
           background: black;
-          min-height: 150vh;
+          min-height: 200vh;
           position: relative;
           z-index: 1;
         `}
@@ -106,7 +96,7 @@ export const Intro = () => {
             </h1>
           </header>
 
-          {/* <p
+          <p
             css={css`
               font-size: 29px;
               font-weight: 800;
@@ -175,9 +165,9 @@ export const Intro = () => {
             free to checkout my personal code on&nbsp;
             <a href="">GitHub</a>, designs on <a href="">Dribbble</a>, or link
             me on <a href="">LinkedIn.</a>
-          </p> */}
+          </p>
 
-          {/* <div
+          <div
             css={css`
               // display: none;
               background: black;
@@ -206,13 +196,13 @@ export const Intro = () => {
             `}
             ref={blackholeRef}
           >
-            {mounted && <Particles2 />}
-          </div> */}
+            {/* {mounted && <Particles2 />} */}
+          </div>
         </div>
 
         <div
           css={css`
-            background-attachment: fixed;
+            // background-attachment: fixed;
             background-color: black;
             background-image: url('/synthwave-mobile.png');
             background-position: center top;
@@ -222,7 +212,7 @@ export const Intro = () => {
             height: 100vh;
             left: 0;
             overflow: hidden;
-            position: absolute;
+            position: fixed;
             right: 0;
             top: 0;
             width: 100%;
