@@ -29,8 +29,6 @@ export const Intro = () => {
     };
   }, []);
 
-  console.log(scrolled);
-
   return (
     <>
       <section
@@ -75,17 +73,19 @@ export const Intro = () => {
             css={css`
               font-size: 37px;
               font-weight: 800;
+              grid-column: 1;
+              grid-row: 2;
               margin: auto;
               max-width: 1200px;
-              mix-blend-mode: exclusion;
-              opacity: ${opacity};
-              text-align: center;
-              transform: scale(${opacity});
-              will-change: opacity;
               padding: 0 30px;
+              text-align: center;
+              will-change: opacity, transform;
 
-              grid-row: 2;
-              grid-column: 1;
+              ${scrolled > 100 &&
+              `
+                opacity: ${opacity};
+                transform: scale(${opacity});
+              `}
 
               a {
                 position: relative;
@@ -94,26 +94,38 @@ export const Intro = () => {
                 text-decoration: none;
 
                 &::before {
-                  background-color: red;
-                  border-radius: 6px;
+                  background-image: linear-gradient(
+                    45deg,
+                    hsl(334deg 100% 50%) 0%,
+                    hsl(331deg 100% 49%) 11%,
+                    hsl(327deg 100% 49%) 22%,
+                    hsl(322deg 100% 47%) 33%,
+                    hsl(317deg 100% 45%) 44%,
+                    hsl(311deg 100% 43%) 56%,
+                    hsl(303deg 100% 40%) 67%,
+                    hsl(293deg 84% 45%) 78%,
+                    hsl(280deg 74% 52%) 89%,
+                    hsl(265deg 83% 57%) 100%
+                  );
+                  border-radius: 50%;
                   bottom: 0;
                   content: '';
+                  filter: blur(16px) contrast(3);
                   height: 100%;
                   left: 0;
-                  mix-blend-mode: difference;
                   position: absolute;
-                  transform-origin: center bottom;
+                  transform-origin: center center;
                   transform: scaleY(0.5);
-                  transition: all 350ms cubic-bezier(0.33, 1, 0.68, 1);
+                  transition: all 350ms cubic-bezier(0, 0.55, 0.45, 1);
                   width: 100%;
+                  will-change: transform, filter;
                   z-index: -1;
                 }
 
                 &:hover {
                   &::before {
-                    background-color: white;
-                    transform: none;
-                    z-index: 1;
+                    filter: blur(20px) contrast(3) hue-rotate(25deg);
+                    transform: scale(1.1);
                   }
                 }
               }
@@ -130,21 +142,20 @@ export const Intro = () => {
             css={css`
               background: black;
               border-radius: 50%;
+              bottom: 210px;
               filter: drop-shadow(6px 41px 80px black);
-              height: 600px;
+              grid-column: 1;
+              grid-row: 2;
+              height: 44vh;
               left: 0;
               margin: 0 auto;
               overflow: hidden;
               position: relative;
               right: 0;
-              bottom: 200px;
               transition: transform 100ms linear;
-              width: 600px;
+              width: 44vh;
               will-change: transform;
               z-index: -2;
-
-              grid-row: 2;
-              grid-column: 1;
 
               ${scrolled > 100 &&
               `
