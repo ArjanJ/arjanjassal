@@ -179,10 +179,11 @@ export const Intro = () => {
 
           <div
             css={css`
+              // display: none;
               background: black;
               border-radius: 50%;
-              bottom: 140px;
-              filter: drop-shadow(6px 41px 80px black);
+              bottom: 90px;
+              filter: drop-shadow(6px 26px 80px black);
               grid-column: 1;
               grid-row: 2;
               height: 92vw;
@@ -198,13 +199,14 @@ export const Intro = () => {
 
               ${mq[0]} {
                 bottom: 215px;
+                filter: drop-shadow(6px 41px 80px black);
                 height: 45vh;
                 width: 45vh;
               }
             `}
             ref={blackholeRef}
           >
-            {mounted && <Particles2 />}
+            {/* {mounted && <Particles2 />} */}
           </div>
         </div>
 
@@ -227,8 +229,8 @@ export const Intro = () => {
             z-index: -3;
 
             ${mq[0]} {
-              background-image: url('/synthwave-blur.jpeg') center/cover
-                no-repeat fixed;
+              background-image: url('/synthwave-blur.jpeg');
+              background-size: cover;
               filter: blur(14px) contrast(2);
             }
           `}
