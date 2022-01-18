@@ -125,7 +125,7 @@ export const Intro = () => {
                 &:hover {
                   &::before {
                     filter: blur(20px) contrast(3) hue-rotate(25deg);
-                    transform: scale(1.1);
+                    transform: scale(1.05);
                   }
                 }
               }
@@ -142,18 +142,18 @@ export const Intro = () => {
             css={css`
               background: black;
               border-radius: 50%;
-              bottom: 210px;
+              bottom: 215px;
               filter: drop-shadow(6px 41px 80px black);
               grid-column: 1;
               grid-row: 2;
-              height: 44vh;
+              height: 45vh;
               left: 0;
               margin: 0 auto;
               overflow: hidden;
               position: relative;
               right: 0;
               transition: transform 100ms linear;
-              width: 44vh;
+              width: 45vh;
               will-change: transform;
               z-index: -2;
 
