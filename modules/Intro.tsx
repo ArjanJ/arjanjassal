@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import throttle from 'lodash.throttle';
 import { useLayoutEffect, useRef, useState } from 'react';
 
 import { Particles2 } from '../components/Particles2';
@@ -27,26 +28,36 @@ export const Intro = () => {
         const opacity = (1 - scrollY / 600).toFixed(2);
         const scrolled = 1 - scrollY * -1;
 
+        const newscroll = scrollY / 100;
+
+        console.log(scrollY, scrollY / 100);
         // Blackhole
         if (blackholeRef.current) {
-          if (innerHeight >= scrollY) {
-            blackholeRef.current.style.transform =
-              'scale(' + scrolled / 100 + ')';
-          } else {
-            blackholeRef.current.style.transform = `scale${innerHeight / 100}`;
+          if (newscroll >= 1 && scrollY <= innerHeight) {
+            blackholeRef.current.style.transform = 'scale(' + newscroll + ')';
           }
+          // if (scrolled < 10) {
+          //   blackholeRef.current.style.transform = 'scale(1)';
+          // } else if (innerHeight >= scrollY && scrolled >= 100) {
+          //   blackholeRef.current.style.transform =
+          //     'scale(' + scrolled / 100 + ')';
+          // } else {
+          //   blackholeRef.current.style.transform =
+          //     'scale(' + innerHeight / 100 + ')';
+          // }
+          blackholeRef.current.style.transform = 'scale(' + +')';
         }
 
         // Text
-        if (textRef.current) {
-          if (Number(opacity) > -0.01) {
-            textRef.current.style.opacity = opacity;
-          }
-        }
+        // if (textRef.current) {
+        //   if (Number(opacity) > -0.01) {
+        //     textRef.current.style.opacity = opacity;
+        //   }
+        // }
       });
     }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', throttle(handleScroll, 25));
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -199,7 +210,7 @@ export const Intro = () => {
           css={css`
             background: url('/synthwave-blur.jpeg');
             bottom: 0;
-            // filter: blur(14px) contrast(2);
+            filter: blur(14px) contrast(2);
             height: 100%;
             left: 0;
             margin: auto;
