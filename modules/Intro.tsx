@@ -33,8 +33,10 @@ export const Intro = () => {
         console.log(scrollY, scrollY / 100);
         // Blackhole
         if (blackholeRef.current) {
-          if (newscroll >= 1 && scrollY <= innerHeight) {
+          if (newscroll >= 1 && scrollY <= innerHeight / 2) {
             blackholeRef.current.style.transform = 'scale(' + newscroll + ')';
+          } else if (newscroll === 0) {
+            blackholeRef.current.style.transform = 'scale(' + 1 + ')';
           }
           // if (scrolled < 10) {
           //   blackholeRef.current.style.transform = 'scale(1)';
@@ -104,7 +106,7 @@ export const Intro = () => {
             </h1>
           </header>
 
-          <p
+          {/* <p
             css={css`
               font-size: 29px;
               font-weight: 800;
@@ -173,7 +175,7 @@ export const Intro = () => {
             free to checkout my personal code on&nbsp;
             <a href="">GitHub</a>, designs on <a href="">Dribbble</a>, or link
             me on <a href="">LinkedIn.</a>
-          </p>
+          </p> */}
 
           <div
             css={css`
@@ -183,14 +185,14 @@ export const Intro = () => {
               filter: drop-shadow(6px 41px 80px black);
               grid-column: 1;
               grid-row: 2;
-              height: 45vh;
+              height: 92vw;
               left: 0;
               margin: 0 auto;
               overflow: hidden;
               position: relative;
               right: 0;
               transition: transform 100ms linear;
-              width: 45vh;
+              width: 92vw;
               will-change: transform;
               z-index: -2;
 
@@ -202,18 +204,21 @@ export const Intro = () => {
             `}
             ref={blackholeRef}
           >
-            {/* {mounted && <Particles2 />} */}
+            {mounted && <Particles2 />}
           </div>
         </div>
 
         <div
           css={css`
-            background: url('/synthwave-blur.jpeg');
+            background-attachment: fixed;
+            background-color: black;
+            background-image: url('/synthwave-mobile.png');
+            background-position: center top;
+            background-repeat: no-repeat;
             bottom: 0;
-            filter: blur(14px) contrast(2);
+            filter: blur(14px) contrast(1.25);
             height: 100%;
             left: 0;
-            margin: auto;
             overflow: hidden;
             position: absolute;
             right: 0;
@@ -222,8 +227,9 @@ export const Intro = () => {
             z-index: -3;
 
             ${mq[0]} {
-              background: url('/synthwave-blur.jpeg') center/cover no-repeat
-                fixed;
+              background-image: url('/synthwave-blur.jpeg') center/cover
+                no-repeat fixed;
+              filter: blur(14px) contrast(2);
             }
           `}
         />
