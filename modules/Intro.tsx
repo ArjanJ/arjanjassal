@@ -26,24 +26,26 @@ export const Intro = () => {
       timeout = requestAnimationFrame(() => {
         const { innerHeight, scrollY } = window;
         const opacity = (1 - scrollY / 600).toFixed(2);
-        const scrolled = 1 - scrollY * -1;
+        const scrolled = scrollY / 100;
 
-        const newscroll = scrollY / 100;
-
-        console.log(scrollY, scrollY / 100);
         // Blackhole
         if (blackholeRef.current) {
-          if (newscroll >= 1 && scrollY <= innerHeight / 2.5) {
-            blackholeRef.current.style.transform = 'scale(' + newscroll + ')';
-          } else if (newscroll === 0) {
-            blackholeRef.current.style.transform = 'scale(' + 1 + ')';
+          const blackhole = blackholeRef.current;
+
+          const bottomTouches =
+            blackhole.getBoundingClientRect().bottom >= innerHeight;
+
+          if (scrolled >= 1 && !bottomTouches) {
+            blackhole.style.transform = 'scale(' + scrolled + ')';
+          } else if (scrolled === 0) {
+            blackhole.style.transform = 'scale(' + 1 + ')';
           }
         }
 
         // Text
         if (textRef.current) {
           if (Number(opacity) > -0.01) {
-            // textRef.current.style.opacity = opacity;
+            textRef.current.style.opacity = opacity;
           }
         }
       });
@@ -61,7 +63,7 @@ export const Intro = () => {
       <section
         css={css`
           background: black;
-          min-height: 200vh;
+          min-height: 150vh;
           position: relative;
           z-index: 1;
         `}
