@@ -1,30 +1,40 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 import { Particles2 } from '../components/Particles2';
 import { mq } from '../utils';
 
 export const Intro = () => {
   const [mounted, setMounted] = useState(false);
-  const [opacity, setOpacity] = useState(1);
-  const [scrolled, setScrolled] = useState<number>(1);
+  // const [opacity, setOpacity] = useState(1);
+  // const [scrolled, setScrolled] = useState<number>(1);
+  const blackholeRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
     setMounted(true);
 
     function handleScroll() {
       const { innerHeight, scrollY } = window;
-      const opacityVal = Number((1 - scrollY / 600).toFixed(2));
+      const opacity = (1 - scrollY / 600).toFixed(2);
+      const scrolled = 1 - scrollY * -1;
 
-      if (innerHeight >= scrollY) {
-        setScrolled(1 - scrollY * -1);
-      } else {
-        setScrolled(innerHeight);
+      // Blackhole
+      if (blackholeRef.current) {
+        if (innerHeight >= scrollY && scrolled >= 100) {
+          blackholeRef.current.style.transform =
+            'scale(' + scrolled / 100 + ')';
+        } else {
+          blackholeRef.current.style.transform = `scale${innerHeight / 100}`;
+        }
       }
 
-      if (opacityVal > -0.1) {
-        setOpacity(opacityVal);
+      // Text
+      if (textRef.current) {
+        if (Number(opacity) > -0.01) {
+          textRef.current.style.opacity = opacity;
+        }
       }
     }
 
@@ -84,7 +94,6 @@ export const Intro = () => {
               margin: auto;
               max-width: 1200px;
               padding: 0 30px;
-
               transition: transform 100ms linear;
               will-change: opacity, transform;
 
@@ -92,12 +101,6 @@ export const Intro = () => {
                 font-size: 37px;
                 text-align: center;
               }
-
-              ${scrolled > 100 &&
-              `
-                opacity: ${opacity};
-                transform: scale(${opacity});
-              `}
 
               a {
                 position: relative;
@@ -144,6 +147,7 @@ export const Intro = () => {
                 }
               }
             `}
+            ref={textRef}
           >
             I&apos;m currently a <strong>Senior Frontend Engineer</strong> at{' '}
             <a href="">Onfleet</a>, helping power last mile deliveries. Feel
@@ -171,21 +175,15 @@ export const Intro = () => {
               will-change: transform;
               z-index: -2;
 
-              ${scrolled > 100 &&
-              `
-                transform: scale(${scrolled / 100});
-              `}
-
               ${mq[0]} {
                 bottom: 215px;
                 height: 45vh;
                 width: 45vh;
               }
             `}
+            ref={blackholeRef}
           >
-            {mounted &&
-              scrolled < window.innerHeight &&
-              window.innerWidth > 768 && <Particles2 />}
+            {mounted && <Particles2 />}
           </div>
         </div>
 
