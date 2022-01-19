@@ -8,50 +8,69 @@ import { mq } from '../utils';
 
 export const Intro = () => {
   const [mounted, setMounted] = useState(false);
-  // const [opacity, setOpacity] = useState(1);
-  // const [scrolled, setScrolled] = useState<number>(1);
   const blackholeRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
     setMounted(true);
 
-    let timeout: number;
+    let ticking = false;
 
-    function handleScroll() {
-      if (timeout) {
-        window.cancelAnimationFrame(timeout);
+    function getInitClipSize() {
+      if (window.innerWidth < 768) {
+        return 31;
       }
 
-      timeout = requestAnimationFrame(() => {
-        const { innerHeight, scrollY } = window;
-        const opacity = (1 - scrollY / 600).toFixed(2);
-        const scrolled = scrollY / 100;
-
-        // Blackhole
-        if (blackholeRef.current) {
-          const blackhole = blackholeRef.current;
-
-          const bottomTouches =
-            blackhole.getBoundingClientRect().bottom >= innerHeight;
-
-          if (scrolled >= 1 && !bottomTouches) {
-            blackhole.style.transform = 'scale(' + scrolled + ')';
-          } else if (scrolled === 0) {
-            blackhole.style.transform = 'scale(' + 1 + ')';
-          }
-        }
-
-        // Text
-        if (textRef.current) {
-          if (Number(opacity) > -0.01) {
-            textRef.current.style.opacity = opacity;
-          }
-        }
-      });
+      return 20;
     }
 
-    window.addEventListener('scroll', throttle(handleScroll, 25));
+    function getInitClipY() {
+      if (window.innerWidth < 768) {
+        return 39;
+      }
+
+      return 34;
+    }
+
+    function animateStuff() {
+      ticking = false;
+      const { innerHeight, scrollY } = window;
+      const opacity = 1 - scrollY / 600;
+      const scale = 1 + scrollY / 200;
+      const clip = getInitClipSize() + scrollY / 10;
+
+      // Blackhole
+      if (blackholeRef.current) {
+        const blackhole = blackholeRef.current;
+
+        if (clip <= 100) {
+          blackhole.style.clipPath =
+            'circle(' + clip + '% at 50% ' + getInitClipY() + '%)';
+        }
+        // if (scale >= 1 && scrollY <= innerHeight / 1.5) {
+        //   blackhole.style.transform = 'scale(' + scale + ')';
+        // }
+      }
+
+      // Text
+      if (textRef.current) {
+        if (opacity > -0.01 && scale >= 1) {
+          textRef.current.style.opacity = opacity + '';
+          textRef.current.style.transform = 'scale(' + opacity + ')';
+        }
+      }
+    }
+
+    function handleScroll() {
+      if (!ticking) {
+        requestAnimationFrame(animateStuff);
+      }
+
+      ticking = true;
+    }
+
+    window.addEventListener('scroll', handleScroll, false);
+    // window.addEventListener('scroll', throttle(handleScroll, 50));
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -171,29 +190,32 @@ export const Intro = () => {
 
           <div
             css={css`
-              // display: none;
               background: black;
-              border-radius: 50%;
-              bottom: 90px;
-              filter: drop-shadow(6px 26px 80px black);
-              grid-column: 1;
-              grid-row: 2;
-              height: 92vw;
+              // border-radius: 50%;
+              bottom: 0;
+              // filter: drop-shadow(6px 26px 80px black);
+              // grid-column: 1;
+              // grid-row: 2;
+              height: 100vh;
               left: 0;
               margin: 0 auto;
               overflow: hidden;
-              position: relative;
+              position: absolute;
               right: 0;
-              transition: transform 100ms linear;
-              width: 92vw;
-              will-change: transform;
+              // transition: clip-path 100ms linear;
+              width: 100vw;
+              will-change: clip-path;
               z-index: -2;
 
+              clip-path: circle(31% at 50% 39%);
+
               ${mq[0]} {
-                bottom: 215px;
-                filter: drop-shadow(6px 41px 80px black);
-                height: 45vh;
-                width: 45vh;
+                bottom: 0;
+                // filter: drop-shadow(6px 41px 80px black);
+                height: 100vh;
+                width: 100vw;
+                top: 0;
+                clip-path: circle(20% at 50% 34%);
               }
             `}
             ref={blackholeRef}
