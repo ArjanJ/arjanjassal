@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import throttle from 'lodash.throttle';
 import { useLayoutEffect, useRef, useState } from 'react';
 
 import { Particles2 } from '../components/Particles2';
@@ -16,28 +15,22 @@ export const Intro = () => {
 
     let ticking = false;
 
-    function getInitClipSize() {
+    function getClipProperties() {
       if (window.innerWidth < 768) {
-        return 31;
+        return { size: 31, y: 39 };
       }
 
-      return 20;
-    }
-
-    function getInitClipY() {
-      if (window.innerWidth < 768) {
-        return 39;
-      }
-
-      return 34;
+      return { size: 20, y: 34 };
     }
 
     function animateStuff() {
       ticking = false;
-      const { innerHeight, scrollY } = window;
+
+      const { scrollY } = window;
+      const { size: clipSize, y: clipY } = getClipProperties();
       const opacity = 1 - scrollY / 600;
       const scale = 1 + scrollY / 200;
-      const clip = getInitClipSize() + scrollY / 10;
+      const clip = clipSize + scrollY / 10;
 
       // Blackhole
       if (blackholeRef.current) {
@@ -45,11 +38,8 @@ export const Intro = () => {
 
         if (clip <= 100) {
           blackhole.style.clipPath =
-            'circle(' + clip + '% at 50% ' + getInitClipY() + '%)';
+            'circle(' + clip + '% at 50% ' + clipY + '%)';
         }
-        // if (scale >= 1 && scrollY <= innerHeight / 1.5) {
-        //   blackhole.style.transform = 'scale(' + scale + ')';
-        // }
       }
 
       // Text
@@ -70,7 +60,6 @@ export const Intro = () => {
     }
 
     window.addEventListener('scroll', handleScroll, false);
-    // window.addEventListener('scroll', throttle(handleScroll, 50));
 
     return () => {
       window.removeEventListener('scroll', handleScroll);

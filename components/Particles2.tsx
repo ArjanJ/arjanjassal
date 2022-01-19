@@ -22,7 +22,7 @@ const duration = 4 * 1000;
 function moveAnimation(i: number): AnimationOptions {
   const keyframes = [
     {
-      transform: `translate3d(0, 0, -2000px)`,
+      transform: `translate3d(0, 0, -1000px)`,
       opacity: 0,
     },
   ];
@@ -40,7 +40,7 @@ function moveAnimation(i: number): AnimationOptions {
   };
 }
 
-const TOTAL_PARTICLES = 150;
+const TOTAL_PARTICLES = 50;
 
 function getRandomColor() {
   return getRandomArrayIndex(COLORS);
